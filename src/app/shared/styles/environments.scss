@@ -1,0 +1,64 @@
+.login-background-container {
+  position: relative;
+  height: 100vh;
+  background-image: url("https://images.pexels.com/photos/12597237/pexels-photo-12597237.jpeg");
+  background-size: cover;
+  background-position: center;
+
+  .text-container {
+    position: relative;
+    z-index: 2;
+    margin-left: 20%;
+    padding-left: 12%;
+    padding-right: 12%;
+    flex-direction: column;
+    font-family: "Rubik Doodle Shadow";
+    color: white;
+
+    .script-small {
+      font-size: 1.8em;
+      font-style: italic;
+      font-weight: 300;
+      margin-bottom: 0.3em;
+    }
+
+    .script-large {
+      text-transform: uppercase;
+      font-size: 6.75em;
+      font-weight: 900;
+      line-height: 0.8em;
+    }
+  }
+}
+
+.signup-background-container {
+  position: relative;
+  height: 100vh;
+  background-image: url("https://images.pexels.com/photos/12597237/pexels-photo-12597237.jpeg");
+  background-size: cover;
+  background-position: center;
+
+  .text-container {
+    position: relative;
+    z-index: 2;
+    padding-left: 12%;
+    padding-right: 12%;
+    flex-direction: column;
+    font-family: "Rubik Doodle Shadow";
+    color: white;
+
+    .script-small {
+      font-size: 1.8em;
+      font-style: italic;
+      font-weight: 300;
+      margin-bottom: 0.3em;
+    }
+
+    .script-large {
+      text-transform: uppercase;
+      font-size: 6.75em;
+      font-weight: 900;
+      line-height: 0.8em;
+    }
+  }
+}
