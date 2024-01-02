@@ -46,7 +46,7 @@ export const routes: Routes = [
   {
     path: 'video',
     loadComponent: () =>
-      import('./features/components/videos/video-list.component').then(
+      import('./features/components/video/video-list.component').then(
         (m) => m.VideoComponent
       ),
     canActivate: [AuthGuard],
@@ -54,34 +54,16 @@ export const routes: Routes = [
   {
     path: 'video/:name',
     loadComponent: () =>
-      import('./features/components/videos/video-player.component').then(
+      import('./features/components/video/video-player.component').then(
         (m) => m.VideoPlayerComponent
       ),
     canActivate: [AuthGuard],
   },
-  // {
-  //   path: 'video/:name',
-  //   loadComponent: () =>
-  //     import('./features/components/comments/comments.component').then(
-  //       (m) => m.CommentsComponent
-  //     ),
-  //   canActivate: [AuthGuard],
-  //   children: [
-  //     // {
-  //     //   path: '',
-  //     //   loadComponent: () =>
-  //     //     import(
-  //     //       './features/components/videos/video-comments/video-comments.component'
-  //     //     ).then((m) => m.VideoCommentsComponent),
-  //     //   canActivate: [AuthGuard],
-  //     // },
-  //   ],
-  // },
   // admin features
   {
     path: 'admin/videoUpload',
     loadComponent: () =>
-      import('./features/components/videos/video-upload.component').then(
+      import('./features/components/video/video-upload.component').then(
         (m) => m.VideoUploadComponent
       ),
     canActivate: [AuthGuard],

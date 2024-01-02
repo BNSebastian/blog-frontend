@@ -4,10 +4,7 @@ import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 
 import { backendUrl } from '../../shared/environments/backend';
-import {
-  CreateVideoCommentInterface,
-  VideoCommentInterface,
-} from '../models/video-comments';
+import { CreateVideoCommentInterface, VideoCommentInterface } from '../models/video-comment';
 
 @Injectable({
   providedIn: 'root',

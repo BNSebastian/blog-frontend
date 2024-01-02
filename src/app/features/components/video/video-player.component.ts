@@ -2,15 +2,11 @@ import { Component, inject } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
 import { backendUrl } from '../../../shared/environments/backend';
-import { CommentsComponent } from '../comments/comments.component';
-import { AddVideoCommentComponent } from './add-video-comment.component';
-import { VideoCommentsComponent } from './video-comments.component';
+import { CommentsComponent } from './comments.component';
 
 @Component({
   standalone: true,
   imports: [
-    VideoCommentsComponent,
-    AddVideoCommentComponent,
     CommentsComponent,
   ],
   selector: 'app-videoplayer',

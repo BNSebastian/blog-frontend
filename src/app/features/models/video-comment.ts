@@ -8,12 +8,6 @@ export interface VideoCommentInterface {
   replies?: VideoCommentInterface[]; // Adding the 'replies' property
 }
 
-export interface VideoCommentRequest {
-  videoName: string;
-  userEmail: string;
-  content: string;
-}
-
 export interface CreateVideoCommentInterface {
   parentId: number | null;
   videoName: string;

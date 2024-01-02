@@ -6,7 +6,7 @@ import { MatIconModule } from '@angular/material/icon';
 import {
     ActiveCommentInterface, ActiveCommentTypeEnum, CreateVideoCommentInterface,
     UpdateVideoCommentInterface, VideoCommentInterface
-} from '../../models/video-comments';
+} from '../../models/video-comment';
 import { CommentFormComponent } from './comment-form.component';
 
 @Component({

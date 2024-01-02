@@ -5,8 +5,8 @@ import { CustomCookieService } from '../../../core/services/custom-cookie.servic
 import {
     ActiveCommentInterface, CreateVideoCommentInterface, UpdateVideoCommentInterface,
     VideoCommentInterface
-} from '../../models/video-comments';
-import { CommentsService } from '../../services/comments.service';
+} from '../../models/video-comment';
+import { CommentsService } from '../../services/video-comment.service';
 import { CommentFormComponent } from './comment-form.component';
 import { CommentComponent } from './comment.component';
 
