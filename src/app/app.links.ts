@@ -1,5 +1,5 @@
-import { frontendUrl } from '../environments/frontend';
-import { LinkInterface } from './link';
+import { frontendUrl } from './shared/environments/frontend';
+import { LinkInterface } from './shared/models/link';
 
 export const publicLinks: LinkInterface[] = [
   {
@@ -52,6 +52,14 @@ export const userLinks: LinkInterface[] = [
     color: 'primary',
     highlight: 'mat-accent',
     url: frontendUrl.videos,
+  },
+  {
+    name: 'chat',
+    tooltip: 'Chat',
+    icon: 'chat',
+    color: 'primary',
+    highlight: 'mat-accent',
+    url: frontendUrl.chat,
   },
   {
     name: 'logout',

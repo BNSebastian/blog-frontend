@@ -7,7 +7,7 @@ import {
     ActiveCommentInterface, ActiveCommentTypeEnum, CreateVideoCommentInterface,
     UpdateVideoCommentInterface, VideoCommentInterface
 } from '../../models/video-comment';
-import { CommentFormComponent } from './comment-form.component';
+import { CommentFormComponent } from './video-comment-form.component';
 
 @Component({
   selector: 'app-comment',

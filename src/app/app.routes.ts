@@ -59,6 +59,14 @@ export const routes: Routes = [
       ),
     canActivate: [AuthGuard],
   },
+  {
+    path: 'chat',
+    loadComponent: () =>
+      import('./features/components/chat/chat.component').then(
+        (m) => m.ChatComponent
+      ),
+    canActivate: [AuthGuard],
+  },
   // admin features
   {
     path: 'admin/videoUpload',

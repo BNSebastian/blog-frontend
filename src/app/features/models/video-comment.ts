@@ -5,7 +5,6 @@ export interface VideoCommentInterface {
   userEmail: string;
   content: string;
   createdOn: string;
-  replies?: VideoCommentInterface[]; // Adding the 'replies' property
 }
 
 export interface CreateVideoCommentInterface {

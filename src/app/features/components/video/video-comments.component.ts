@@ -7,8 +7,8 @@ import {
     VideoCommentInterface
 } from '../../models/video-comment';
 import { CommentsService } from '../../services/video-comment.service';
-import { CommentFormComponent } from './comment-form.component';
-import { CommentComponent } from './comment.component';
+import { CommentFormComponent } from './video-comment-form.component';
+import { CommentComponent } from './video-comment.component';
 
 @Component({
   selector: 'app-comments',

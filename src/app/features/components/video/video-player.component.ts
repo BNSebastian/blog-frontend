@@ -2,7 +2,7 @@ import { Component, inject } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
 import { backendUrl } from '../../../shared/environments/backend';
-import { CommentsComponent } from './comments.component';
+import { CommentsComponent } from './video-comments.component';
 
 @Component({
   standalone: true,

@@ -9,16 +9,11 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatListModule, MatNavList } from '@angular/material/list';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatToolbarModule } from '@angular/material/toolbar';
-import {
-  Router,
-  RouterLink,
-  RouterLinkActive,
-  RouterOutlet,
-} from '@angular/router';
+import { Router, RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
 
+import { adminLinks, publicLinks, userLinks } from '../../app.links';
 import { UserService } from '../../core/services/user.service';
 import { frontendUrl } from '../environments/frontend';
-import { adminLinks, publicLinks, userLinks } from '../models/app-links';
 import { LinkInterface } from '../models/link';
 import { FooterComponent } from './footer.component';
 import { NavbarItemComponent } from './navbar-item.component';
