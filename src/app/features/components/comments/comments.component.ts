@@ -3,10 +3,8 @@ import { MatExpansionModule } from '@angular/material/expansion';
 
 import { CustomCookieService } from '../../../core/services/custom-cookie.service';
 import {
-  ActiveCommentInterface,
-  CreateVideoCommentInterface,
-  UpdateVideoCommentInterface,
-  VideoCommentInterface,
+    ActiveCommentInterface, CreateVideoCommentInterface, UpdateVideoCommentInterface,
+    VideoCommentInterface
 } from '../../models/video-comments';
 import { CommentsService } from '../../services/comments.service';
 import { CommentFormComponent } from './comment-form.component';
@@ -18,13 +16,21 @@ import { CommentComponent } from './comment.component';
   imports: [CommentComponent, CommentFormComponent, MatExpansionModule],
   styles: [
     `
-      .comments-container {
-        background-color: black;
-      }
+      // .comments-container {
+      //   background-color: black;
+      // }
 
       .create-comment {
         width: 50vw;
         margin: auto;
+        margin-top: 1rem;
+        margin-bottom: 1rem;
+      }
+
+      .comments-list {
+        width: 50vw;
+        margin: auto;
+        padding-bottom: 1rem;
       }
     `,
   ],
@@ -38,7 +44,6 @@ import { CommentComponent } from './comment.component';
             </mat-expansion-panel-header>
             <!-- add comment -->
             <app-comment-form
-              class="comment-form"
               submitLabel="Write"
               (handleSubmit)="createRootComment($event)"
             ></app-comment-form>
@@ -47,19 +52,19 @@ import { CommentComponent } from './comment.component';
       </div>
 
       <!-- list of comments -->
-      <div class="comments-container">
-        @for (entry of comments; track $index) {
+      <div class="comments-list">
+        @for (entry of comments; track $index) { @if (entry.parentId === null) {
         <app-comment
           [comment]="entry"
-          [currentUserId]="currentUserId"
           [replies]="getReplies(entry.id)"
+          [currentUserId]="currentUserId"
           [activeComment]="activeComment"
           (setActiveComment)="setActiveComment($event)"
-          (addComment)="addComment($event)"
+          (addReply)="addReply($event)"
           (updateComment)="updateComment($event)"
           (deleteComment)="deleteComment($event)"
         ></app-comment>
-        }
+        } }
       </div>
     </div>
     <!-- end of HTML -->`,
@@ -75,12 +80,17 @@ export class CommentsComponent {
   private cookieService = inject(CustomCookieService);
 
   ngOnInit(): void {
-    // get all comments
-    this.commentsService.getComments(this.videoName).subscribe((response) => {
-      this.comments = response;
-    });
+    this.loadData();
     // get current user id
     this.currentUserId = Number(this.cookieService.getUserId());
+  }
+
+  loadData() {
+    this.commentsService
+      .getComments(this.videoName)
+      .subscribe((apiData: VideoCommentInterface[]) => {
+        this.comments = apiData;
+      });
   }
 
   createRootComment(event: string) {
@@ -98,14 +108,14 @@ export class CommentsComponent {
     });
   }
 
-  addComment(event: any) {
+  addReply(event: any) {
     const reply: CreateVideoCommentInterface = {
       parentId: event.parentId,
       videoName: this.videoName,
       userEmail: this.cookieService.getUserEmail(),
       content: event.content,
     };
-    this.commentsService.createComment(event).subscribe((response) => {
+    this.commentsService.createComment(reply).subscribe((response) => {
       // rerender the array to update the comments
       this.comments = [...this.comments, response];
       this.activeComment = null;
@@ -113,7 +123,12 @@ export class CommentsComponent {
   }
 
   updateComment(request: UpdateVideoCommentInterface) {
-    this.commentsService.updateComment(request).subscribe((response) => {
+    const updatedComment: UpdateVideoCommentInterface = {
+      id: request.id,
+      content: request.content,
+    };
+
+    this.commentsService.updateComment(updatedComment).subscribe((response) => {
       this.comments = this.comments.map((comment) => {
         if (comment.id === request.id) {
           return response;
@@ -121,14 +136,6 @@ export class CommentsComponent {
         return comment;
       });
       this.activeComment = null;
-    });
-  }
-
-  deleteComment(commentId: number): void {
-    this.commentsService.deleteComment(commentId).subscribe(() => {
-      this.comments = this.comments.filter(
-        (comment) => comment.id !== commentId
-      );
     });
   }
 
@@ -140,6 +147,14 @@ export class CommentsComponent {
           new Date(a.createdOn).getMilliseconds() -
           new Date(b.createdOn).getMilliseconds()
       );
+  }
+
+  deleteComment(commentId: number): void {
+    const delayTime = 150;
+    setTimeout(() => {
+      this.commentsService.deleteComment(commentId).subscribe();
+    }, delayTime);
+    this.comments = this.comments.filter((comment) => comment.id !== commentId);
   }
 
   setActiveComment(activeComment: ActiveCommentInterface | null): void {

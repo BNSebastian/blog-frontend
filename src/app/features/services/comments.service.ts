@@ -40,7 +40,7 @@ export class CommentsService {
     updatedComment: UpdateVideoCommentInterface
   ): Observable<VideoCommentInterface> {
     return this.http
-      .patch<VideoCommentInterface>(backendUrl.createComment, updatedComment.id)
+      .patch<VideoCommentInterface>(backendUrl.updateComment, updatedComment)
       .pipe(
         map((response: VideoCommentInterface) => {
           return response;
@@ -48,8 +48,8 @@ export class CommentsService {
       );
   }
 
-  deleteComment(id: number): Observable<{}> {
-    return this.http.delete(backendUrl.deleteComment + id);
+  deleteComment(id: number): Observable<void> {
+    return this.http.delete<void>(backendUrl.deleteComment + id);
   }
 
   notifyCommentAdded() {

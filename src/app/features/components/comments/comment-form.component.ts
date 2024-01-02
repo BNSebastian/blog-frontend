@@ -1,10 +1,5 @@
 import { Component, EventEmitter, inject, Input, Output } from '@angular/core';
-import {
-  FormBuilder,
-  FormGroup,
-  ReactiveFormsModule,
-  Validators,
-} from '@angular/forms';
+import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
 
@@ -24,22 +19,23 @@ import { CreateVideoCommentInterface } from '../../models/video-comments';
   ],
   template: `
     <form [formGroup]="form" (ngSubmit)="onSubmit()">
-      <textarea
+      <textarea 
         class="comment-form-textarea"
-        formControlName="content"
-      ></textarea>
+        formControlName="content">
+      </textarea>
       <button
         mat-raised-button
         color="primary"
         type="submit"
-        [disabled]="form.invalid"
-      >
-        {{ this.submitLabel }}
+        [disabled]="form.invalid"> {{ this.submitLabel }}
       </button>
+
       @if(hasCancelButton) {
-      <button mat-raised-button color="primary" (click)="handleCancel.emit()">
-        Cancel
-      </button>
+        <button 
+          mat-raised-button 
+          color="primary" 
+          (click)="handleCancel.emit()"> Cancel
+        </button>
       }
     </form>
   `,

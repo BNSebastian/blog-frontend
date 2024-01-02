@@ -1,104 +1,155 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { MatButtonModule } from '@angular/material/button';
+import { MatCardModule } from '@angular/material/card';
+import { MatIconModule } from '@angular/material/icon';
 
 import {
-  ActiveCommentInterface,
-  ActiveCommentTypeEnum,
-  CreateVideoCommentInterface,
-  UpdateVideoCommentInterface,
-  VideoCommentInterface,
+    ActiveCommentInterface, ActiveCommentTypeEnum, CreateVideoCommentInterface,
+    UpdateVideoCommentInterface, VideoCommentInterface
 } from '../../models/video-comments';
 import { CommentFormComponent } from './comment-form.component';
 
 @Component({
   selector: 'app-comment',
   standalone: true,
-  imports: [CommentFormComponent],
-  styles: ``,
-  template: ` <!-- start of HTML -->
-    <div class="comment">
-      <div class="comment-image-container">
-        <img src="" />
-      </div>
-      <div class="comment-right-parth">
-        <div class="comment-content">
-          <div class="comment-author">
-            {{ comment.userEmail }}
-          </div>
-        </div>
-        @if (!isEditing) {
-        <div class="comment-text">
-          {{ comment.content }}
-        </div>
-        } @if (isEditing()) {
-        <app-comment-form
-          submitLabel="update"
-          [hasCancelButton]="true"
-          [initialText]="comment.content"
-          (handleSubmit)="
-            updateComment.emit({ id: comment.id, content: $event })
-          "
-          (handleCancel)="setActiveComment.emit(null)"
-        ></app-comment-form
-        >}
+  imports: [CommentFormComponent, MatCardModule, MatButtonModule, MatIconModule],
+  styles: [
+    `
+      .comment-container {
+        width: 100%;
+        margin: auto;
+        padding-top: 0.5rem;
 
-        <div class="edit-comment-actions">
-          @if (canReply) {
-          <div
-            class="comment-actions"
-            (click)="
-              setActiveComment.emit({
-                id: comment.id,
-                type: activeCommentType.replying
-              })
-            "
-          >
-            Reply
-          </div>
-          } @if (canEdit) {
-          <div
-            class="comment-actions"
-            (click)="
-              setActiveComment.emit({
-                id: comment.id,
-                type: activeCommentType.editing
-              })
-            "
-          >
-            Edit
-          </div>
-          } @if (canDelete) {
-          <div class="comment-actions" (click)="deleteComment.emit(comment.id)">
-            Delete
-          </div>
-          }
-        </div>
-
-        @if(isReplying()){
-        <app-comment-form
-          submitLabel="reply"
-          (handleSubmit)="
-            addComment.emit({ parentId: comment.id, content: $event })
-          "
-        ></app-comment-form>
-        } @if(replies.length > 0) {
-        <div class="replies">
-          @for (reply of replies; track $index) {
-          <app-comment
-            [comment]="reply"
-            (setActiveComment)="setActiveComment.emit($event)"
-            [activeComment]="activeComment"
-            (addComment)="addComment.emit($event)"
-            (updateComment)="updateComment.emit($event)"
-            [parentId]="comment.id"
-            [replies]="[]"
-            [currentUserId]="currentUserId"
-            (deleteComment)="deleteComment.emit($event)"
-          ></app-comment
-          >}
-        </div>
+        button {
+          margin-right: 0.5rem;
         }
-      </div>
+      }
+
+      .reply-form {
+        margin-top: 0.5rem;
+      }
+
+      .reply {
+        margin-left: 3rem;
+      }
+
+
+
+      .example-header-image {
+          background-image: url('https://material.angular.io/assets/img/examples/shiba1.jpg');
+          background-size: cover;
+      }
+    `,
+  ],
+  template: ` <!-- start of HTML -->
+    <div class="comment-container">
+      @if (comment.parentId == null) { }
+      <mat-card>
+        <mat-card-header>
+            <div mat-card-avatar class="example-header-image"></div>
+            <mat-card-title>{{ comment.userEmail }}</mat-card-title>
+            <mat-card-subtitle>TODO: implement rank</mat-card-subtitle>
+        </mat-card-header>
+
+        <mat-card-content>
+          @if (!isEditing()) {
+          {{ comment.content }}
+          } 
+          
+          @if (isEditing()) {
+            <app-comment-form
+              submitLabel="update"
+              [hasCancelButton]="true"
+              [initialText]="comment.content"
+              (handleSubmit)="updateComment.emit({ id: comment.id, content: $event })"
+              (handleCancel)="setActiveComment.emit(null)">
+            </app-comment-form>
+          }
+        </mat-card-content>
+
+        <mat-card-actions align="end">
+          @if (canReply) {
+          <button
+            mat-icon-button
+            color="primary"
+            (click)="setActiveComment.emit({id: comment.id,type: activeCommentType.replying})">
+            <mat-icon>reply</mat-icon>
+          </button>
+          }
+
+          @if (canEdit) {
+          <button
+            mat-icon-button
+            color="primary"
+            (click)="setActiveComment.emit({id: comment.id, type: activeCommentType.editing})">
+            <mat-icon>edit</mat-icon>
+          </button>
+          } 
+              
+          @if (canDelete) {
+            <button
+              mat-icon-button
+              color="warn"
+              (click)="deleteComment.emit(comment.id)">
+              <mat-icon>delete</mat-icon>
+            </button>
+          }
+        </mat-card-actions>
+      </mat-card>
+
+      @if (isReplying() && comment.parentId === null) {
+        <mat-card class="reply-form">
+          <mat-card-content>          
+            <app-comment-form
+            submitLabel="reply"
+            (handleSubmit)="addReply.emit({ 
+              parentId: comment.id,
+              content: $event
+            })"
+            [hasCancelButton]="true"
+            (handleCancel)="this.activeComment = null"
+            >
+            </app-comment-form>
+          </mat-card-content>
+        </mat-card>
+      } 
+
+      @if (isReplying() && comment.parentId !== null) {
+        <mat-card class="reply-form">
+          <mat-card-content>     
+            <app-comment-form
+              submitLabel="reply"
+              (handleSubmit)="addReply.emit({ 
+                parentId: comment.parentId, 
+                content: '@' + comment.userEmail + ' ' + $event 
+              })"
+              [hasCancelButton]="true"
+              (handleCancel)="this.activeComment = null"
+              >
+            </app-comment-form>
+          </mat-card-content>
+        </mat-card>
+      } 
+      
+      @if (replies.length > 0) { 
+        @for (reply of replies; track $index) {
+          <div class="reply">
+              <app-comment
+                [comment]="reply"
+                [replies]="getReplies(reply.id)"
+                [currentUserId]="currentUserId"
+                [parentId]="comment.id"
+                (setActiveComment)="setActiveComment.emit($event)"
+                [activeComment]="activeComment"
+                (addReply)="addReply.emit($event)"
+                (updateComment)="updateComment.emit($event)"
+                (deleteComment)="deleteComment.emit($event)">
+              </app-comment>
+          </div>
+        } 
+      }
     </div>
+
     <!-- end of HTML -->`,
 })
 export class CommentComponent implements OnInit {
@@ -124,7 +175,7 @@ export class CommentComponent implements OnInit {
   setActiveComment = new EventEmitter<ActiveCommentInterface | null>();
 
   @Output()
-  addComment = new EventEmitter<{ parentId: number; content: string }>();
+  addReply = new EventEmitter<{ parentId: number; content: string }>();
 
   @Output()
   updateComment = new EventEmitter<UpdateVideoCommentInterface>();
@@ -141,6 +192,8 @@ export class CommentComponent implements OnInit {
   activeCommentType = ActiveCommentTypeEnum;
 
   replyId: number | null = null;
+
+  public comments: VideoCommentInterface[] = [];
 
   ngOnInit(): void {
     const fiveMinutes = 300000; // 5 minutes
@@ -159,6 +212,7 @@ export class CommentComponent implements OnInit {
     this.replyId = this.comment.parentId
       ? this.comment.parentId
       : this.comment.id;
+
   }
 
   isReplying(): boolean {
@@ -179,5 +233,15 @@ export class CommentComponent implements OnInit {
       this.activeComment.id === this.comment.id &&
       this.activeComment.type === this.activeCommentType.editing
     );
+  }
+
+  getReplies(commentId: number): VideoCommentInterface[] {
+    return this.comments
+      .filter((comment) => comment.parentId === commentId)
+      .sort(
+        (a, b) =>
+          new Date(a.createdOn).getMilliseconds() -
+          new Date(b.createdOn).getMilliseconds()
+      );
   }
 }
