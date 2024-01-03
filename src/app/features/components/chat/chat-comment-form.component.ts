@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 
 @Component({
-  selector: 'app-live-chat-comment-form',
+  selector: 'app-chat-comment-form',
   standalone: true,
   imports: [],
   styles: [],

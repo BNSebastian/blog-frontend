@@ -14,4 +14,8 @@ export const backendUrl = {
   getAllComments: `${baseUrl}/videoComment/getAllComments/`, // {videoName}
   updateComment: `${baseUrl}/videoComment/updateComment`,
   deleteComment: `${baseUrl}/videoComment/deleteComment/`, // {commentId}
+
+  createChatComment: `${baseUrl}/chat/createComment`,
+  getChatCommentById: `${baseUrl}/chat/getComment/`, // {commentId}
+  getAllChatComments: `${baseUrl}/chat/getAllComments`
 };

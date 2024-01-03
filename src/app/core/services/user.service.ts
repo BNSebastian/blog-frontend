@@ -36,8 +36,11 @@ export class UserService {
     return this.cookieService.checkToken();
   }
 
-  isAdmin(): Observable<any> {
-    const userId: number = Number(this.cookieService.getUserId());
+  isAdmin(): Observable<boolean> {
+    const userId = {
+      "userId": Number(this.cookieService.getUserId())
+    }
+
     return this.http.post<boolean>(backendUrl.isAdmin, userId).pipe(
       map((response: boolean) => {
         console.log(response);
@@ -48,5 +51,17 @@ export class UserService {
 
   logout() {
     this.cookieService.destroyUserCookies();
+  }
+
+  getUserDetails(): User {
+    const user: User = {
+      id: this.cookieService.getUserId(),
+      firstname: this.cookieService.getUserFirstname(),
+      lastname: this.cookieService.getUserLastname(),
+      email: this.cookieService.getUserEmail(),
+      token: this.cookieService.getToken()
+    }
+    
+    return user;
   }
 }

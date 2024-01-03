@@ -47,15 +47,20 @@ import { NavbarItemComponent } from './navbar-item.component';
       >
         <mat-toolbar>Menu</mat-toolbar>
         <mat-nav-list>
-          @if (!authService.isAuthenticated()) { @for (link of publicLinks;
-          track $index) {
-          <app-navbar-item [link]="link"></app-navbar-item>
-          } } @else { @if (authService.isAdmin()) { @for (link of adminLinks;
-          track $index) {
-          <app-navbar-item [link]="link"></app-navbar-item>
-          } } @for (link of userLinks; track $index) {
-          <app-navbar-item [link]="link"></app-navbar-item>
-          } }
+          @if (!userService.isAuthenticated()) {
+            @for (link of publicLinks; track $index) {
+              <app-navbar-item [link]="link"></app-navbar-item>
+            } 
+          } @else { 
+            @if (isAdmin) { 
+              @for (link of adminLinks; track $index) {
+                <app-navbar-item [link]="link"></app-navbar-item>
+              } 
+            } 
+            @for (link of userLinks; track $index) {
+              <app-navbar-item [link]="link"></app-navbar-item>
+            } 
+          }
         </mat-nav-list>
       </mat-sidenav>
       <mat-sidenav-content>
@@ -84,25 +89,25 @@ import { NavbarItemComponent } from './navbar-item.component';
 })
 export class NavbarComponent {
   private breakpointObserver = inject(BreakpointObserver);
+  private router = inject(Router);
+  public userService = inject(UserService);
+
+  public navbarOpen = false;
+  public publicLinks: LinkInterface[] = publicLinks;
+  public userLinks: LinkInterface[] = userLinks;
+  public adminLinks: any = adminLinks;
+  public isAdmin: boolean = false;
+
+  ngOnInit() {
+    this.userService.isAdmin().subscribe((response: boolean) => {
+      this.isAdmin = response;
+      console.log(response);
+    });
+  }
 
   isHandset$: Observable<boolean> = this.breakpointObserver
     .observe('(max-width: 599px)')
-    .pipe(
-      map((result) => result.matches),
-      shareReplay()
-    );
-
-  private router = inject(Router);
-
-  public authService = inject(UserService);
-
-  public navbarOpen = false;
-
-  public publicLinks: LinkInterface[] = publicLinks;
-
-  public userLinks: LinkInterface[] = userLinks;
-
-  public adminLinks: any = adminLinks;
+    .pipe(map((result) => result.matches), shareReplay());
 
   toggleNavbar() {
     this.navbarOpen = !this.navbarOpen;
@@ -110,7 +115,7 @@ export class NavbarComponent {
   }
 
   logout() {
-    this.authService.logout();
+    this.userService.logout();
     this.router.navigateByUrl(frontendUrl.home);
   }
 }
