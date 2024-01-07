@@ -4,15 +4,16 @@ import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 
 import { backendUrl } from '../../shared/environments/backend';
-import { CreateVideoCommentInterface, VideoCommentInterface } from '../models/video-comment';
+import {
+  CreateVideoCommentInterface,
+  VideoCommentInterface,
+} from '../models/video-comment';
 
 @Injectable({
   providedIn: 'root',
 })
 export class VideoService {
   private http = inject(HttpClient);
-  private commentAddedSubject = new Subject<void>();
-  commentAdded$ = this.commentAddedSubject.asObservable();
 
   getAllVideoNames(): Observable<string[]> {
     return this.http.get<string[]>(backendUrl.getAllVideoNames);
@@ -42,9 +43,5 @@ export class VideoService {
           return response;
         })
       );
-  }
-
-  notifyCommentAdded() {
-    this.commentAddedSubject.next();
   }
 }

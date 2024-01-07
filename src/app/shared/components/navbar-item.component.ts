@@ -4,7 +4,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { Router, RouterLink, RouterLinkActive } from '@angular/router';
 
-import { UserService } from '../../core/services/user.service';
+import { AuthService } from '../../core/services/auth.service';
 import { frontendUrl } from '../environments/frontend';
 import { LinkInterface } from '../models/link';
 
@@ -39,7 +39,7 @@ export class NavbarItemComponent {
   @Input()
   link!: LinkInterface;
 
-  private userService = inject(UserService);
+  private userService = inject(AuthService);
   private router = inject(Router);
 
   handleClick(event: Event, linkName: string) {

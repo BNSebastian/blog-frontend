@@ -67,6 +67,30 @@ export const routes: Routes = [
       ),
     canActivate: [AuthGuard],
   },
+
+  {
+    path: 'forum',
+    children: [
+      {
+        path: '',
+        pathMatch: 'full',
+        loadComponent: () =>
+          import('./features/components/forum/forum-posts.component').then(
+            (m) => m.ForumPostsComponent
+          ),
+        canActivate: [AuthGuard],
+      },
+      {
+        path: ':id',
+        loadComponent: () =>
+          import('./features/components/forum/forum-post.component').then(
+            (m) => m.ForumPostComponent
+          ),
+        canActivate: [AuthGuard],
+      },
+    ],
+  },
+
   // admin features
   {
     path: 'admin/videoUpload',

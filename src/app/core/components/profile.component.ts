@@ -16,8 +16,8 @@ import { MatSelectModule } from '@angular/material/select';
 import { Router } from '@angular/router';
 
 import { frontendUrl } from '../../shared/environments/frontend';
+import { AuthService } from '../services/auth.service';
 import { CustomCookieService } from '../services/custom-cookie.service';
-import { UserService } from '../services/user.service';
 
 @Component({
   standalone: true,

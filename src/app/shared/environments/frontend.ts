@@ -11,6 +11,24 @@ export const frontendUrl = {
 
   chat: `${baseUrl}/chat`,
 
+  forum: `${baseUrl}/forum`,
+
   // admin
   videoUpload: `${baseUrl}/admin/videoUpload`,
 };
+
+export class FRONTEND {
+  private static frontend: string = '';
+
+  /** FORUM
+   **************************************/
+  private static forumPost: string = '/forum';
+
+  static getForumPosts(): string {
+    return `${this.frontend}${this.forumPost}`;
+  }
+
+  static getForumPostById(postId: number): string {
+    return `${this.frontend}${this.forumPost}/${postId}`;
+  }
+}

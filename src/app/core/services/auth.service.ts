@@ -10,7 +10,7 @@ import { CustomCookieService } from './custom-cookie.service';
 @Injectable({
   providedIn: 'root',
 })
-export class UserService {
+export class AuthService {
   private cookieService = inject(CustomCookieService);
   private http = inject(HttpClient);
 
@@ -38,12 +38,11 @@ export class UserService {
 
   isAdmin(): Observable<boolean> {
     const userId = {
-      "userId": Number(this.cookieService.getUserId())
-    }
+      userId: Number(this.cookieService.getUserId()),
+    };
 
     return this.http.post<boolean>(backendUrl.isAdmin, userId).pipe(
       map((response: boolean) => {
-        console.log(response);
         return response;
       })
     );
@@ -59,9 +58,9 @@ export class UserService {
       firstname: this.cookieService.getUserFirstname(),
       lastname: this.cookieService.getUserLastname(),
       email: this.cookieService.getUserEmail(),
-      token: this.cookieService.getToken()
-    }
-    
+      token: this.cookieService.getToken(),
+    };
+
     return user;
   }
 }

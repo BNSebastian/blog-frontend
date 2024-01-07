@@ -28,7 +28,7 @@ export const publicLinks: LinkInterface[] = [
   },
 ];
 
-export const userLinks: LinkInterface[] = [
+export const authenticatedLinks: LinkInterface[] = [
   {
     name: 'home',
     tooltip: 'Home',
@@ -36,14 +36,6 @@ export const userLinks: LinkInterface[] = [
     color: 'primary',
     highlight: 'mat-accent',
     url: frontendUrl.home,
-  },
-  {
-    name: 'profile',
-    tooltip: 'User profile',
-    icon: 'account_circle',
-    color: 'primary',
-    highlight: 'mat-accent',
-    url: frontendUrl.profile,
   },
   {
     name: 'videos',
@@ -54,12 +46,28 @@ export const userLinks: LinkInterface[] = [
     url: frontendUrl.videos,
   },
   {
+    name: 'forum',
+    tooltip: 'Forum',
+    icon: 'forum',
+    color: 'primary',
+    highlight: 'mat-accent',
+    url: frontendUrl.forum,
+  },
+  {
     name: 'chat',
     tooltip: 'Chat',
     icon: 'chat',
     color: 'primary',
     highlight: 'mat-accent',
     url: frontendUrl.chat,
+  },
+  {
+    name: 'profile',
+    tooltip: 'User profile',
+    icon: 'manage_accounts',
+    color: 'primary',
+    highlight: 'mat-accent',
+    url: frontendUrl.profile,
   },
   {
     name: 'logout',

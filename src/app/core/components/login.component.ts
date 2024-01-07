@@ -15,7 +15,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { Router } from '@angular/router';
 
 import { frontendUrl } from '../../shared/environments/frontend';
-import { UserService } from '../services/user.service';
+import { AuthService } from '../services/auth.service';
 
 @Component({
   standalone: true,
@@ -92,7 +92,7 @@ import { UserService } from '../services/user.service';
   `,
 })
 export class LoginComponent {
-  private userService = inject(UserService);
+  private userService = inject(AuthService);
   private formBuilder = inject(FormBuilder);
   private router = inject(Router);
 

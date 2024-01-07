@@ -4,15 +4,23 @@ import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
 
 import {
-    ActiveCommentInterface, ActiveCommentTypeEnum, CreateVideoCommentInterface,
-    UpdateVideoCommentInterface, VideoCommentInterface
+  ActiveCommentInterface,
+  ActiveCommentTypeEnum,
+  CreateVideoCommentInterface,
+  UpdateVideoCommentInterface,
+  VideoCommentInterface,
 } from '../../models/video-comment';
 import { CommentFormComponent } from './video-comment-form.component';
 
 @Component({
   selector: 'app-comment',
   standalone: true,
-  imports: [CommentFormComponent, MatCardModule, MatButtonModule, MatIconModule],
+  imports: [
+    CommentFormComponent,
+    MatCardModule,
+    MatButtonModule,
+    MatIconModule,
+  ],
   styles: [
     `
       .comment-container {
@@ -33,11 +41,9 @@ import { CommentFormComponent } from './video-comment-form.component';
         margin-left: 3rem;
       }
 
-
-
       .example-header-image {
-          background-image: url('https://material.angular.io/assets/img/examples/shiba1.jpg');
-          background-size: cover;
+        background-image: url('https://material.angular.io/assets/img/examples/shiba1.jpg');
+        background-size: cover;
       }
     `,
   ],
@@ -46,24 +52,25 @@ import { CommentFormComponent } from './video-comment-form.component';
       @if (comment.parentId == null) { }
       <mat-card>
         <mat-card-header>
-            <div mat-card-avatar class="example-header-image"></div>
-            <mat-card-title>{{ comment.userEmail }}</mat-card-title>
-            <mat-card-subtitle>TODO: implement rank</mat-card-subtitle>
+          <div mat-card-avatar class="example-header-image"></div>
+          <mat-card-title>{{ comment.userEmail }}</mat-card-title>
+          <mat-card-subtitle>TODO: implement rank</mat-card-subtitle>
         </mat-card-header>
 
         <mat-card-content>
           @if (!isEditing()) {
           {{ comment.content }}
-          } 
-          
-          @if (isEditing()) {
-            <app-comment-form
-              submitLabel="update"
-              [hasCancelButton]="true"
-              [initialText]="comment.content"
-              (handleSubmit)="updateComment.emit({ id: comment.id, content: $event })"
-              (handleCancel)="setActiveComment.emit(null)">
-            </app-comment-form>
+          } @if (isEditing()) {
+          <app-comment-form
+            submitLabel="update"
+            [hasCancelButton]="true"
+            [initialText]="comment.content"
+            (handleSubmit)="
+              updateComment.emit({ id: comment.id, content: $event })
+            "
+            (handleCancel)="setActiveComment.emit(null)"
+          >
+          </app-comment-form>
           }
         </mat-card-content>
 
@@ -72,82 +79,90 @@ import { CommentFormComponent } from './video-comment-form.component';
           <button
             mat-icon-button
             color="primary"
-            (click)="setActiveComment.emit({id: comment.id,type: activeCommentType.replying})">
+            (click)="
+              setActiveComment.emit({
+                id: comment.id,
+                type: activeCommentType.replying
+              })
+            "
+          >
             <mat-icon>reply</mat-icon>
           </button>
-          }
-
-          @if (canEdit) {
+          } @if (canEdit) {
           <button
             mat-icon-button
             color="primary"
-            (click)="setActiveComment.emit({id: comment.id, type: activeCommentType.editing})">
+            (click)="
+              setActiveComment.emit({
+                id: comment.id,
+                type: activeCommentType.editing
+              })
+            "
+          >
             <mat-icon>edit</mat-icon>
           </button>
-          } 
-              
-          @if (canDelete) {
-            <button
-              mat-icon-button
-              color="warn"
-              (click)="deleteComment.emit(comment.id)">
-              <mat-icon>delete</mat-icon>
-            </button>
+          } @if (canDelete) {
+          <button
+            mat-icon-button
+            color="warn"
+            (click)="deleteComment.emit(comment.id)"
+          >
+            <mat-icon>delete</mat-icon>
+          </button>
           }
         </mat-card-actions>
       </mat-card>
 
       @if (isReplying() && comment.parentId === null) {
-        <mat-card class="reply-form">
-          <mat-card-content>          
-            <app-comment-form
+      <mat-card class="reply-form">
+        <mat-card-content>
+          <app-comment-form
             submitLabel="reply"
-            (handleSubmit)="addReply.emit({ 
-              parentId: comment.id,
-              content: $event
-            })"
+            (handleSubmit)="
+              addReply.emit({
+                parentId: comment.id,
+                content: $event
+              })
+            "
             [hasCancelButton]="true"
             (handleCancel)="this.activeComment = null"
-            >
-            </app-comment-form>
-          </mat-card-content>
-        </mat-card>
-      } 
-
-      @if (isReplying() && comment.parentId !== null) {
-        <mat-card class="reply-form">
-          <mat-card-content>     
-            <app-comment-form
-              submitLabel="reply"
-              (handleSubmit)="addReply.emit({ 
-                parentId: comment.parentId, 
-                content: '@' + comment.userEmail + ' ' + $event 
-              })"
-              [hasCancelButton]="true"
-              (handleCancel)="this.activeComment = null"
-              >
-            </app-comment-form>
-          </mat-card-content>
-        </mat-card>
-      } 
-      
-      @if (replies.length > 0) { 
-        @for (reply of replies; track $index) {
-          <div class="reply">
-              <app-comment
-                [comment]="reply"
-                [replies]="getReplies(reply.id)"
-                [currentUserId]="currentUserId"
-                [parentId]="comment.id"
-                (setActiveComment)="setActiveComment.emit($event)"
-                [activeComment]="activeComment"
-                (addReply)="addReply.emit($event)"
-                (updateComment)="updateComment.emit($event)"
-                (deleteComment)="deleteComment.emit($event)">
-              </app-comment>
-          </div>
-        } 
-      }
+          >
+          </app-comment-form>
+        </mat-card-content>
+      </mat-card>
+      } @if (isReplying() && comment.parentId !== null) {
+      <mat-card class="reply-form">
+        <mat-card-content>
+          <app-comment-form
+            submitLabel="reply"
+            (handleSubmit)="
+              addReply.emit({
+                parentId: comment.parentId,
+                content: '@' + comment.userEmail + ' ' + $event
+              })
+            "
+            [hasCancelButton]="true"
+            (handleCancel)="this.activeComment = null"
+          >
+          </app-comment-form>
+        </mat-card-content>
+      </mat-card>
+      } @if (replies.length > 0) { @for (reply of replies; track $index) {
+      <div class="reply">
+        <app-comment
+          [comment]="reply"
+          [replies]="getReplies(reply.id)"
+          [currentUserId]="currentUserId"
+          [parentId]="comment.id"
+          (setActiveComment)="setActiveComment.emit($event)"
+          [activeComment]="activeComment"
+          (addReply)="addReply.emit($event)"
+          (updateComment)="updateComment.emit($event)"
+          (deleteComment)="deleteComment.emit($event)"
+        >
+        </app-comment>
+      </div>
+      } }
     </div>
 
     <!-- end of HTML -->`,
@@ -212,7 +227,6 @@ export class CommentComponent implements OnInit {
     this.replyId = this.comment.parentId
       ? this.comment.parentId
       : this.comment.id;
-
   }
 
   isReplying(): boolean {
