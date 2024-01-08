@@ -1,13 +1,9 @@
 import { map, Observable, Subject } from 'rxjs';
 
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpEvent } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 
-import { backendUrl } from '../../shared/environments/backend';
-import {
-  CreateVideoCommentInterface,
-  VideoCommentInterface,
-} from '../models/video-comment';
+import { BACKEND, backendUrl } from '../../shared/environments/backend';
 
 @Injectable({
   providedIn: 'root',
@@ -15,33 +11,27 @@ import {
 export class VideoService {
   private http = inject(HttpClient);
 
+  // httpEvent needed for the progress display
+  saveVideo(requestBody: FormData): Observable<HttpEvent<any>> {
+    return this.http.post<any>(BACKEND.saveVideo(), requestBody, {
+      reportProgress: true,
+      observe: 'events',
+    });
+  }
+
+  // httpEvent needed for the progress display
+  uploadVideo(requestBody: FormData): Observable<HttpEvent<any>> {
+    return this.http.post<any>(BACKEND.uploadVideo(), requestBody, {
+      reportProgress: true,
+      observe: 'events',
+    });
+  }
+
   getAllVideoNames(): Observable<string[]> {
-    return this.http.get<string[]>(backendUrl.getAllVideoNames);
+    return this.http.get<string[]>(BACKEND.getAllVideoNames());
   }
 
   getVideoByName(name: string): Observable<any> {
-    return this.http.get<any>(backendUrl.getVideoByName + name);
-  }
-
-  uploadVideo(data: FormData): Observable<any> {
-    return this.http.post<any>(backendUrl.saveVideo, data);
-  }
-
-  getVideoComments(name: string): Observable<VideoCommentInterface[]> {
-    return this.http.get<VideoCommentInterface[]>(
-      backendUrl.getAllComments + name
-    );
-  }
-
-  createVideoComment(
-    videoComment: CreateVideoCommentInterface
-  ): Observable<VideoCommentInterface> {
-    return this.http
-      .post<VideoCommentInterface>(backendUrl.createComment, videoComment)
-      .pipe(
-        map((response: VideoCommentInterface) => {
-          return response;
-        })
-      );
+    return this.http.get<any>(BACKEND.getVideoByName(name));
   }
 }

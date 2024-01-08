@@ -36,6 +36,26 @@ export const backendUrl = {
 export class BACKEND {
   private static backend: string = 'http://localhost:8080';
 
+  /** VIDEOS
+   **************************************/
+  private static video: string = '/api/video';
+
+  static saveVideo(): string {
+    return `${this.backend}${this.video}`;
+  }
+
+  static uploadVideo(): string {
+    return `${this.backend}${this.video}/upload`;
+  }
+
+  static getAllVideoNames(): string {
+    return `${this.backend}${this.video}/all`;
+  }
+
+  static getVideoByName(name: string): string {
+    return `${this.backend}${this.video}/${name}`;
+  }
+
   /** FORUM POSTS
    **************************************/
   private static forumPost: string = '/api/forumPost';
