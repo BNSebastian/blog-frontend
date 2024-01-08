@@ -12,23 +12,27 @@ import { VideoPlayerComponent } from './video-player.component';
   selector: 'app-videos',
   styles: [
     `
-      .container {
+      .grid-container {
         height: 100vh;
         margin: 1rem;
-        display: flex;
-      }
+        display: grid;
+        grid-template-columns: repeat(
+          auto-fill,
+          minmax(200px, 1fr)
+        ); /* Creates columns with minimum width of 200px */
+        gap: 10px; /* Spacing between grid items */
 
-      .example-card {
-        width: 15rem;
-        height: 10rem;
-        margin: 1rem;
+        .grid-item {
+          text-align: center;
+          /* Optional: Define styles for each grid item */
+        }
       }
     `,
   ],
   template: `
-    <div class="container">
+    <div class="grid-container">
       @for (item of videoNames; track $index) {
-      <mat-card class="example-card">
+      <mat-card class="grid-item">
         <mat-card-header>
           <mat-card-title>{{ item }}</mat-card-title>
         </mat-card-header>

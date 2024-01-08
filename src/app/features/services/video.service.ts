@@ -12,12 +12,12 @@ export class VideoService {
   private http = inject(HttpClient);
 
   // httpEvent needed for the progress display
-  saveVideo(requestBody: FormData): Observable<HttpEvent<any>> {
-    return this.http.post<any>(BACKEND.saveVideo(), requestBody, {
-      reportProgress: true,
-      observe: 'events',
-    });
-  }
+  // saveVideo(requestBody: FormData): Observable<HttpEvent<any>> {
+  //   return this.http.post<any>(BACKEND.saveVideo(), requestBody, {
+  //     reportProgress: true,
+  //     observe: 'events',
+  //   });
+  // }
 
   // httpEvent needed for the progress display
   uploadVideo(requestBody: FormData): Observable<HttpEvent<any>> {

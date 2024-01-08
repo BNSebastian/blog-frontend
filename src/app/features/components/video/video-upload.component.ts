@@ -1,8 +1,9 @@
 import { CommonModule } from '@angular/common';
 import {
-  HttpErrorResponse,
   HttpEvent,
   HttpEventType,
+  HttpRequest,
+  HttpResponse,
 } from '@angular/common/http';
 import { Component, EventEmitter, inject, Output } from '@angular/core';
 import {
@@ -76,21 +77,74 @@ export class VideoUploadComponent {
   private videoService = inject(VideoService);
 
   public onUploadFiles(files: File[]): void {
-    const formData = new FormData();
-
     for (const file of files) {
+      const formData = new FormData();
       formData.append('files', file, file.name);
-    }
 
-    this.videoService.uploadVideo(formData).subscribe(
-      (event) => {
-        this.reportProgress(event);
-      },
-      (error: HttpErrorResponse) => {
-        console.log(error);
-      }
-    );
+      this.videoService.uploadVideo(formData).subscribe(
+        (event) => {
+          if (event.type === HttpEventType.UploadProgress && event.total) {
+            // Calculate progress for individual files and update their status separately
+            const percent = Math.round((100 * event.loaded) / event.total);
+            console.log(`File ${file.name} is ${percent}% uploaded.`);
+            // Here you might want to update a progress object or emit an event
+            // to update the UI for this particular file
+          } else if (event instanceof HttpResponse) {
+            console.log(`File ${file.name} is completely uploaded!`);
+            // Handle completion for individual files if needed
+          }
+        },
+        (err) => console.error(err)
+      );
+    }
   }
+
+  // public onUploadFiles(files: File[]): void {
+  //   const formData = new FormData();
+
+  //   for (const file of files) {
+  //     formData.append('files', file, file.name);
+  //   }
+
+  //   this.videoService.uploadVideo(formData).subscribe(
+  //     (event) => {
+  //       if (event.type === HttpEventType.UploadProgress) {
+  //         if (event.total) {
+  //           this.fileStatus.status = 'progress';
+  //           this.fileStatus.percent = Math.round(
+  //             (100 * event.loaded) / event.total
+  //           );
+  //           console.log(`File is ${this.fileStatus.percent}% uploaded.`);
+  //         } else {
+  //           console.log('Total file size is unknown.');
+  //           // Handle this case as needed (e.g., show a different message or handle the progress differently)
+  //         }
+  //       } else if (event instanceof HttpResponse) {
+  //         console.log('File is completely uploaded!');
+  //         console.log(event.body);
+  //         this.fileStatus.status = 'done';
+  //       }
+  //     },
+  //     (err) => console.error(err)
+  //   );
+  // }
+
+  // public onUploadFiles(files: File[]): void {
+  //   const formData = new FormData();
+
+  //   for (const file of files) {
+  //     formData.append('files', file, file.name);
+  //   }
+
+  //   this.videoService.uploadVideo(formData).subscribe(
+  //     (event) => {
+  //       this.reportProgress(event);
+  //     },
+  //     (error: HttpErrorResponse) => {
+  //       console.log(error);
+  //     }
+  //   );
+  // }
 
   private reportProgress(httpEvent: HttpEvent<string[]>): void {
     switch (httpEvent.type) {

@@ -40,10 +40,6 @@ export class BACKEND {
    **************************************/
   private static video: string = '/api/video';
 
-  static saveVideo(): string {
-    return `${this.backend}${this.video}`;
-  }
-
   static uploadVideo(): string {
     return `${this.backend}${this.video}/upload`;
   }
