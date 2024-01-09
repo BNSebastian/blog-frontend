@@ -7,7 +7,7 @@ export const backendUrl = {
 
   saveVideo: `${baseUrl}/video`,
   getAllVideoNames: `${baseUrl}/video/all`,
-  getVideoByName: `${baseUrl}/video/`,
+  getVideoByName: `${baseUrl}/video/play/`,
 
   createComment: `${baseUrl}/videoComment/createComment`,
   getComment: `${baseUrl}/videoComment/getComment/`, // {commentId}
@@ -44,13 +44,22 @@ export class BACKEND {
     return `${this.backend}${this.video}/upload`;
   }
 
+  static playVideo(name: string): string {
+    return `${this.backend}${this.video}/play/${name}`;
+  }
+
+  static setVideoDescription(name: string): string {
+    return `${this.backend}${this.video}/setDescription/${name}`;
+  }
+
+  static getVideoDescription(name: string): string {
+    return `${this.backend}${this.video}/getDescription/${name}`;
+  }
+
   static getAllVideoNames(): string {
     return `${this.backend}${this.video}/all`;
   }
 
-  static getVideoByName(name: string): string {
-    return `${this.backend}${this.video}/${name}`;
-  }
 
   /** FORUM POSTS
    **************************************/

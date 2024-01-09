@@ -20,6 +20,10 @@ export const frontendUrl = {
 export class FRONTEND {
   private static frontend: string = '';
 
+  static getHome(): string {
+    return `${this.frontend}/home`;
+  }
+
   /** FORUM
    **************************************/
   private static forumPost: string = '/forum';

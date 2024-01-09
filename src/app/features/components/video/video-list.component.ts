@@ -2,7 +2,7 @@ import { Component, inject } from '@angular/core';
 import { MatCardModule } from '@angular/material/card';
 import { Router } from '@angular/router';
 
-import { frontendUrl } from '../../../shared/environments/frontend';
+import { FRONTEND, frontendUrl } from '../../../shared/environments/frontend';
 import { VideoService } from '../../services/video.service';
 import { VideoPlayerComponent } from './video-player.component';
 
@@ -36,6 +36,7 @@ import { VideoPlayerComponent } from './video-player.component';
         <mat-card-header>
           <mat-card-title>{{ item }}</mat-card-title>
         </mat-card-header>
+
         <mat-card-actions>
           <button mat-button (click)="playVideo(item)">Play</button>
         </mat-card-actions>
@@ -53,6 +54,10 @@ export class VideoComponent {
   ngOnInit(): void {
     this.loadData();
   }
+
+  // ngOnDestroy() {
+  //   this.router.navigate([FRONTEND.getHome()]);
+  // }
 
   loadData() {
     this.videoService.getAllVideoNames().subscribe((apiData: string[]) => {
