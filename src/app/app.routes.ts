@@ -3,7 +3,8 @@ import { Routes } from '@angular/router';
 import { AuthGuard } from './core/guards/auth.guard';
 
 export const routes: Routes = [
-  // home
+  /* HOME
+   ******************************/
   {
     path: '',
     redirectTo: 'home',
@@ -14,7 +15,9 @@ export const routes: Routes = [
     loadComponent: () =>
       import('./shared/components/home.component').then((m) => m.HomeComponent),
   },
-  // security
+
+  /* AUTHENTICATION
+   ******************************/
   {
     path: 'user',
     children: [
@@ -42,7 +45,9 @@ export const routes: Routes = [
       },
     ],
   },
-  // features
+
+  /* VIDEOS
+   ******************************/
   {
     path: 'video',
     loadComponent: () =>
@@ -59,6 +64,9 @@ export const routes: Routes = [
       ),
     canActivate: [AuthGuard],
   },
+
+  /* CHAT
+   ******************************/
   {
     path: 'chat',
     loadComponent: () =>
@@ -68,6 +76,8 @@ export const routes: Routes = [
     canActivate: [AuthGuard],
   },
 
+  /* FORUM
+   ******************************/
   {
     path: 'forum',
     children: [
@@ -91,13 +101,38 @@ export const routes: Routes = [
     ],
   },
 
-  // admin features
+  /* ADMIN
+   ******************************/
   {
-    path: 'admin/videoUpload',
-    loadComponent: () =>
-      import('./features/components/video/video-upload.component').then(
-        (m) => m.VideoUploadComponent
-      ),
-    canActivate: [AuthGuard],
+    path: 'admin',
+    children: [
+      {
+        path: 'uploadVideos',
+        pathMatch: 'full',
+        loadComponent: () =>
+          import('./features/components/video/video-upload.component').then(
+            (m) => m.VideoUploadComponent
+          ),
+        canActivate: [AuthGuard],
+      },
+      {
+        path: 'manageVideos',
+        pathMatch: 'full',
+        loadComponent: () =>
+          import('./features/components/video/admin-video-list.component').then(
+            (m) => m.AdminVideoListComponent
+          ),
+        canActivate: [AuthGuard],
+      },
+      {
+        path: 'manageVideos/:name',
+        pathMatch: 'full',
+        loadComponent: () =>
+          import('./features/components/video/admin-video-edit.component').then(
+            (m) => m.AdminVideoEditComponent
+          ),
+        canActivate: [AuthGuard],
+      },
+    ],
   },
 ];

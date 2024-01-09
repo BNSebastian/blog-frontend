@@ -6,3 +6,8 @@ export interface VideoStatusInterface {
   requestType: string;
   percent: number;
 }
+
+export interface VideoInterface {
+  name: string;
+  description: string;
+}

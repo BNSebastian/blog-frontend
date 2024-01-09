@@ -5,10 +5,6 @@ export const backendUrl = {
   authenticate: `${baseUrl}/auth/authenticate`,
   isAdmin: `${baseUrl}/auth/isAdmin`,
 
-  saveVideo: `${baseUrl}/video`,
-  getAllVideoNames: `${baseUrl}/video/all`,
-  getVideoByName: `${baseUrl}/video/play/`,
-
   createComment: `${baseUrl}/videoComment/createComment`,
   getComment: `${baseUrl}/videoComment/getComment/`, // {commentId}
   getAllComments: `${baseUrl}/videoComment/getAllComments/`, // {videoName}
@@ -57,9 +53,20 @@ export class BACKEND {
   }
 
   static getAllVideoNames(): string {
-    return `${this.backend}${this.video}/all`;
+    return `${this.backend}${this.video}/getAllNames`;
   }
 
+  static getAllVideos(): string {
+    return `${this.backend}${this.video}/getAll`;
+  }
+
+  static getVideoByName(name: string): string {
+    return `${this.backend}${this.video}/getByName/${name}`;
+  }
+
+  static deleteVideo(name: string): string {
+    return `${this.backend}${this.video}/delete/${name}`;
+  }
 
   /** FORUM POSTS
    **************************************/

@@ -4,6 +4,7 @@ import { HttpClient, HttpEvent } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 
 import { BACKEND, backendUrl } from '../../shared/environments/backend';
+import { VideoInterface } from '../models/video';
 
 @Injectable({
   providedIn: 'root',
@@ -23,6 +24,14 @@ export class VideoService {
     return this.http.get<string[]>(BACKEND.getAllVideoNames());
   }
 
+  getAllVideos(): Observable<VideoInterface[]> {
+    return this.http.get<VideoInterface[]>(BACKEND.getAllVideos());
+  }
+
+  getVideoByName(name: string): Observable<VideoInterface> {
+    return this.http.get<VideoInterface>(BACKEND.getVideoByName(name));
+  }
+
   setVideoDescription(name: string, description: string): Observable<string> {
     return this.http
       .post<any>(BACKEND.setVideoDescription(name), description)
@@ -37,5 +46,9 @@ export class VideoService {
     return this.http.get(BACKEND.getVideoDescription(videoName), {
       responseType: 'text',
     });
+  }
+
+  deleteVideo(name: string): Observable<void> {
+    return this.http.delete<void>(BACKEND.deleteVideo(name));
   }
 }

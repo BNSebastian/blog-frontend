@@ -1,4 +1,4 @@
-import { frontendUrl } from './shared/environments/frontend';
+import { FRONTEND, frontendUrl } from './shared/environments/frontend';
 import { LinkInterface } from './shared/models/link';
 
 export const publicLinks: LinkInterface[] = [
@@ -81,11 +81,20 @@ export const authenticatedLinks: LinkInterface[] = [
 
 export const adminLinks: any = [
   {
-    name: 'Video upload',
+    name: 'Upload videos',
     tooltip: 'Video upload',
     icon: 'upload_file',
     color: 'warn',
     highlight: 'mat-accent',
-    url: frontendUrl.videoUpload,
+    url: FRONTEND.uploadVideos(),
+  },
+  {
+    name: 'Manage videos',
+    tooltip:
+      'Edit the name, description and video data of existing videos or delete them altogether',
+    icon: 'edit_Document',
+    color: 'warn',
+    highlight: 'mat-accent',
+    url: FRONTEND.manageVideos(),
   },
 ];

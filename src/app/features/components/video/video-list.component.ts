@@ -55,10 +55,6 @@ export class VideoComponent {
     this.loadData();
   }
 
-  // ngOnDestroy() {
-  //   this.router.navigate([FRONTEND.getHome()]);
-  // }
-
   loadData() {
     this.videoService.getAllVideoNames().subscribe((apiData: string[]) => {
       this.videoNames = apiData;

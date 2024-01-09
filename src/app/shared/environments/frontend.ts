@@ -20,8 +20,27 @@ export const frontendUrl = {
 export class FRONTEND {
   private static frontend: string = '';
 
+  /** HOME
+   **************************************/
+
   static getHome(): string {
     return `${this.frontend}/home`;
+  }
+
+  /** ADMIN
+   **************************************/
+  private static admin: string = '/admin';
+
+  static uploadVideos(): string {
+    return `${this.frontend}${this.admin}/uploadVideos`;
+  }
+
+  static manageVideos(): string {
+    return `${this.frontend}${this.admin}/manageVideos`;
+  }
+
+  static manageVideo(name: string): string {
+    return `${this.frontend}${this.admin}/manageVideos/${name}`;
   }
 
   /** FORUM

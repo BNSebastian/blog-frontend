@@ -63,7 +63,7 @@ import { NavbarItemComponent } from './navbar-item.component';
           <app-navbar-item-list
             buttonColor="warn"
             buttonTooltip="Admin section"
-            buttonIcon="account_circle"
+            buttonIcon="admin_panel_settings"
             [links]="adminLinks"
           >
           </app-navbar-item-list>
