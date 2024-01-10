@@ -12,10 +12,12 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatSelectModule } from '@angular/material/select';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
+import { FRONTEND } from '../../../shared/environments/frontend';
 import { VideoInterface } from '../../models/video';
 import { VideoService } from '../../services/video.service';
 
@@ -30,44 +32,56 @@ import { VideoService } from '../../services/video.service';
     MatRadioModule,
     MatCardModule,
     MatIconModule,
+    MatProgressSpinnerModule,
     ReactiveFormsModule,
   ],
   styles: `
-    .form {
-      height: 100vh;
-      margin-top: 3rem;
-    }
+
+  .container {
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
   `,
-  template: ` <form [formGroup]="formData" class="form">
-    <mat-card>
-      <mat-card-header>
-        <mat-card-title><strong>Edit video</strong></mat-card-title>
-      </mat-card-header>
+  template: `
+    <div class="container">
+      @if (!isLoading) {
+      <form [formGroup]="formData" class="form">
+        <mat-card>
+          <mat-card-header>
+            <mat-card-title><strong>Edit video</strong></mat-card-title>
+          </mat-card-header>
 
-      <mat-card-content>
-        <mat-form-field class="full-width" floatLabel="always">
-          <mat-label>name</mat-label>
-          <input matInput formControlName="name" />
-        </mat-form-field>
+          <mat-card-content>
+            <mat-form-field class="full-width" floatLabel="always">
+              <mat-label>name</mat-label>
+              <input matInput formControlName="name" />
+            </mat-form-field>
 
-        <mat-form-field class="full-width" floatLabel="always">
-          <mat-label>description</mat-label>
-          <input matInput formControlName="description" />
-        </mat-form-field>
-      </mat-card-content>
+            <mat-form-field class="full-width" floatLabel="always">
+              <mat-label>description</mat-label>
+              <input matInput formControlName="description" />
+            </mat-form-field>
+          </mat-card-content>
 
-      <mat-card-actions>
-        <button (click)="onSubmit()" mat-raised-button color="primary">
-          Update video
-        </button></mat-card-actions
-      >
-    </mat-card>
-  </form>`,
+          <mat-card-actions>
+            <button (click)="onSubmit()" mat-raised-button color="primary">
+              Update video
+            </button>
+          </mat-card-actions>
+        </mat-card>
+      </form>
+      } @else { <mat-spinner class="spinner"></mat-spinner>}
+    </div>
+  `,
 })
 export class AdminVideoEditComponent {
   formData!: FormGroup;
   videoName!: string | null;
   videoDescription!: string;
+  isLoading: boolean = false;
+  private router = inject(Router);
 
   constructor(
     private formBuilder: FormBuilder,
@@ -115,13 +129,17 @@ export class AdminVideoEditComponent {
 
   onSubmit() {
     if (this.formData.valid) {
+      this.isLoading = true;
       const formData = this.formData.value;
       this.videoService
         .setVideoDescription(formData.name, formData.description)
         .subscribe((response: string) => {
           console.log(response);
-          this.ngOnInit();
         });
     }
+    const delayTime = 2000;
+    setTimeout(() => {
+      this.router.navigate([FRONTEND.manageVideos()]);
+    }, delayTime);
   }
 }

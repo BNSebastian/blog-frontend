@@ -3,7 +3,7 @@ import { map, Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 
-import { backendUrl } from '../../shared/environments/backend';
+import { BACKEND, backendUrl } from '../../shared/environments/backend';
 import { AuthenticationRequest, RegisterRequest, User } from '../models/user';
 import { CustomCookieService } from './custom-cookie.service';
 
@@ -62,5 +62,9 @@ export class AuthService {
     };
 
     return user;
+  }
+
+  getUserProfileImage(userId: number): Observable<any> {
+    return this.http.get(BACKEND.getUserProfileImage(userId));
   }
 }

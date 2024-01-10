@@ -1,3 +1,5 @@
+import { forkJoin, map } from 'rxjs';
+
 import { Component, inject } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
@@ -31,28 +33,46 @@ import { VideoPlayerComponent } from './video-player.component';
         width: 15%;
       }
     }
+    th, td {
+      text-align: center;
+    }
   `,
   template: `
     <div class="container">
       <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
         <ng-container matColumnDef="name">
           <th mat-header-cell *matHeaderCellDef>Name</th>
-          <td mat-cell *matCellDef="let name">{{ name }}</td>
+          <td mat-cell *matCellDef="let row">{{ row.name }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="description">
+          <th mat-header-cell *matHeaderCellDef>Description</th>
+          <td mat-cell *matCellDef="let row" class="text-center">
+            {{ row.description }}
+          </td>
         </ng-container>
 
         <ng-container matColumnDef="edit" class="button">
-          <th mat-header-cell *matHeaderCellDef></th>
-          <td mat-cell *matCellDef="let name">
-            <button (click)="editVideo(name)" mat-icon-button color="primary">
+          <th mat-header-cell *matHeaderCellDef>Edit</th>
+          <td mat-cell *matCellDef="let row">
+            <button
+              (click)="editVideo(row.name)"
+              mat-icon-button
+              color="primary"
+            >
               <mat-icon>edit</mat-icon>
             </button>
           </td>
         </ng-container>
 
         <ng-container matColumnDef="delete" class="button">
-          <th mat-header-cell *matHeaderCellDef></th>
-          <td mat-cell *matCellDef="let name">
-            <button (click)="deleteVideo(name)" color="warn" mat-icon-button>
+          <th mat-header-cell *matHeaderCellDef>Delete</th>
+          <td mat-cell *matCellDef="let row">
+            <button
+              (click)="deleteVideo(row.name)"
+              color="warn"
+              mat-icon-button
+            >
               <mat-icon>delete</mat-icon>
             </button>
           </td>
@@ -67,8 +87,8 @@ import { VideoPlayerComponent } from './video-player.component';
 export class AdminVideoListComponent {
   /** properties
    **************************************/
-  displayedColumns: string[] = ['name', 'edit', 'delete'];
-  dataSource!: string[];
+  displayedColumns: string[] = ['name', 'description', 'edit', 'delete'];
+  dataSource: { name: string; description: string }[] = [];
 
   /** services
    **************************************/
@@ -83,9 +103,19 @@ export class AdminVideoListComponent {
 
   /** methods
    **************************************/
+  // Load video data from the service
   loadData() {
-    this.videoService.getAllVideoNames().subscribe((apiData: string[]) => {
-      this.dataSource = apiData;
+    this.videoService.getAllVideoNames().subscribe((response: string[]) => {
+      const observables = response.map((name) =>
+        this.videoService.getVideoDescription(name)
+      );
+
+      forkJoin(observables).subscribe((descriptions: string[]) => {
+        this.dataSource = response.map((name, index) => ({
+          name,
+          description: descriptions[index],
+        }));
+      });
     });
   }
 

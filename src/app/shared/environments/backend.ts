@@ -31,6 +31,17 @@ export const backendUrl = {
 
 export class BACKEND {
   private static backend: string = 'http://localhost:8080';
+  /** USER
+   **************************************/
+  private static user: string = '/api/user';
+
+  static setUserProfileImage(userId: number): string {
+    return `${this.backend}${this.user}/setProfileImage/${userId}`;
+  }
+
+  static getUserProfileImage(userId: number): string {
+    return `${this.backend}${this.user}/getProfileImage/${userId}`;
+  }
 
   /** VIDEOS
    **************************************/

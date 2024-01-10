@@ -23,6 +23,7 @@ import { VideoPlayerComponent } from './video-player.component';
         gap: 10px; /* Spacing between grid items */
 
         .grid-item {
+          height: 10rem;
           text-align: center;
           /* Optional: Define styles for each grid item */
         }

@@ -36,6 +36,15 @@ export class VideoService {
     return this.http
       .post<any>(BACKEND.setVideoDescription(name), description)
       .pipe(
+        catchError((error) => {
+          console.error('Error in setVideoDescription:', error);
+
+          // Log the response content for investigation
+          console.log('Response content:', error.error.text);
+
+          // Rethrow the error to propagate it to the subscriber
+          throw error;
+        }),
         map((response: string) => {
           return response;
         })
