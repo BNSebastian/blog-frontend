@@ -39,8 +39,8 @@ export class BACKEND {
     return `${this.backend}${this.user}/setProfileImage/${userId}`;
   }
 
-  static getUserProfileImage(userId: number): string {
-    return `${this.backend}${this.user}/getProfileImage/${userId}`;
+  static getUserProfileImage(userEmail: string): string {
+    return `${this.backend}${this.user}/getProfileImage/${userEmail}`;
   }
 
   /** VIDEOS

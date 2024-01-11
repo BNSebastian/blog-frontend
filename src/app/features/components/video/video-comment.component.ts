@@ -1,8 +1,17 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  inject,
+  Input,
+  OnInit,
+  Output,
+} from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
+import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 
+import { UserService } from '../../../core/services/user.service';
 import {
   ActiveCommentInterface,
   ActiveCommentTypeEnum,
@@ -40,11 +49,6 @@ import { CommentFormComponent } from './video-comment-form.component';
       .reply {
         margin-left: 3rem;
       }
-
-      .example-header-image {
-        background-image: url('https://material.angular.io/assets/img/examples/shiba1.jpg');
-        background-size: cover;
-      }
     `,
   ],
   template: ` <!-- start of HTML -->
@@ -52,7 +56,13 @@ import { CommentFormComponent } from './video-comment-form.component';
       @if (comment.parentId == null) { }
       <mat-card>
         <mat-card-header>
-          <div mat-card-avatar class="example-header-image"></div>
+          <div mat-card-avatar>
+            @if (userProfileImage) {
+            <img [src]="userProfileImage" alt="saved" />
+            } @else {
+            <img src="../../../../assets/profile_image.png" />
+            }
+          </div>
           <mat-card-title>{{ comment.userEmail }}</mat-card-title>
           <mat-card-subtitle>TODO: implement rank</mat-card-subtitle>
         </mat-card-header>
@@ -208,9 +218,14 @@ export class CommentComponent implements OnInit {
 
   replyId: number | null = null;
 
+  public userProfileImage: any;
+  private userService = inject(UserService);
+  private sanitizer = inject(DomSanitizer);
+
   public comments: VideoCommentInterface[] = [];
 
   ngOnInit(): void {
+    this.getProfileImage(this.comment.userEmail);
     const fiveMinutes = 300000; // 5 minutes
     const timePassed =
       new Date().getMilliseconds() -
@@ -257,5 +272,18 @@ export class CommentComponent implements OnInit {
           new Date(a.createdOn).getMilliseconds() -
           new Date(b.createdOn).getMilliseconds()
       );
+  }
+
+  getProfileImage(userEmail: string) {
+    this.userService.getUserProfileImage(userEmail).subscribe(
+      (response: ArrayBuffer) => {
+        const blob = new Blob([response], { type: 'image/jpeg' });
+        const imageUrl = URL.createObjectURL(blob);
+        this.userProfileImage = this.sanitizer.bypassSecurityTrustUrl(imageUrl);
+      },
+      (error) => {
+        console.error('Error fetching user profile image:', error);
+      }
+    );
   }
 }

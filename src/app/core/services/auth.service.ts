@@ -63,8 +63,4 @@ export class AuthService {
 
     return user;
   }
-
-  getUserProfileImage(userId: number): Observable<any> {
-    return this.http.get(BACKEND.getUserProfileImage(userId));
-  }
 }
