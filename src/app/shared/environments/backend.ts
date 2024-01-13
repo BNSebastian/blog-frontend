@@ -88,8 +88,24 @@ export class BACKEND {
    **************************************/
   private static videoComments: string = '/api/videoComment';
 
+  static createVideoComment(): string {
+    return `${this.backend}${this.videoComments}/createComment`;
+  }
+
   static getVideoComment(commentId: number): string {
     return `${this.backend}${this.videoComments}/getComment/${commentId}`;
+  }
+
+  static getAllVideoComments(videoName: string): string {
+    return `${this.backend}${this.videoComments}/getAllComments/${videoName}`;
+  }
+
+  static updateVideoComment(): string {
+    return `${this.backend}${this.videoComments}/updateComment`;
+  }
+
+  static deleteVideoComment(commentId: number): string {
+    return `${this.backend}${this.videoComments}/deleteComment/${commentId}`;
   }
 
   /** FORUM POSTS

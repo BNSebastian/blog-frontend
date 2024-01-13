@@ -20,7 +20,7 @@ export class CommentsService {
 
   getComments(request: string): Observable<VideoCommentInterface[]> {
     return this.http.get<VideoCommentInterface[]>(
-      backendUrl.getAllComments + request
+      BACKEND.getAllVideoComments(request)
     );
   }
 
@@ -34,7 +34,7 @@ export class CommentsService {
     request: CreateVideoCommentInterface
   ): Observable<VideoCommentInterface> {
     return this.http
-      .post<VideoCommentInterface>(backendUrl.createComment, request)
+      .post<VideoCommentInterface>(BACKEND.createVideoComment(), request)
       .pipe(
         map((response: VideoCommentInterface) => {
           return response;
@@ -46,7 +46,10 @@ export class CommentsService {
     updatedComment: UpdateVideoCommentInterface
   ): Observable<VideoCommentInterface> {
     return this.http
-      .patch<VideoCommentInterface>(backendUrl.updateComment, updatedComment)
+      .patch<VideoCommentInterface>(
+        BACKEND.updateVideoComment(),
+        updatedComment
+      )
       .pipe(
         map((response: VideoCommentInterface) => {
           return response;
@@ -55,7 +58,7 @@ export class CommentsService {
   }
 
   deleteComment(id: number): Observable<void> {
-    return this.http.delete<void>(backendUrl.deleteComment + id);
+    return this.http.delete<void>(BACKEND.deleteVideoComment(id));
   }
 
   notifyCommentAdded() {
