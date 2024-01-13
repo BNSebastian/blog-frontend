@@ -19,6 +19,7 @@ import {
   UpdateVideoCommentInterface,
   VideoCommentInterface,
 } from '../../models/video-comment';
+import { CommentsService } from '../../services/video-comment.service';
 import { CommentFormComponent } from './video-comment-form.component';
 
 @Component({
@@ -49,6 +50,13 @@ import { CommentFormComponent } from './video-comment-form.component';
       .reply {
         margin-left: 3rem;
       }
+
+      .profile-image {
+        width: 50px; /* Adjust the width as per your requirement */
+        height: 50px; /* Adjust the height as per your requirement */
+        border-radius: 10%; /* Creates a circular profile image */
+        object-fit: cover; /* Ensures the image covers the entire container */
+      }
     `,
   ],
   template: ` <!-- start of HTML -->
@@ -58,13 +66,15 @@ import { CommentFormComponent } from './video-comment-form.component';
         <mat-card-header>
           <div mat-card-avatar>
             @if (userProfileImage) {
-            <img [src]="userProfileImage" alt="saved" />
+            <img [src]="userProfileImage" class="profile-image" alt="saved" />
             } @else {
             <img src="../../../../assets/profile_image.png" />
             }
           </div>
           <mat-card-title>{{ comment.userEmail }}</mat-card-title>
-          <mat-card-subtitle>TODO: implement rank</mat-card-subtitle>
+          @if (parentName) {
+          <mat-card-subtitle>Replying to: {{ parentName }}</mat-card-subtitle>
+          }
         </mat-card-header>
 
         <mat-card-content>
@@ -148,7 +158,7 @@ import { CommentFormComponent } from './video-comment-form.component';
             (handleSubmit)="
               addReply.emit({
                 parentId: comment.parentId,
-                content: '@' + comment.userEmail + ' ' + $event
+                content: $event
               })
             "
             [hasCancelButton]="true"
@@ -178,53 +188,40 @@ import { CommentFormComponent } from './video-comment-form.component';
     <!-- end of HTML -->`,
 })
 export class CommentComponent implements OnInit {
-  @Input()
-  comment!: VideoCommentInterface;
-
-  @Input()
-  replies!: VideoCommentInterface[];
-
-  @Input()
-  currentUserId!: number;
-
-  @Input()
-  activeComment!: ActiveCommentInterface | null;
-
-  @Input()
-  parentId: number | null = null;
-
-  public outputFromForm: string = '';
-
-  // null for the cancel button
-  @Output()
-  setActiveComment = new EventEmitter<ActiveCommentInterface | null>();
-
-  @Output()
-  addReply = new EventEmitter<{ parentId: number; content: string }>();
-
-  @Output()
-  updateComment = new EventEmitter<UpdateVideoCommentInterface>();
-
-  @Output()
-  deleteComment = new EventEmitter<number>();
-
-  canReply: boolean = false;
-
-  canEdit: boolean = false;
-
-  canDelete: boolean = false;
-
-  activeCommentType = ActiveCommentTypeEnum;
-
-  replyId: number | null = null;
-
-  public userProfileImage: any;
+  private videoCommentService = inject(CommentsService);
   private userService = inject(UserService);
   private sanitizer = inject(DomSanitizer);
 
-  public comments: VideoCommentInterface[] = [];
+  @Input() comment!: VideoCommentInterface;
+  @Input() replies!: VideoCommentInterface[];
+  @Input() currentUserId!: number;
+  @Input() activeComment!: ActiveCommentInterface | null;
+  @Input() parentId: number | null = null;
+
+  // null for the cancel button
+  @Output() setActiveComment =
+    new EventEmitter<ActiveCommentInterface | null>();
+  @Output() addReply = new EventEmitter<{
+    parentId: number;
+    content: string;
+  }>();
+  @Output() updateComment = new EventEmitter<UpdateVideoCommentInterface>();
+  @Output() deleteComment = new EventEmitter<number>();
+
+  canReply: boolean = false;
+  canEdit: boolean = false;
+  canDelete: boolean = false;
+
+  activeCommentType = ActiveCommentTypeEnum;
+  replyId: number | null = null;
+  userProfileImage: any;
+  parentName: string | null = null;
+
+  outputFromForm: string = '';
+  comments: VideoCommentInterface[] = [];
 
   ngOnInit(): void {
+    this.getParentName();
     this.getProfileImage(this.comment.userEmail);
     const fiveMinutes = 300000; // 5 minutes
     const timePassed =
@@ -277,7 +274,7 @@ export class CommentComponent implements OnInit {
   getProfileImage(userEmail: string) {
     this.userService.getUserProfileImage(userEmail).subscribe(
       (response: ArrayBuffer) => {
-        const blob = new Blob([response], { type: 'image/jpeg' });
+        const blob = new Blob([response], { type: 'image/png' });
         const imageUrl = URL.createObjectURL(blob);
         this.userProfileImage = this.sanitizer.bypassSecurityTrustUrl(imageUrl);
       },
@@ -285,5 +282,15 @@ export class CommentComponent implements OnInit {
         console.error('Error fetching user profile image:', error);
       }
     );
+  }
+
+  getParentName() {
+    if (this.comment.parentId !== null) {
+      this.videoCommentService
+        .getComment(this.comment.parentId)
+        .subscribe((response: VideoCommentInterface) => {
+          this.parentName = response.userEmail;
+        });
+    }
   }
 }

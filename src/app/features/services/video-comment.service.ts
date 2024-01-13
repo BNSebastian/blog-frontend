@@ -3,9 +3,11 @@ import { map, Observable, Subject } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 
-import { backendUrl } from '../../shared/environments/backend';
+import { BACKEND, backendUrl } from '../../shared/environments/backend';
 import {
-    CreateVideoCommentInterface, UpdateVideoCommentInterface, VideoCommentInterface
+  CreateVideoCommentInterface,
+  UpdateVideoCommentInterface,
+  VideoCommentInterface,
 } from '../models/video-comment';
 
 @Injectable({
@@ -19,6 +21,12 @@ export class CommentsService {
   getComments(request: string): Observable<VideoCommentInterface[]> {
     return this.http.get<VideoCommentInterface[]>(
       backendUrl.getAllComments + request
+    );
+  }
+
+  getComment(commentId: number): Observable<VideoCommentInterface> {
+    return this.http.get<VideoCommentInterface>(
+      BACKEND.getVideoComment(commentId)
     );
   }
 

@@ -31,16 +31,21 @@ export const backendUrl = {
 
 export class BACKEND {
   private static backend: string = 'http://localhost:8080';
+
   /** USER
    **************************************/
   private static user: string = '/api/user';
 
+  /** PROFILE IMAGES
+   **************************************/
+  private static image: string = '/api/image';
+
   static setUserProfileImage(userId: number): string {
-    return `${this.backend}${this.user}/setProfileImage/${userId}`;
+    return `${this.backend}${this.image}/setProfileImage/${userId}`;
   }
 
   static getUserProfileImage(userEmail: string): string {
-    return `${this.backend}${this.user}/getProfileImage/${userEmail}`;
+    return `${this.backend}${this.image}/getProfileImage/${userEmail}`;
   }
 
   /** VIDEOS
@@ -77,6 +82,14 @@ export class BACKEND {
 
   static deleteVideo(name: string): string {
     return `${this.backend}${this.video}/delete/${name}`;
+  }
+
+  /** VIDEO COMMENTS
+   **************************************/
+  private static videoComments: string = '/api/videoComment';
+
+  static getVideoComment(commentId: number): string {
+    return `${this.backend}${this.videoComments}/getComment/${commentId}`;
   }
 
   /** FORUM POSTS

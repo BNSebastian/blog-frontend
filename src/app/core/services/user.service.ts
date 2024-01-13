@@ -11,8 +11,10 @@ import { BACKEND } from '../../shared/environments/backend';
 export class UserService {
   private http = inject(HttpClient);
 
-  getUserProfileImage(userEmail: string): Observable<any> {
-    return this.http.get(BACKEND.getUserProfileImage(userEmail));
+  getUserProfileImage(userEmail: string): Observable<ArrayBuffer> {
+    return this.http.get(BACKEND.getUserProfileImage(userEmail), {
+      responseType: 'arraybuffer',
+    });
   }
 
   setUserProfileImage(userId: number, file: FormData): Observable<boolean> {
