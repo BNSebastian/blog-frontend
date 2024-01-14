@@ -128,6 +128,18 @@ export class BACKEND {
     return `${this.backend}${this.forumPost}/delete/${postId}`;
   }
 
+  static incrementPostViewCount(postId: number): string {
+    return `${this.backend}${this.forumPost}/incrementViewCount/${postId}`;
+  }
+
+  static getPostViewCount(postId: number): string {
+    return `${this.backend}${this.forumPost}/getViewCount/${postId}`;
+  }
+
+  static pinForumPost(postId: number): string {
+    return `${this.backend}${this.forumPost}/pinPost/${postId}`;
+  }
+
   /** FORUM COMMENTS
    **************************************/
 

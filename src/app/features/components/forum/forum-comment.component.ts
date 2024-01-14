@@ -2,8 +2,10 @@ import { Component, inject, Input } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
+import { DomSanitizer } from '@angular/platform-browser';
 
 import { CustomCookieService } from '../../../core/services/custom-cookie.service';
+import { UserService } from '../../../core/services/user.service';
 import { ForumCommentInterface } from '../../models/forum';
 import { ForumCommentService } from '../../services/forum-comment.service';
 
@@ -19,11 +21,26 @@ import { ForumCommentService } from '../../services/forum-comment.service';
         justify-content: space-between;
       }
     }
+    .profile-image {
+      width: 3rem; /* Adjust the width as per your requirement */
+      height: 3rem; /* Adjust the height as per your requirement */
+      border-radius: 10%; /* Creates a circular profile image */
+      object-fit: cover; /* Ensures the image covers the entire container */
+    }
   `,
   template: `
     <div class="container">
       <mat-card>
-        <mat-card-header>{{ forumComment.userEmail }}</mat-card-header>
+        <mat-card-header>
+          <div mat-card-avatar>
+            @if (userProfileImage) {
+            <img [src]="userProfileImage" class="profile-image" alt="saved" />
+            } @else {
+            <img src="../../../../assets/profile_image.png" />
+            }
+          </div>
+          <mat-card-title>{{ forumComment.userEmail }}</mat-card-title>
+        </mat-card-header>
         <mat-card-content>{{ forumComment.content }}</mat-card-content>
         <mat-card-actions class="actions">
           <div>
@@ -54,9 +71,15 @@ import { ForumCommentService } from '../../services/forum-comment.service';
 export class ForumCommentComponent {
   @Input()
   public forumComment!: ForumCommentInterface;
-
+  public userProfileImage: any;
   private forumCommentService = inject(ForumCommentService);
   private cookieService = inject(CustomCookieService);
+  private userService = inject(UserService);
+  private sanitizer = inject(DomSanitizer);
+
+  ngOnInit() {
+    this.getProfileImage(this.forumComment.userEmail);
+  }
 
   like(commentId: number) {
     this.forumCommentService
@@ -72,5 +95,18 @@ export class ForumCommentComponent {
       .subscribe((response) => {
         this.forumComment.dislikes = response;
       });
+  }
+
+  getProfileImage(userEmail: string) {
+    this.userService.getUserProfileImage(userEmail).subscribe(
+      (response: ArrayBuffer) => {
+        const blob = new Blob([response], { type: 'image/png' });
+        const imageUrl = URL.createObjectURL(blob);
+        this.userProfileImage = this.sanitizer.bypassSecurityTrustUrl(imageUrl);
+      },
+      (error) => {
+        console.error('Error fetching user profile image:', error);
+      }
+    );
   }
 }

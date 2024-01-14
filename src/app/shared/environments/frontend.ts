@@ -43,6 +43,16 @@ export class FRONTEND {
     return `${this.frontend}${this.admin}/manageVideos/${name}`;
   }
 
+  /** ERRORS
+   **************************************/
+  static getPageNotFoundError(): string {
+    return `${this.frontend}/404`;
+  }
+
+  static getUnauthorizedAccessError(): string {
+    return `${this.frontend}/401`;
+  }
+
   /** FORUM
    **************************************/
   private static forumPost: string = '/forum';

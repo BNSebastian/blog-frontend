@@ -82,6 +82,10 @@ export class ForumPostComponent {
       .subscribe((response: ForumPostInterface) => {
         this.post = response;
         this.loadComments(postId);
+        this.incrementViewCount(
+          this.post.id,
+          this.cookieService.getUserEmail()
+        );
       });
   }
 
@@ -111,5 +115,13 @@ export class ForumPostComponent {
     if (this.accordion) {
       this.accordion.closeAll();
     }
+  }
+
+  incrementViewCount(postId: number, userEmail: string) {
+    this.postService
+      .incrementPostViewCount(userEmail, postId)
+      .subscribe((response) => {
+        return response;
+      });
   }
 }

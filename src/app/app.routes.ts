@@ -1,5 +1,6 @@
 import { Routes } from '@angular/router';
 
+import { AdminGuard } from './core/guards/admin.guard';
 import { AuthGuard } from './core/guards/auth.guard';
 
 export const routes: Routes = [
@@ -113,7 +114,7 @@ export const routes: Routes = [
           import('./features/components/video/video-upload.component').then(
             (m) => m.VideoUploadComponent
           ),
-        canActivate: [AuthGuard],
+        canActivate: [AdminGuard],
       },
       {
         path: 'manageVideos',
@@ -122,7 +123,7 @@ export const routes: Routes = [
           import('./features/components/video/admin-video-list.component').then(
             (m) => m.AdminVideoListComponent
           ),
-        canActivate: [AuthGuard],
+        canActivate: [AdminGuard],
       },
       {
         path: 'manageVideos/:name',
@@ -131,8 +132,26 @@ export const routes: Routes = [
           import('./features/components/video/admin-video-edit.component').then(
             (m) => m.AdminVideoEditComponent
           ),
-        canActivate: [AuthGuard],
+        canActivate: [AdminGuard],
       },
     ],
+  },
+  /* ERRORS
+   ******************************/
+  {
+    path: '401',
+    loadComponent: () =>
+      import('./core/components/errors/UnauthorizedAccess').then(
+        (m) => m.UnauthorizedAccessComponent
+      ),
+    canActivate: [AuthGuard],
+  },
+  {
+    path: '**',
+    loadComponent: () =>
+      import('./core/components/errors/PageNotFound').then(
+        (m) => m.PageNotFoundComponent
+      ),
+    canActivate: [AuthGuard],
   },
 ];

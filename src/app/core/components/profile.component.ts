@@ -18,6 +18,7 @@ import { Router } from '@angular/router';
 import { frontendUrl } from '../../shared/environments/frontend';
 import { AuthService } from '../services/auth.service';
 import { CustomCookieService } from '../services/custom-cookie.service';
+import { UserService } from '../services/user.service';
 
 @Component({
   standalone: true,
@@ -57,6 +58,18 @@ import { CustomCookieService } from '../services/custom-cookie.service';
         </mat-card-content>
       </mat-card>
     </form>
+    <div>
+      <button type="button" mat-raised-button (click)="fileInput.click()">
+        Choose files
+      </button>
+      <input
+        hidden
+        #fileInput
+        type="file"
+        name="file"
+        (change)="onUploadFile($any($event.target).files)"
+      />
+    </div>
   `,
 })
 export class ProfileComponent {
@@ -66,7 +79,7 @@ export class ProfileComponent {
   public hidePassword = true;
 
   private formBuilder = inject(FormBuilder);
-
+  private userService = inject(UserService);
   @Output()
   cancelRegister = new EventEmitter();
 
@@ -98,5 +111,22 @@ export class ProfileComponent {
       return controlKeys;
     }
     return [];
+  }
+
+  public onUploadFile(files: FileList): void {
+    const userId: number = Number(this.userService.getUserId());
+    const formData = new FormData();
+
+    // Loop through the FileList and append each file to the FormData
+    for (let i = 0; i < files.length; i++) {
+      formData.append('file', files[i], files[i].name);
+    }
+
+    this.userService.setUserProfileImage(userId, formData).subscribe(
+      (event) => {
+        return event;
+      },
+      (err) => console.error(err)
+    );
   }
 }

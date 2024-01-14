@@ -1,7 +1,8 @@
-import { Component, inject, ViewChild } from '@angular/core';
+import { Component, inject, OnDestroy, ViewChild } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatAccordion, MatExpansionModule } from '@angular/material/expansion';
+import { MatIconModule } from '@angular/material/icon';
 import { Router, RouterLink } from '@angular/router';
 
 import { FRONTEND } from '../../../shared/environments/frontend';
@@ -21,6 +22,7 @@ import { ForumPostComponent } from './forum-post.component';
     ForumPostFormComponent,
     MatCardModule,
     MatButtonModule,
+    MatIconModule,
     MatExpansionModule,
     RouterLink,
   ],
@@ -38,13 +40,15 @@ import { ForumPostComponent } from './forum-post.component';
         &:hover {
           cursor: pointer;
         }
-
-
       }
       
       .create {
         margin-top: 1rem;
       }
+    }
+
+    .view-counter {
+      display: flex;
     }
   `,
   template: `
@@ -56,27 +60,65 @@ import { ForumPostComponent } from './forum-post.component';
           (handleSubmit)="createPost($event)"
         ></app-forum-post-form>
       </div>
-
-      @for (post of posts; track $index) {
+      <h3>Pinned posts</h3>
+      @for (post of posts; track $index) { @if (post.pinned) {
       <div class="forum-post" (click)="goToPost(post.id)">
         <mat-card>
           <mat-card-header>
             <mat-card-title>{{ post.name }}</mat-card-title>
-            <mat-card-subtitle>{{
-              post.userEmail
-            }}</mat-card-subtitle></mat-card-header
+            <mat-card-subtitle
+              >Created by {{ post.userEmail }} on:
+              {{ post.createdOn }}</mat-card-subtitle
+            ></mat-card-header
           >
-          <mat-card-actions align="end"
-            >Created: {{ post.createdOn }}</mat-card-actions
-          >
+          <mat-card-actions align="end">
+            <div class="pin-post">
+              <button mat-icon-button (click)="pinPost($event, post.id)">
+                <mat-icon>bookmark_remove</mat-icon>
+              </button>
+            </div>
+            <div class="view-count">
+              <button mat-icon-button>
+                <mat-icon>visibility</mat-icon>
+              </button>
+              <span>{{ post.viewerCount }}</span>
+            </div>
+          </mat-card-actions>
         </mat-card>
       </div>
-      }
+      }}
+      <h3>Unpinned posts</h3>
+      @for (post of posts; track $index) { @if (!post.pinned) {
+      <div class="forum-post" (click)="goToPost(post.id)">
+        <mat-card>
+          <mat-card-header>
+            <mat-card-title>{{ post.name }}</mat-card-title>
+            <mat-card-subtitle
+              >Created by {{ post.userEmail }} on:
+              {{ post.createdOn }}</mat-card-subtitle
+            ></mat-card-header
+          >
+          <mat-card-actions align="end">
+            <div class="pin-post">
+              <button mat-icon-button (click)="pinPost($event, post.id)">
+                <mat-icon>bookmark_add</mat-icon>
+              </button>
+            </div>
+            <div class="view-count">
+              <button mat-icon-button>
+                <mat-icon>visibility</mat-icon>
+              </button>
+              <span>{{ post.viewerCount }}</span>
+            </div>
+          </mat-card-actions>
+        </mat-card>
+      </div>
+      } }
     </div>
   `,
 })
 export class ForumPostsComponent {
-  private postService = inject(ForumPostService);
+  private forumPostService = inject(ForumPostService);
   private router = inject(Router);
 
   public posts!: ForumPostInterface[];
@@ -86,9 +128,12 @@ export class ForumPostsComponent {
   }
 
   loadData() {
-    this.postService.getAll().subscribe((response: ForumPostInterface[]) => {
-      this.posts = response;
-    });
+    this.forumPostService
+      .getAll()
+      .subscribe((response: ForumPostInterface[]) => {
+        this.posts = response;
+        console.log(this.posts);
+      });
   }
 
   goToPost(id: number) {
@@ -96,8 +141,21 @@ export class ForumPostsComponent {
   }
 
   createPost(event: ForumPostCreateInterface) {
-    this.postService.create(event).subscribe((response) => {
+    this.forumPostService.create(event).subscribe((response) => {
       this.posts = [...this.posts, response];
     });
   }
+
+  pinPost(event: Event, postId: number) {
+    event.stopPropagation();
+
+    this.forumPostService.pinPost(postId).subscribe(() => {
+      this.loadData();
+    });
+  }
+  // getPostViews(postId: number) {
+  //   this.postService.getPostViewCount(postId).subscribe((response) => {
+  //     return response;
+  //   });
+  // }
 }

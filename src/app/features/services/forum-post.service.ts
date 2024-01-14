@@ -31,4 +31,29 @@ export class ForumPostService {
         })
       );
   }
+
+  incrementPostViewCount(
+    userEmail: string,
+    postId: number
+  ): Observable<number> {
+    return this.http
+      .post<number>(BACKEND.incrementPostViewCount(postId), userEmail)
+      .pipe(
+        map((response: number) => {
+          return response;
+        })
+      );
+  }
+
+  getPostViewCount(postId: number): Observable<number> {
+    return this.http.get<number>(BACKEND.getPostViewCount(postId));
+  }
+
+  pinPost(postId: number): Observable<any> {
+    return this.http.post<any>(BACKEND.pinForumPost(postId), postId).pipe(
+      map((response: any) => {
+        return response;
+      })
+    );
+  }
 }

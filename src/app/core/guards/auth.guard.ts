@@ -1,7 +1,7 @@
 import { inject, Injectable } from '@angular/core';
 import { CanActivate, Router } from '@angular/router';
 
-import { frontendUrl } from '../../shared/environments/frontend';
+import { FRONTEND, frontendUrl } from '../../shared/environments/frontend';
 import { AuthService } from '../services/auth.service';
 
 @Injectable({
@@ -15,7 +15,8 @@ export class AuthGuard implements CanActivate {
     if (this.userService.isAuthenticated()) {
       return true;
     } else {
-      this.router.navigate([frontendUrl.login]);
+      console.log('Thou shalt not pass!');
+      this.router.navigate([FRONTEND.getUnauthorizedAccessError()]);
       return false;
     }
   }

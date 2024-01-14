@@ -25,4 +25,6 @@ export interface ForumPostInterface {
   name: string;
   userEmail: string;
   createdOn: string;
+  viewerCount: number;
+  pinned: boolean;
 }

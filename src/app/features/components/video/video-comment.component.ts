@@ -52,8 +52,8 @@ import { CommentFormComponent } from './video-comment-form.component';
       }
 
       .profile-image {
-        width: 50px; /* Adjust the width as per your requirement */
-        height: 50px; /* Adjust the height as per your requirement */
+        width: 3rem; /* Adjust the width as per your requirement */
+        height: 3rem; /* Adjust the height as per your requirement */
         border-radius: 10%; /* Creates a circular profile image */
         object-fit: cover; /* Ensures the image covers the entire container */
       }
