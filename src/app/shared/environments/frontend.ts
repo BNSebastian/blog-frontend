@@ -43,6 +43,14 @@ export class FRONTEND {
     return `${this.frontend}${this.admin}/manageVideos/${name}`;
   }
 
+  /** DONATIONS
+   **************************************/
+  private static donate: string = '/donate';
+
+  static getDonatePage(): string {
+    return `${this.frontend}${this.donate}`;
+  }
+
   /** ERRORS
    **************************************/
   static getPageNotFoundError(): string {

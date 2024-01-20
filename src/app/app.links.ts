@@ -70,6 +70,14 @@ export const authenticatedLinks: LinkInterface[] = [
     url: frontendUrl.profile,
   },
   {
+    name: 'donate',
+    tooltip: 'Donate',
+    icon: 'donate',
+    color: 'primary',
+    highlight: 'mat-accent',
+    url: FRONTEND.getDonatePage(),
+  },
+  {
     name: 'logout',
     tooltip: 'Log out',
     icon: 'logout',

@@ -34,7 +34,7 @@ import { ForumCommentService } from '../../services/forum-comment.service';
         <mat-card-header>
           <div mat-card-avatar>
             @if (userProfileImage) {
-            <img [src]="userProfileImage" class="profile-image" alt="saved" />
+            <img [src]="userProfileImage" class="profile-image" />
             } @else {
             <img src="../../../../assets/profile_image.png" />
             }

@@ -48,6 +48,22 @@ export class BACKEND {
     return `${this.backend}${this.image}/getProfileImage/${userEmail}`;
   }
 
+  /** PAYPAL
+   **************************************/
+  private static paypal: string = '/api/paypal';
+
+  static initiatePayment(): string {
+    return `${this.backend}${this.paypal}/pay`;
+  }
+
+  static paymentSuccess(paymentId: string, payerId: string): string {
+    return `${this.backend}${this.paypal}/success/${paymentId}/${payerId}`;
+  }
+
+  static cancelPayment(): string {
+    return `${this.backend}${this.paypal}/pay/cancel`;
+  }
+
   /** VIDEOS
    **************************************/
   private static video: string = '/api/video';

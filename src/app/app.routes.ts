@@ -136,6 +136,26 @@ export const routes: Routes = [
       },
     ],
   },
+
+  /* PAYMENT
+   ******************************/
+  {
+    path: 'donate',
+    loadComponent: () =>
+      import('./features/components/paypal/payment-form.component').then(
+        (m) => m.PaymentForm
+      ),
+    canActivate: [AuthGuard],
+  },
+  {
+    path: 'donateSuccess',
+    loadComponent: () =>
+      import('./features/components/paypal/payment-success.component').then(
+        (m) => m.PaymentSuccess
+      ),
+    canActivate: [AuthGuard],
+  },
+
   /* ERRORS
    ******************************/
   {
