@@ -35,7 +35,7 @@ export class PaymentSuccess {
           this.router.navigate([FRONTEND.getHome()]);
         });
       this.router.navigate([FRONTEND.getHome()]);
-      // Now, you can send these values to your backend or perform any other actions.
+      // Now, you can send these values to your backend or perform any other actions.s
     });
   }
 }
