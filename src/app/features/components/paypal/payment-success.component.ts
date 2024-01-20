@@ -18,13 +18,10 @@ export class PaymentSuccess {
   private paypalService = inject(PaypalService);
 
   ngOnInit(): void {
-    // Subscribe to the paramMap observable to get the query parameters
     this.route.queryParams.subscribe((params) => {
-      // Get the values of paymentId and PayerID
       const paymentId = params['paymentId'];
       const payerId = params['PayerID'];
 
-      // Log the extracted values
       console.log('paymentId:', paymentId);
       console.log('PayerID:', payerId);
 
@@ -35,7 +32,6 @@ export class PaymentSuccess {
           this.router.navigate([FRONTEND.getHome()]);
         });
       this.router.navigate([FRONTEND.getHome()]);
-      // Now, you can send these values to your backend or perform any other actions.s
     });
   }
 }

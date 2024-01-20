@@ -72,7 +72,7 @@ export const authenticatedLinks: LinkInterface[] = [
   {
     name: 'donate',
     tooltip: 'Donate',
-    icon: 'donate',
+    icon: 'savings',
     color: 'primary',
     highlight: 'mat-accent',
     url: FRONTEND.getDonatePage(),
