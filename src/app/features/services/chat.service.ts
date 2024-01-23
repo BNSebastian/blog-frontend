@@ -1,33 +1,60 @@
-import { map, Observable } from 'rxjs';
+import { Subject } from 'rxjs';
+import SockJS from 'sockjs-client';
+import * as Stomp from 'stompjs';
 
-import { HttpClient } from '@angular/common/http';
-import { inject, Injectable } from '@angular/core';
-
-import { backendUrl } from '../../shared/environments/backend';
-import {
-  ChatCommentInterface,
-  CreateChatCommentInterface,
-} from '../models/chat-comment';
+import { Injectable } from '@angular/core';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ChatService {
-  private http = inject(HttpClient);
+  stompClient: any;
+  topic: string = 'topic/greetings';
+  responseSubject = new Subject<any>();
+  webSocketEndPoint: string = 'http://localhost:8080/ws';
 
-  getAllComments(): Observable<ChatCommentInterface[]> {
-    return this.http.get<ChatCommentInterface[]>(backendUrl.getAllChatComments);
+  connect() {
+    console.log('Initialize websocket connection');
+    let ws = SockJS(this.webSocketEndPoint);
+    this.stompClient = Stomp.over(ws);
+
+    const _this = this;
+    _this.stompClient.connect(
+      {},
+      function (frame: any) {
+        _this.stompClient.subscribe(
+          _this.topic,
+          function (greetingResponse: any) {
+            _this.onMessageReceived(greetingResponse);
+          }
+        );
+      },
+      this.errorCallBack
+    );
   }
 
-  createComment(
-    request: CreateChatCommentInterface
-  ): Observable<ChatCommentInterface> {
-    return this.http
-      .post<ChatCommentInterface>(backendUrl.createChatComment, request)
-      .pipe(
-        map((response: ChatCommentInterface) => {
-          return response;
-        })
-      );
+  send(message: any) {
+    console.log('calling api vs websocket');
+    this.stompClient.send('');
+  }
+
+  onMessageReceived(message: any) {
+    console.log('Message received from server:: ' + message.body);
+    const obj = JSON.parse(message.body);
+    this.responseSubject.next(obj);
+  }
+
+  diconnect() {
+    if (this.stompClient !== null) {
+      this.stompClient.disconnect();
+    }
+    console.log('Disconnected');
+  }
+
+  errorCallBack(error: any) {
+    console.log('Error callback => ' + error);
+    setTimeout(() => {
+      this.connect();
+    }, 5000);
   }
 }

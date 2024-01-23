@@ -9,10 +9,6 @@ export const frontendUrl = {
 
   videos: `${baseUrl}/video`,
 
-  chat: `${baseUrl}/chat`,
-
-  forum: `${baseUrl}/forum`,
-
   // admin
   videoUpload: `${baseUrl}/admin/videoUpload`,
 };
@@ -63,13 +59,21 @@ export class FRONTEND {
 
   /** FORUM
    **************************************/
-  private static forumPost: string = '/forum';
+  private static forum: string = '/forum';
 
-  static getForumPosts(): string {
-    return `${this.frontend}${this.forumPost}`;
+  static getForum(): string {
+    return `${this.frontend}${this.forum}`;
   }
 
   static getForumPostById(postId: number): string {
-    return `${this.frontend}${this.forumPost}/${postId}`;
+    return `${this.frontend}${this.forum}/${postId}`;
+  }
+
+  /** CHAT
+   **************************************/
+  private static chat: string = '/chat';
+
+  static getChat(): string {
+    return `${this.frontend}${this.chat}`;
   }
 }
