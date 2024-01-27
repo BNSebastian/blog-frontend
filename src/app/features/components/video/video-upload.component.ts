@@ -12,12 +12,25 @@ import { VideoService } from '../../services/video.service';
 @Component({
   selector: 'app-video-upload',
   standalone: true,
-  imports: [CommonModule, MatButtonModule, MatCardModule,MatDividerModule, MatProgressBarModule, NgIf, NgFor],
+  imports: [
+    CommonModule,
+    MatButtonModule,
+    MatCardModule,
+    MatDividerModule,
+    MatProgressBarModule,
+    NgIf,
+    NgFor,
+  ],
   styles: `
     .container {
       height: 100vh;
-      width: 50%;
       margin: auto;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .card {
+      width: 90%;
     }
     .progress-bar {
       padding-bottom: 1rem;
@@ -29,11 +42,17 @@ import { VideoService } from '../../services/video.service';
   `,
   template: `<!-- start of HTML -->
     <div class="container">
-      <mat-card>
+      <mat-card class="card">
         <mat-card-header>
           <mat-card-title>Upload videos</mat-card-title>
-          <mat-card-subtitle>Once uploaded, the videos will have the same name as the file names.</mat-card-subtitle>
-          <mat-card-subtitle>The video name, description and other details can be modified anytime.</mat-card-subtitle>
+          <mat-card-subtitle
+            >Once uploaded, the videos will have the same name as the file
+            names.</mat-card-subtitle
+          >
+          <mat-card-subtitle
+            >The video name, description and other details can be modified
+            anytime.</mat-card-subtitle
+          >
         </mat-card-header>
 
         <mat-card-content>
@@ -50,31 +69,29 @@ import { VideoService } from '../../services/video.service';
             class="form-control"
           />
         </mat-card-content>
-
+        <div class="progress-bar">
           @for(entry of fileStatus; track $index) {
           <div class="upload">
             <div class="file-name">
-              {{entry.filename}} 
+              {{ entry.filename }}
               @if (entry.status === 'done') {
-                <span>: uploaded successfully!</span>
+              <span>: uploaded successfully!</span>
               }
             </div>
             <div class="file-status">
-            @if(entry.status === 'progress') {
+              @if(entry.status === 'progress') {
               <div>
                 <mat-progress-bar
                   mode="determinate"
                   value="{{ entry.percent }}"
-                  class="progress-bar"
                 ></mat-progress-bar>
               </div>
-            }
-
+              }
             </div>
             <mat-divider></mat-divider>
           </div>
           }
-
+        </div>
       </mat-card>
     </div>
     <!-- end of HTML -->`,
@@ -88,25 +105,30 @@ export class VideoUploadComponent {
     for (const file of files) {
       const formData = new FormData();
       formData.append('files', file, file.name);
-      
+
       // Initialize the status for this file
       const fileStatus: VideoStatusInterface = {
         filename: file.name,
         status: 'pending',
         requestType: 'Uploading',
-        percent: 0
+        percent: 0,
       };
 
       // Add status to the array
       this.fileStatus.push(fileStatus);
-      
+
       this.videoService.uploadVideo(formData).subscribe(
         (event) => {
           if (event.type === HttpEventType.UploadProgress && event.total) {
             // Calculate progress for individual files and update their status separately
             const percent = Math.round((100 * event.loaded) / event.total);
             // Update the status in the map for this file
-            this.updateStatusInArray(file.name, 'progress', 'Uploading', percent);
+            this.updateStatusInArray(
+              file.name,
+              'progress',
+              'Uploading',
+              percent
+            );
           } else if (event instanceof HttpResponse) {
             // Update status to 'done' when the file upload is complete
             this.updateStatusInArray(file.name, 'done', 'Uploading', 100);
@@ -117,17 +139,25 @@ export class VideoUploadComponent {
     }
   }
 
-  private updateStatusInArray(filename: string, status: string, requestType: string, percent: number): void {
-    const fileIndex = this.fileStatus.findIndex((file) => file.filename === filename);
+  private updateStatusInArray(
+    filename: string,
+    status: string,
+    requestType: string,
+    percent: number
+  ): void {
+    const fileIndex = this.fileStatus.findIndex(
+      (file) => file.filename === filename
+    );
     if (fileIndex !== -1) {
       this.fileStatus[fileIndex].status = status;
       this.fileStatus[fileIndex].requestType = requestType;
       this.fileStatus[fileIndex].percent = percent;
 
-      console.log(`File ${filename}: Status - ${status}, Progress - ${percent}%`);
+      console.log(
+        `File ${filename}: Status - ${status}, Progress - ${percent}%`
+      );
     }
   }
-
 
   // public onUploadFiles(files: File[]): void {
   //   const formData = new FormData();

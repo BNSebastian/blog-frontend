@@ -29,57 +29,55 @@ import { PaypalService } from '../../services/paypal.service';
     MatIconModule,
     ReactiveFormsModule,
   ],
-  template: ` <form
-    [formGroup]="loginForm"
-    novalidate
-    (ngSubmit)="initiatePayment()"
-  >
-    <mat-card>
-      <mat-card-header>
-        <mat-card-title><strong>Your account</strong></mat-card-title>
-      </mat-card-header>
+  template: `
+    <div class="container">
+      <form [formGroup]="loginForm" novalidate (ngSubmit)="initiatePayment()">
+        <mat-card>
+          <mat-card-header>
+            <mat-card-title><strong>Donate</strong></mat-card-title>
+          </mat-card-header>
 
-      <mat-card-content>
-        <mat-form-field class="full-width" floatLabel="always">
-          <mat-label>price</mat-label>
-          <input matInput formControlName="price" />
-        </mat-form-field>
+          <mat-card-content>
+            <mat-form-field class="full-width" floatLabel="always">
+              <mat-label>price</mat-label>
+              <input matInput formControlName="price" />
+            </mat-form-field>
 
-        <mat-form-field class="full-width" floatLabel="always">
-          <mat-label>currency</mat-label>
-          <input matInput formControlName="currency" />
-        </mat-form-field>
+            <mat-form-field class="full-width" floatLabel="always">
+              <mat-label>currency</mat-label>
+              <input matInput formControlName="currency" />
+            </mat-form-field>
 
-        <mat-form-field class="full-width" floatLabel="always">
-          <mat-label>method</mat-label>
-          <input matInput formControlName="method" />
-        </mat-form-field>
+            <mat-form-field class="full-width" floatLabel="always">
+              <mat-label>description</mat-label>
+              <input matInput formControlName="description" />
+            </mat-form-field>
+          </mat-card-content>
 
-        <mat-form-field class="full-width" floatLabel="always">
-          <mat-label>intent</mat-label>
-          <input matInput formControlName="intent" />
-        </mat-form-field>
-
-        <mat-form-field class="full-width" floatLabel="always">
-          <mat-label>description</mat-label>
-          <input matInput formControlName="description" />
-        </mat-form-field>
-      </mat-card-content>
-
-      <mat-card-actions>
-        <button
-          mat-raised-button
-          class="form-button"
-          color="primary"
-          type="submit"
-          [disabled]="loginForm.invalid"
-        >
-          Login
-        </button>
-      </mat-card-actions>
-    </mat-card>
-  </form>`,
-  styles: ``,
+          <mat-card-actions>
+            <button
+              mat-raised-button
+              class="form-button"
+              color="primary"
+              type="submit"
+              [disabled]="loginForm.invalid"
+            >
+              Login
+            </button>
+          </mat-card-actions>
+        </mat-card>
+      </form>
+    </div>
+  `,
+  styles: `
+  .container {
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+    form {}
+  `,
 })
 export class PaymentForm {
   private paypalService = inject(PaypalService);
@@ -94,7 +92,7 @@ export class PaymentForm {
 
   createForm() {
     this.loginForm = this.formBuilder.group({
-      price: new FormControl('10', {
+      price: new FormControl('', {
         validators: [Validators.required],
         nonNullable: true,
       }),

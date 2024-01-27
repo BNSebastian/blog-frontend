@@ -62,3 +62,9 @@
     }
   }
 }
+
+@mixin backgroundImage() {
+  background-image: url("https://images.pexels.com/photos/12597237/pexels-photo-12597237.jpeg");
+  background-size: cover;
+  background-position: center;
+}

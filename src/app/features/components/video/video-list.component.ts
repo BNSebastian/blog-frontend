@@ -1,5 +1,7 @@
 import { Component, inject } from '@angular/core';
+import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
+import { MatTableModule } from '@angular/material/table';
 import { Router } from '@angular/router';
 
 import { FRONTEND, frontendUrl } from '../../../shared/environments/frontend';
@@ -8,41 +10,48 @@ import { VideoPlayerComponent } from './video-player.component';
 
 @Component({
   standalone: true,
-  imports: [VideoPlayerComponent, MatCardModule],
+  imports: [
+    VideoPlayerComponent,
+    MatCardModule,
+    MatButtonModule,
+    MatTableModule,
+  ],
   selector: 'app-videos',
   styles: [
     `
-      .grid-container {
+      .container {
+        width: 90vw;
         height: 100vh;
-        margin: 1rem;
-        display: grid;
-        grid-template-columns: repeat(
-          auto-fill,
-          minmax(200px, 1fr)
-        ); /* Creates columns with minimum width of 200px */
-        gap: 10px; /* Spacing between grid items */
-
-        .grid-item {
-          height: 10rem;
-          text-align: center;
-          /* Optional: Define styles for each grid item */
-        }
+        display: flex;
+        align-items: center;
+        margin: auto;
       }
     `,
   ],
   template: `
-    <div class="grid-container">
-      @for (item of videoNames; track $index) {
-      <mat-card class="grid-item">
-        <mat-card-header>
-          <mat-card-title>{{ item }}</mat-card-title>
-        </mat-card-header>
+    <div class="container">
+      <table mat-table [dataSource]="videoNames" class="mat-elevation-z8">
+        <ng-container matColumnDef="name">
+          <th mat-header-cell *matHeaderCellDef>Name</th>
+          <td mat-cell *matCellDef="let element">{{ element }}</td>
+        </ng-container>
 
-        <mat-card-actions>
-          <button mat-button (click)="playVideo(item)">Play</button>
-        </mat-card-actions>
-      </mat-card>
-      }
+        <ng-container matColumnDef="play">
+          <th mat-header-cell *matHeaderCellDef>Play</th>
+          <td mat-cell *matCellDef="let element">
+            <button
+              (click)="playVideo(element)"
+              mat-raised-button
+              color="primary"
+            >
+              Play video
+            </button>
+          </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+      </table>
     </div>
   `,
 })
@@ -51,7 +60,7 @@ export class VideoComponent {
   private router = inject(Router);
 
   public videoNames!: string[];
-
+  displayedColumns: string[] = ['name', 'play'];
   ngOnInit(): void {
     this.loadData();
   }

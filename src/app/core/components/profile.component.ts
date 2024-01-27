@@ -55,21 +55,27 @@ import { UserService } from '../services/user.service';
             <mat-label>lastname</mat-label>
             <input matInput formControlName="lastname" />
           </mat-form-field>
+
+          <div>
+            <button type="button" mat-raised-button (click)="fileInput.click()">
+              Select profile image
+            </button>
+            <input
+              hidden
+              #fileInput
+              type="file"
+              name="file"
+              (change)="onUploadFile($any($event.target).files)"
+            />
+          </div>
         </mat-card-content>
       </mat-card>
     </form>
-    <div>
-      <button type="button" mat-raised-button (click)="fileInput.click()">
-        Choose files
-      </button>
-      <input
-        hidden
-        #fileInput
-        type="file"
-        name="file"
-        (change)="onUploadFile($any($event.target).files)"
-      />
-    </div>
+  `,
+  styles: `
+    button {
+      width: 100%;
+    }
   `,
 })
 export class ProfileComponent {
