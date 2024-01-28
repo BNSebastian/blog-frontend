@@ -15,9 +15,13 @@
 }
 
 .flex-column {
-  flex-direction: column;
+  @include flex-column();
 }
 
 .ephemeral {
   @include hide-at-breakpoint(map-get($screenWidth, minDesktop));
+}
+
+.full-width {
+  width: 100%;
 }

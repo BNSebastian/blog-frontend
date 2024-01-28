@@ -44,17 +44,16 @@ import { NavbarItemComponent } from './navbar-item.component';
   ],
   selector: 'app-navbar',
   template: `
-    <mat-sidenav-container class="sidenav-container">
+    <mat-sidenav-container class="background-secondary">
       <!-- sidenav -->
       <mat-sidenav
         #drawer
-        class="sidenav"
+        class="sidenav background-primary"
         fixedInViewport
         [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
         [mode]="(isHandset$ | async) ? 'push' : 'side'"
         [opened]="(isHandset$ | async) === false"
       >
-        <mat-toolbar>Menu</mat-toolbar>
         <mat-nav-list>
           @if (!userService.isAuthenticated()) { @for (link of publicLinks;
           track $index) {

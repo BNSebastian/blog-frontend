@@ -9,18 +9,13 @@ import { SignupComponent } from '../signup.component';
   imports: [ProfileComponent, MatGridListModule],
   selector: 'app-profile-page',
   template: `
-    <div class="signup-background-container">
-      <mat-grid-list cols="2">
-        <mat-grid-tile class="form">
-          <app-profile></app-profile>
-        </mat-grid-tile>
-        <mat-grid-tile>
-          <div class="text-container">
-            <h1 class="script-small">User</h1>
-            <div class="script-large">Profile</div>
-          </div>
-        </mat-grid-tile>
-      </mat-grid-list>
+    <div class="container-main page-background-home">
+      <div class="container-secondary ephemeral">
+        <h1 class="text-funky">Profile</h1>
+      </div>
+      <div class="container-secondary">
+        <app-profile></app-profile>
+      </div>
     </div>
   `,
 })

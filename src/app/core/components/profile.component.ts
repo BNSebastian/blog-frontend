@@ -36,9 +36,9 @@ import { UserService } from '../services/user.service';
   template: `
     <form [formGroup]="registerForm" class="form">
       <mat-card>
-        <mat-card-header>
+        <!-- <mat-card-header>
           <mat-card-title><strong>Your account</strong></mat-card-title>
-        </mat-card-header>
+        </mat-card-header> -->
 
         <mat-card-content>
           <mat-form-field class="full-width" floatLabel="always">

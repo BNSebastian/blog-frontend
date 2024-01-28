@@ -8,18 +8,13 @@ import { SignupComponent } from '../signup.component';
   imports: [SignupComponent, MatGridListModule],
   selector: 'app-login-page',
   template: `
-    <div class="signup-background-container">
-      <mat-grid-list cols="2">
-        <mat-grid-tile class="form">
-          <app-signup></app-signup>
-        </mat-grid-tile>
-        <mat-grid-tile>
-          <div class="text-container">
-            <h1 class="script-small">Register a new user</h1>
-            <div class="script-large">Welcome to the fold</div>
-          </div>
-        </mat-grid-tile>
-      </mat-grid-list>
+    <div class="container-main page-background-home">
+      <div class="container-secondary">
+        <app-signup></app-signup>
+      </div>
+      <div class="container-secondary ephemeral">
+        <h1 class="text-funky">Sign up</h1>
+      </div>
     </div>
   `,
 })

@@ -22,6 +22,14 @@
     20px 20px 0px #017e7f;
 }
 
+.text-funky {
+  font-family: "Rubik Doodle Shadow";
+  font-size: 6rem;
+  font-weight: 900;
+  line-height: 0.8em;
+  color: map-get($map: $themeColor, $key: secondary);
+}
+
 .header {
   font-family: "Playfair Display", cursive;
   color: map-get($map: $themeColor, $key: secondary);

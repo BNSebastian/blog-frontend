@@ -8,18 +8,13 @@ import { LoginComponent } from '../login.component';
   imports: [LoginComponent, MatGridListModule],
   selector: 'app-login-page',
   template: `
-    <div class="login-background-container">
-      <mat-grid-list cols="2">
-        <mat-grid-tile>
-          <div class="text-container">
-            <h1 class="script-small">Log in</h1>
-            <div class="script-large">Welcome back</div>
-          </div>
-        </mat-grid-tile>
-        <mat-grid-tile>
-          <app-login></app-login>
-        </mat-grid-tile>
-      </mat-grid-list>
+    <div class="container-main page-background-home">
+      <div class="container-secondary ephemeral">
+        <h1 class="text-funky">Log in</h1>
+      </div>
+      <div class="container-secondary">
+        <app-login></app-login>
+      </div>
     </div>
   `,
 })

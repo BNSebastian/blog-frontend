@@ -52,68 +52,66 @@ import { ForumPostComponent } from './forum-post.component';
     }
   `,
   template: `
-    <div class="container">
-      <div class="create">
+    <div class="container-main bg-page-chat">
+      <div class="container-secondary flex-column">
         <app-forum-post-form
+          class="full-width"
           submitLabel="Create"
           [hasCancelButton]="true"
           (handleSubmit)="createPost($event)"
         ></app-forum-post-form>
+        @for (post of posts; track $index) { @if (post.pinned) {
+        <div class="full-width" (click)="goToPost(post.id)">
+          <mat-card class="full-width">
+            <mat-card-header>
+              <mat-card-title>{{ post.name }}</mat-card-title>
+              <mat-card-subtitle
+                >Created by {{ post.userEmail }} on:
+                {{ post.createdOn }}</mat-card-subtitle
+              ></mat-card-header
+            >
+            <mat-card-actions align="end">
+              <div class="pin-post">
+                <button mat-icon-button (click)="pinPost($event, post.id)">
+                  <mat-icon>bookmark_remove</mat-icon>
+                </button>
+              </div>
+              <div class="view-count">
+                <button mat-icon-button>
+                  <mat-icon>visibility</mat-icon>
+                </button>
+                <span>{{ post.viewerCount }}</span>
+              </div>
+            </mat-card-actions>
+          </mat-card>
+        </div>
+        }} @for (post of posts; track $index) { @if (!post.pinned) {
+        <div class="forum-post" (click)="goToPost(post.id)">
+          <mat-card>
+            <mat-card-header>
+              <mat-card-title>{{ post.name }}</mat-card-title>
+              <mat-card-subtitle
+                >Created by {{ post.userEmail }} on:
+                {{ post.createdOn }}</mat-card-subtitle
+              ></mat-card-header
+            >
+            <mat-card-actions align="end">
+              <div class="pin-post">
+                <button mat-icon-button (click)="pinPost($event, post.id)">
+                  <mat-icon>bookmark_add</mat-icon>
+                </button>
+              </div>
+              <div class="view-count">
+                <button mat-icon-button>
+                  <mat-icon>visibility</mat-icon>
+                </button>
+                <span>{{ post.viewerCount }}</span>
+              </div>
+            </mat-card-actions>
+          </mat-card>
+        </div>
+        } }
       </div>
-      <h3>Pinned posts</h3>
-      @for (post of posts; track $index) { @if (post.pinned) {
-      <div class="forum-post" (click)="goToPost(post.id)">
-        <mat-card>
-          <mat-card-header>
-            <mat-card-title>{{ post.name }}</mat-card-title>
-            <mat-card-subtitle
-              >Created by {{ post.userEmail }} on:
-              {{ post.createdOn }}</mat-card-subtitle
-            ></mat-card-header
-          >
-          <mat-card-actions align="end">
-            <div class="pin-post">
-              <button mat-icon-button (click)="pinPost($event, post.id)">
-                <mat-icon>bookmark_remove</mat-icon>
-              </button>
-            </div>
-            <div class="view-count">
-              <button mat-icon-button>
-                <mat-icon>visibility</mat-icon>
-              </button>
-              <span>{{ post.viewerCount }}</span>
-            </div>
-          </mat-card-actions>
-        </mat-card>
-      </div>
-      }}
-      <h3>Unpinned posts</h3>
-      @for (post of posts; track $index) { @if (!post.pinned) {
-      <div class="forum-post" (click)="goToPost(post.id)">
-        <mat-card>
-          <mat-card-header>
-            <mat-card-title>{{ post.name }}</mat-card-title>
-            <mat-card-subtitle
-              >Created by {{ post.userEmail }} on:
-              {{ post.createdOn }}</mat-card-subtitle
-            ></mat-card-header
-          >
-          <mat-card-actions align="end">
-            <div class="pin-post">
-              <button mat-icon-button (click)="pinPost($event, post.id)">
-                <mat-icon>bookmark_add</mat-icon>
-              </button>
-            </div>
-            <div class="view-count">
-              <button mat-icon-button>
-                <mat-icon>visibility</mat-icon>
-              </button>
-              <span>{{ post.viewerCount }}</span>
-            </div>
-          </mat-card-actions>
-        </mat-card>
-      </div>
-      } }
     </div>
   `,
 })

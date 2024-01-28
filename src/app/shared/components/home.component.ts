@@ -13,7 +13,7 @@ import { FRONTEND } from '../environments/frontend';
   template: `
     <div class="container-main page-background-home">
       <div class="container-secondary flex-column ephemeral ">
-        <h1 class="layered-text">Freevoice</h1>
+        <h1 class="text-funky">Freevoice</h1>
       </div>
       <div class="container-secondary flex-column">
         <mat-accordion class="accordion">
@@ -47,7 +47,7 @@ import { FRONTEND } from '../environments/frontend';
           (click)="donate()"
           class="button-full-width"
         >
-          Donate
+          Tip jar
         </button>
         }
       </div>

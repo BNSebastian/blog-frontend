@@ -30,14 +30,14 @@ import { PaypalService } from '../../services/paypal.service';
     ReactiveFormsModule,
   ],
   template: `
-    <div class="container">
+    <div class="container-main page-background-home">
       <form [formGroup]="loginForm" novalidate (ngSubmit)="initiatePayment()">
         <mat-card>
           <mat-card-header>
-            <mat-card-title><strong>Donate</strong></mat-card-title>
+            <mat-card-title><strong>Tip jar</strong></mat-card-title>
           </mat-card-header>
 
-          <mat-card-content>
+          <mat-card-content class="flex-column">
             <mat-form-field class="full-width" floatLabel="always">
               <mat-label>price</mat-label>
               <input matInput formControlName="price" />
@@ -57,12 +57,12 @@ import { PaypalService } from '../../services/paypal.service';
           <mat-card-actions>
             <button
               mat-raised-button
-              class="form-button"
+              class="button-full-width"
               color="primary"
               type="submit"
               [disabled]="loginForm.invalid"
             >
-              Login
+              Thank you
             </button>
           </mat-card-actions>
         </mat-card>

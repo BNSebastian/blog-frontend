@@ -40,7 +40,7 @@ import { AuthService } from '../services/auth.service';
     >
       <mat-card>
         <mat-card-header>
-          <mat-card-title><strong>Your account</strong></mat-card-title>
+          <mat-card-title><strong>Profile info</strong></mat-card-title>
         </mat-card-header>
 
         <mat-card-content>
