@@ -1,10 +1,37 @@
-@import "app/shared/styles/environments.scss";
-
 .container {
-  @include backgroundImage();
   display: flex;
-  height: 100vh;
+  flex-direction: column;
+  justify-content: center;
   align-items: center;
+  height: 100vh;
+  position: relative;
+  background-image: url("https://images.pexels.com/photos/12597237/pexels-photo-12597237.jpeg");
+  background-size: cover;
+  background-position: center;
+
+  .text-container {
+    position: relative;
+    z-index: 2;
+    padding-left: 12%;
+    padding-right: 12%;
+    flex-direction: column;
+    font-family: "Rubik Doodle Shadow";
+    color: white;
+
+    .script-small {
+      font-size: 1.8em;
+      font-style: italic;
+      font-weight: 300;
+      margin-bottom: 0.3em;
+    }
+
+    .script-large {
+      text-transform: uppercase;
+      font-size: 6.75em;
+      font-weight: 900;
+      line-height: 0.8em;
+    }
+  }
 }
 
 .logo-container {
@@ -14,12 +41,21 @@
   flex-direction: column;
   width: 100%;
 }
+
 .content-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
   width: 100%;
 }
+
 .example-accordion {
   display: block;
+  margin-top: 2rem;
+  width: 100%;
   max-width: 500px;
+  background-color: #eee;
 }
 
 .example-accordion-item {
@@ -41,7 +77,9 @@
   font-size: 0.85em;
   color: #999;
 }
-
+.example-accordion-item-body {
+  background-color: rgb(83, 83, 209);
+}
 .example-accordion-item-header,
 .example-accordion-item-body {
   padding: 16px;
@@ -65,4 +103,5 @@
 button {
   width: 100%;
   max-width: 500px;
+  margin-top: 1rem;
 }

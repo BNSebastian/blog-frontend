@@ -1,18 +1,23 @@
+import { map, Observable, shareReplay } from 'rxjs';
+
 import { CdkAccordionModule } from '@angular/cdk/accordion';
+import { BreakpointObserver } from '@angular/cdk/layout';
 import { Component, inject } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { Router } from '@angular/router';
 
+import { AuthService } from '../../core/services/auth.service';
+import { UserService } from '../../core/services/user.service';
 import { FRONTEND, frontendUrl } from '../environments/frontend';
 
 @Component({
   selector: 'app-home',
   template: `
     <div class="container">
-      <div class="logo-container">
-        <h1 class="script-small">Freevoice</h1>
-        <div class="script-large">is a community of like-minded people</div>
+      <div class="text-container">
+        <h1 class="script-small">is a community of like-minded people</h1>
+        <div class="script-large">Freevoice</div>
       </div>
       <div class="content-container">
         <cdk-accordion class="example-accordion">
@@ -47,9 +52,11 @@ import { FRONTEND, frontendUrl } from '../environments/frontend';
           </cdk-accordion-item>
           }
         </cdk-accordion>
+        @if (userService.isAuthenticated()) {
         <button mat-raised-button color="primary" (click)="donate()">
           Donate
         </button>
+        }
       </div>
     </div>
   `,
@@ -59,6 +66,15 @@ import { FRONTEND, frontendUrl } from '../environments/frontend';
 })
 export class HomeComponent {
   private router = inject(Router);
+  public userService = inject(AuthService);
+
+  private breakpointObserver = inject(BreakpointObserver);
+  isHandset$: Observable<boolean> = this.breakpointObserver
+    .observe('(max-width: 599px)')
+    .pipe(
+      map((result) => result.matches),
+      shareReplay()
+    );
 
   items = ['About us', 'Guidelines'];
   content = [
