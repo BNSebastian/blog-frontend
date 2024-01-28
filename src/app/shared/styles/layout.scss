@@ -1,14 +1,15 @@
 @import "./variables.scss";
 @import "./mixins.scss";
 
-.main-container {
+.container-main {
   @include flex();
   height: 100vh;
 }
 
 .container-secondary {
   @include flex();
-  width: 50%;
+  @include width(map-get($screenWidth, minDesktop));
+  max-width: map-get($map: $screenWidth, $key: maxTablet);
   border-radius: 0.5rem;
   margin: 1rem;
 }
@@ -18,5 +19,5 @@
 }
 
 .ephemeral {
-  @include hide-at-breakpoint(map-get($screenWidth, maxTablet));
+  @include hide-at-breakpoint(map-get($screenWidth, minDesktop));
 }

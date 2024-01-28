@@ -1,52 +1,45 @@
-import { map, Observable, shareReplay } from 'rxjs';
-
-import { CdkAccordionModule } from '@angular/cdk/accordion';
-import { BreakpointObserver } from '@angular/cdk/layout';
 import { Component, inject } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
+import { MatExpansionModule } from '@angular/material/expansion';
 import { MatGridListModule } from '@angular/material/grid-list';
+import { MatIconModule } from '@angular/material/icon';
 import { Router } from '@angular/router';
 
 import { AuthService } from '../../core/services/auth.service';
-import { UserService } from '../../core/services/user.service';
-import { FRONTEND, frontendUrl } from '../environments/frontend';
+import { FRONTEND } from '../environments/frontend';
 
 @Component({
   selector: 'app-home',
   template: `
-    <div class="main-container page-background-home">
+    <div class="container-main page-background-home">
       <div class="container-secondary flex-column ephemeral ">
-        <div class="layered-text-small">welcome to</div>
-        <div class="layered-text">Freevoice</div>
+        <h1 class="layered-text">Freevoice</h1>
       </div>
-      <div class="container-secondary background-secondary flex-column">
-        <cdk-accordion class="accordion">
-          @for (item of items; track item; let index = $index) {
-          <cdk-accordion-item
-            #accordionItem="cdkAccordionItem"
-            role="button"
-            tabindex="0"
-            [attr.id]="'accordion-header-' + index"
-            [attr.aria-expanded]="accordionItem.expanded"
-            [attr.aria-controls]="'accordion-body-' + index"
+      <div class="container-secondary flex-column">
+        <mat-accordion class="accordion">
+          <mat-expansion-panel hideToggle>
+            <mat-expansion-panel-header>
+              <mat-panel-title> About us </mat-panel-title>
+              <mat-panel-description>
+                <mat-icon>account_circle</mat-icon>
+              </mat-panel-description>
+            </mat-expansion-panel-header>
+            <p>We're a tight knit community looking for some answers.</p>
+          </mat-expansion-panel>
+          <mat-expansion-panel
+            (opened)="panelOpenState = true"
+            (closed)="panelOpenState = false"
           >
-            <div (click)="accordionItem.toggle()">
-              {{ item }}
-              <span>
-                Click to {{ accordionItem.expanded ? 'close' : 'open' }}
-              </span>
-            </div>
-            <div
-              role="region"
-              [style.display]="accordionItem.expanded ? '' : 'none'"
-              [attr.id]="'accordion-body-' + index"
-              [attr.aria-labelledby]="'accordion-header-' + index"
-            >
-              {{ content[index] }}
-            </div>
-          </cdk-accordion-item>
-          }
-        </cdk-accordion>
+            <mat-expansion-panel-header>
+              <mat-panel-title> Code of conduct </mat-panel-title>
+              <mat-panel-description>
+                <mat-icon>account_circle</mat-icon>
+              </mat-panel-description>
+            </mat-expansion-panel-header>
+            <p>Behave like a decent human being</p>
+          </mat-expansion-panel>
+        </mat-accordion>
+
         @if (userService.isAuthenticated()) {
         <button
           mat-raised-button
@@ -61,27 +54,17 @@ import { FRONTEND, frontendUrl } from '../environments/frontend';
     </div>
   `,
   standalone: true,
-  imports: [MatGridListModule, CdkAccordionModule, MatButtonModule],
+  imports: [
+    MatGridListModule,
+    MatButtonModule,
+    MatExpansionModule,
+    MatIconModule,
+  ],
 })
 export class HomeComponent {
-  private router = inject(Router);
+  public panelOpenState = false;
   public userService = inject(AuthService);
-
-  private breakpointObserver = inject(BreakpointObserver);
-  isHandset$: Observable<boolean> = this.breakpointObserver
-    .observe('(max-width: 599px)')
-    .pipe(
-      map((result) => result.matches),
-      shareReplay()
-    );
-
-  items = ['About us', 'Guidelines'];
-  content = [
-    'Freevoice is a community where we debate reality',
-    'Be kind to others',
-  ];
-  expandedIndex = 0;
-
+  private router = inject(Router);
   donate() {
     this.router.navigate([FRONTEND.getDonatePage()]);
   }

@@ -6,9 +6,21 @@
   justify-content: center;
 }
 
+@mixin flex-end() {
+  display: flex;
+  justify-content: end;
+}
+
 @mixin hide-at-breakpoint($width) {
   @media (max-width: $width) {
     display: none;
+  }
+}
+
+@mixin width($screenWidth) {
+  width: 50%;
+  @media (max-width: $screenWidth) {
+    width: 100%;
   }
 }
 
@@ -24,5 +36,6 @@
   box-shadow: 2px 2px 10px rgba(0, 0, 0, $blur);
 }
 
-@mixin layered-text() {
+@mixin text-shadow($color, $intensity) {
+  text-shadow: 1px 1px $intensity $color; /* Adjust the values as needed */
 }

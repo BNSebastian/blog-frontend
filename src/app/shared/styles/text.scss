@@ -21,3 +21,9 @@
   text-shadow: 5px 5px 0px #eb452b, 10px 10px 0px #efa032, 15px 15px 0px #46b59b,
     20px 20px 0px #017e7f;
 }
+
+.header {
+  font-family: "Playfair Display", cursive;
+  color: map-get($map: $themeColor, $key: secondary);
+  @include text-shadow(map-get($themeColor, tertiary), 2rem);
+}
