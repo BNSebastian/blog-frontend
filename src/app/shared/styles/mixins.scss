@@ -1,0 +1,7 @@
+@import "app/shared/styles/variables.scss";
+
+@mixin flexRow() {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
