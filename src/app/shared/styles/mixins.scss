@@ -1,7 +1,28 @@
-@import "app/shared/styles/variables.scss";
+@import "./variables.scss";
 
-@mixin flexRow() {
+@mixin flex() {
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+@mixin hide-at-breakpoint($width) {
+  @media (max-width: $width) {
+    display: none;
+  }
+}
+
+@mixin set-page-background($url) {
+  background-image: url($url); /* Replace with the path to your image */
+  background-size: cover; /* Cover the entire viewport */
+  background-position: center; /* Center the image */
+  background-repeat: no-repeat; /* Do not repeat the image */
+}
+
+@mixin set-background($color, $transparency: 1, $blur: 0) {
+  background-color: rgba($color, $transparency);
+  box-shadow: 2px 2px 10px rgba(0, 0, 0, $blur);
+}
+
+@mixin layered-text() {
 }

@@ -1,3 +1,22 @@
+@import "./variables.scss";
+@import "./mixins.scss";
+
 .main-container {
-  display: flex;
+  @include flex();
+  height: 100vh;
+}
+
+.container-secondary {
+  @include flex();
+  width: 50%;
+  border-radius: 0.5rem;
+  margin: 1rem;
+}
+
+.flex-column {
+  flex-direction: column;
+}
+
+.ephemeral {
+  @include hide-at-breakpoint(map-get($screenWidth, maxTablet));
 }

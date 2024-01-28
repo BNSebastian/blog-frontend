@@ -14,34 +14,29 @@ import { FRONTEND, frontendUrl } from '../environments/frontend';
 @Component({
   selector: 'app-home',
   template: `
-    <div class="container">
-      <div class="text-container">
-        <h1 class="script-small">is a community of like-minded people</h1>
-        <div class="script-large">Freevoice</div>
+    <div class="main-container page-background-home">
+      <div class="container-secondary flex-column ephemeral ">
+        <div class="layered-text-small">welcome to</div>
+        <div class="layered-text">Freevoice</div>
       </div>
-      <div class="content-container">
-        <cdk-accordion class="example-accordion">
+      <div class="container-secondary background-secondary flex-column">
+        <cdk-accordion class="accordion">
           @for (item of items; track item; let index = $index) {
           <cdk-accordion-item
             #accordionItem="cdkAccordionItem"
-            class="example-accordion-item"
             role="button"
             tabindex="0"
             [attr.id]="'accordion-header-' + index"
             [attr.aria-expanded]="accordionItem.expanded"
             [attr.aria-controls]="'accordion-body-' + index"
           >
-            <div
-              class="example-accordion-item-header"
-              (click)="accordionItem.toggle()"
-            >
+            <div (click)="accordionItem.toggle()">
               {{ item }}
-              <span class="example-accordion-item-description">
+              <span>
                 Click to {{ accordionItem.expanded ? 'close' : 'open' }}
               </span>
             </div>
             <div
-              class="example-accordion-item-body"
               role="region"
               [style.display]="accordionItem.expanded ? '' : 'none'"
               [attr.id]="'accordion-body-' + index"
@@ -53,14 +48,18 @@ import { FRONTEND, frontendUrl } from '../environments/frontend';
           }
         </cdk-accordion>
         @if (userService.isAuthenticated()) {
-        <button mat-raised-button color="primary" (click)="donate()">
+        <button
+          mat-raised-button
+          color="primary"
+          (click)="donate()"
+          class="button-full-width"
+        >
           Donate
         </button>
         }
       </div>
     </div>
   `,
-  styleUrl: './home.component.scss',
   standalone: true,
   imports: [MatGridListModule, CdkAccordionModule, MatButtonModule],
 })

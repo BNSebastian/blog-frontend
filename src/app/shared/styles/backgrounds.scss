@@ -1,0 +1,10 @@
+@import "./variables.scss";
+@import "./mixins.scss";
+
+.page-background-home {
+  @include set-page-background(map-get($backgrounds, homePage));
+}
+
+.background-secondary {
+  @include set-background(map-get($themeColor, secondary), 0.6, 0.5);
+}
