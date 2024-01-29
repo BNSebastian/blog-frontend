@@ -38,49 +38,51 @@ import { VideoPlayerComponent } from './video-player.component';
     }
   `,
   template: `
-    <div class="container">
-      <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
-        <ng-container matColumnDef="name">
-          <th mat-header-cell *matHeaderCellDef>Name</th>
-          <td mat-cell *matCellDef="let row">{{ row.name }}</td>
-        </ng-container>
+    <div class="container-main bg-page-admin">
+      <div class="width-70">
+        <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+          <ng-container matColumnDef="name">
+            <th mat-header-cell *matHeaderCellDef>Name</th>
+            <td mat-cell *matCellDef="let row">{{ row.name }}</td>
+          </ng-container>
 
-        <ng-container matColumnDef="description">
-          <th mat-header-cell *matHeaderCellDef>Description</th>
-          <td mat-cell *matCellDef="let row" class="text-center">
-            {{ row.description }}
-          </td>
-        </ng-container>
+          <ng-container matColumnDef="description">
+            <th mat-header-cell *matHeaderCellDef>Description</th>
+            <td mat-cell *matCellDef="let row" class="text-center">
+              {{ row.description }}
+            </td>
+          </ng-container>
 
-        <ng-container matColumnDef="edit" class="button">
-          <th mat-header-cell *matHeaderCellDef>Edit</th>
-          <td mat-cell *matCellDef="let row">
-            <button
-              (click)="editVideo(row.name)"
-              mat-icon-button
-              color="primary"
-            >
-              <mat-icon>edit</mat-icon>
-            </button>
-          </td>
-        </ng-container>
+          <ng-container matColumnDef="edit" class="button">
+            <th mat-header-cell *matHeaderCellDef>Edit</th>
+            <td mat-cell *matCellDef="let row">
+              <button
+                (click)="editVideo(row.name)"
+                mat-icon-button
+                color="primary"
+              >
+                <mat-icon>edit</mat-icon>
+              </button>
+            </td>
+          </ng-container>
 
-        <ng-container matColumnDef="delete" class="button">
-          <th mat-header-cell *matHeaderCellDef>Delete</th>
-          <td mat-cell *matCellDef="let row">
-            <button
-              (click)="deleteVideo(row.name)"
-              color="warn"
-              mat-icon-button
-            >
-              <mat-icon>delete</mat-icon>
-            </button>
-          </td>
-        </ng-container>
+          <ng-container matColumnDef="delete" class="button">
+            <th mat-header-cell *matHeaderCellDef>Delete</th>
+            <td mat-cell *matCellDef="let row">
+              <button
+                (click)="deleteVideo(row.name)"
+                color="warn"
+                mat-icon-button
+              >
+                <mat-icon>delete</mat-icon>
+              </button>
+            </td>
+          </ng-container>
 
-        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-        <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
-      </table>
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+        </table>
+      </div>
     </div>
   `,
 })

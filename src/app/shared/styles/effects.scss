@@ -1,0 +1,12 @@
+@import "./variables.scss";
+@import "./mixins.scss";
+
+.hover {
+  :hover {
+    cursor: pointer;
+  }
+}
+
+.margin-auto {
+  margin: auto;
+}

@@ -25,3 +25,23 @@
 .full-width {
   width: 100%;
 }
+
+.width-50 {
+  @include set-width(50%, 100%, map-get($screenWidth, minDesktop));
+}
+
+.width-60 {
+  @include set-width(60%, 100%, map-get($screenWidth, minDesktop));
+}
+
+.width-70 {
+  @include set-width(70%, 100%, map-get($screenWidth, minDesktop));
+}
+
+.width-100 {
+  width: 100%;
+}
+
+.margin-top {
+  margin-top: 1rem;
+}

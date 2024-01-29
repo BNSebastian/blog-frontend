@@ -45,7 +45,7 @@ import { VideoService } from '../../services/video.service';
   }
   `,
   template: `
-    <div class="container">
+    <div class="container bg-page-admin">
       @if (!isLoading) {
       <form [formGroup]="formData" class="form">
         <mat-card>

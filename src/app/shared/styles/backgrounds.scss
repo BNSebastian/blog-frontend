@@ -9,6 +9,10 @@
   @include set-page-background(map-get($backgrounds, chat));
 }
 
+.bg-page-admin {
+  @include set-page-background(map-get($backgrounds, admin));
+}
+
 .background-secondary {
   @include set-background(map-get($themeColor, secondary), 0.6, 0.5);
 }

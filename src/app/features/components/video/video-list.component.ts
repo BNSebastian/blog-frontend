@@ -29,29 +29,31 @@ import { VideoPlayerComponent } from './video-player.component';
     `,
   ],
   template: `
-    <div class="container">
-      <table mat-table [dataSource]="videoNames" class="mat-elevation-z8">
-        <ng-container matColumnDef="name">
-          <th mat-header-cell *matHeaderCellDef>Name</th>
-          <td mat-cell *matCellDef="let element">{{ element }}</td>
-        </ng-container>
+    <div class="container-main bg-page-chat">
+      <div class="width-70">
+        <table mat-table [dataSource]="videoNames" class="mat-elevation-z8">
+          <ng-container matColumnDef="name">
+            <th mat-header-cell *matHeaderCellDef>Name</th>
+            <td mat-cell *matCellDef="let element">{{ element }}</td>
+          </ng-container>
 
-        <ng-container matColumnDef="play">
-          <th mat-header-cell *matHeaderCellDef>Play</th>
-          <td mat-cell *matCellDef="let element">
-            <button
-              (click)="playVideo(element)"
-              mat-raised-button
-              color="primary"
-            >
-              Play video
-            </button>
-          </td>
-        </ng-container>
+          <ng-container matColumnDef="play">
+            <th mat-header-cell *matHeaderCellDef>Play</th>
+            <td mat-cell *matCellDef="let element">
+              <button
+                (click)="playVideo(element)"
+                mat-raised-button
+                color="primary"
+              >
+                Play video
+              </button>
+            </td>
+          </ng-container>
 
-        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-        <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
-      </table>
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+        </table>
+      </div>
     </div>
   `,
 })

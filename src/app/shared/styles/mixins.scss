@@ -31,11 +31,19 @@
   }
 }
 
+@mixin set-width($bigScreen, $smallScreen, $breakpoint) {
+  width: $bigScreen;
+  @media (max-width: $breakpoint) {
+    width: $smallScreen;
+  }
+}
+
 @mixin set-page-background($url) {
   background-image: url($url); /* Replace with the path to your image */
   background-size: cover; /* Cover the entire viewport */
   background-position: center; /* Center the image */
   background-repeat: no-repeat; /* Do not repeat the image */
+  background-attachment: fixed; /* Keep the background fixed */
 }
 
 @mixin set-background($color, $transparency: 1, $blur: 0) {

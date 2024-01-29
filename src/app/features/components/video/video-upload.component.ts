@@ -41,7 +41,7 @@ import { VideoService } from '../../services/video.service';
     }
   `,
   template: `<!-- start of HTML -->
-    <div class="container">
+    <div class="container bg-page-admin">
       <mat-card class="card">
         <mat-card-header>
           <mat-card-title>Upload videos</mat-card-title>

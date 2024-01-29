@@ -15,31 +15,25 @@ import { CommentsComponent } from './video-comments.component';
       display: flex;
       justify-content: center;
       align-items: center;
-      background-color: black;
 
       .videoplayer {
         margin: 1rem;
         border-radius: 1rem;
+        max-width: 100%;
       }
     }
-    .description {
-      width: 50vw;
-      margin-top: 1rem;
-      margin-left: auto;
-      margin-right: auto;
-    }
   `,
-  template: `<div class="video-container">
-      <video class="videoplayer" controls>
-        <source src="{{ videoUrl }}" type="video/mp4" />
-      </video>
-    </div>
-
-    <mat-card class="description">
+  template: `<div class="bg-page-chat">
+    <div class="width-70 margin-auto">
+      <div class="video-container">
+        <video class="videoplayer" controls>
+          <source src="{{ videoUrl }}" type="video/mp4" />
+        </video>
+      </div>
       <mat-card-content>{{ videoDescription }}</mat-card-content>
-    </mat-card>
-
-    <app-comments [videoName]="videoName"></app-comments> `,
+      <app-comments [videoName]="videoName"></app-comments>
+    </div>
+  </div>`,
 })
 export class VideoPlayerComponent {
   /** SERVICES

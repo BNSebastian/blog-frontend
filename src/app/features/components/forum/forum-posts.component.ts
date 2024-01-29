@@ -61,8 +61,8 @@ import { ForumPostComponent } from './forum-post.component';
           (handleSubmit)="createPost($event)"
         ></app-forum-post-form>
         @for (post of posts; track $index) { @if (post.pinned) {
-        <div class="full-width" (click)="goToPost(post.id)">
-          <mat-card class="full-width">
+        <div class="full-width hover margin-top " (click)="goToPost(post.id)">
+          <mat-card>
             <mat-card-header>
               <mat-card-title>{{ post.name }}</mat-card-title>
               <mat-card-subtitle
@@ -86,7 +86,7 @@ import { ForumPostComponent } from './forum-post.component';
           </mat-card>
         </div>
         }} @for (post of posts; track $index) { @if (!post.pinned) {
-        <div class="forum-post" (click)="goToPost(post.id)">
+        <div class="full-width hover margin-top" (click)="goToPost(post.id)">
           <mat-card>
             <mat-card-header>
               <mat-card-title>{{ post.name }}</mat-card-title>
@@ -151,9 +151,4 @@ export class ForumPostsComponent {
       this.loadData();
     });
   }
-  // getPostViews(postId: number) {
-  //   this.postService.getPostViewCount(postId).subscribe((response) => {
-  //     return response;
-  //   });
-  // }
 }
