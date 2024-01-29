@@ -4,6 +4,7 @@ import { MatCardModule } from '@angular/material/card';
 import { MatTableModule } from '@angular/material/table';
 import { Router } from '@angular/router';
 
+import { BACKEND } from '../../../shared/environments/backend';
 import { FRONTEND, frontendUrl } from '../../../shared/environments/frontend';
 import { VideoService } from '../../services/video.service';
 import { VideoPlayerComponent } from './video-player.component';
@@ -31,7 +32,7 @@ import { VideoPlayerComponent } from './video-player.component';
   template: `
     <div class="container-main bg-page-chat">
       <div class="width-70">
-        <table mat-table [dataSource]="videoNames" class="mat-elevation-z8">
+        <!-- <table mat-table [dataSource]="videoNames" class="mat-elevation-z8">
           <ng-container matColumnDef="name">
             <th mat-header-cell *matHeaderCellDef>Name</th>
             <td mat-cell *matCellDef="let element">{{ element }}</td>
@@ -52,7 +53,20 @@ import { VideoPlayerComponent } from './video-player.component';
 
           <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
           <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
-        </table>
+        </table> -->
+        @for (item of videoNames; track $index) {
+        <mat-card class="width-50" (click)="playVideo(item)">
+          <mat-card-header>
+            <mat-card-title>{{ item }}</mat-card-title>
+          </mat-card-header>
+          <mat-card-content>
+            <video
+              style="max-width: 400px"
+              [src]="getVideoSource(item)"
+            ></video>
+          </mat-card-content>
+        </mat-card>
+        }
       </div>
     </div>
   `,
@@ -71,6 +85,11 @@ export class VideoComponent {
     this.videoService.getAllVideoNames().subscribe((apiData: string[]) => {
       this.videoNames = apiData;
     });
+  }
+
+  getVideoSource(name: string) {
+    console.log(BACKEND.playVideo(name));
+    return BACKEND.playVideo(name);
   }
 
   playVideo(name: string) {
