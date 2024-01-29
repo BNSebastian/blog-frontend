@@ -11,17 +11,17 @@ import { FRONTEND } from '../environments/frontend';
 @Component({
   selector: 'app-home',
   template: `
-    <div class="container-main page-background-home">
-      <div class="container-secondary flex-column ephemeral ">
-        <h1 class="text-funky">Freevoice</h1>
+    <div class="container-primary flex-row-dynamic flex-center bg-page-home ">
+      <div class="width-70">
+        <h1 class="text-funky text-center">Freevoice</h1>
       </div>
-      <div class="container-secondary flex-column">
-        <mat-accordion class="accordion">
+      <div class="margin-md width-30">
+        <mat-accordion>
           <mat-expansion-panel hideToggle>
             <mat-expansion-panel-header>
               <mat-panel-title> About us </mat-panel-title>
-              <mat-panel-description>
-                <mat-icon>account_circle</mat-icon>
+              <mat-panel-description class="flex-row flex-end">
+                <mat-icon>info</mat-icon>
               </mat-panel-description>
             </mat-expansion-panel-header>
             <p>We're a tight knit community looking for some answers.</p>
@@ -32,8 +32,8 @@ import { FRONTEND } from '../environments/frontend';
           >
             <mat-expansion-panel-header>
               <mat-panel-title> Code of conduct </mat-panel-title>
-              <mat-panel-description>
-                <mat-icon>account_circle</mat-icon>
+              <mat-panel-description class="flex-row flex-end">
+                <mat-icon>gavel</mat-icon>
               </mat-panel-description>
             </mat-expansion-panel-header>
             <p>Behave like a decent human being</p>
@@ -45,7 +45,7 @@ import { FRONTEND } from '../environments/frontend';
           mat-raised-button
           color="primary"
           (click)="donate()"
-          class="button-full-width"
+          class="width-100 margin-top-sm"
         >
           Tip jar
         </button>

@@ -1,12 +1,27 @@
+@use "@angular/material" as mat;
+
+@include mat.core();
+
+$my-primary: mat.define-palette(mat.$brown-palette);
+$my-accent: mat.define-palette(mat.$amber-palette);
+
+$my-theme: mat.define-light-theme(
+  (
+    color: (
+      primary: $my-primary,
+      accent: $my-accent,
+    ),
+    typography: mat.define-typography-config(),
+    density: 0,
+  )
+);
+
+@include mat.all-component-themes($my-theme);
+
 @import url("https://fonts.googleapis.com/css2?family=Rubik+Doodle+Shadow&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Playfair+Display:ital@1&display=swap");
-@import "app/shared/styles/layout.scss";
-@import "app/shared/styles/properties/backgrounds.scss";
-@import "app/shared/styles/text.scss";
-@import "app/shared/styles/buttons.scss";
-@import "app/shared/styles/accordions.scss";
-@import "app/shared/styles/navigation.scss";
-@import "app/shared/styles/effects.scss";
+
+@import "app/shared/styles/styles.module.scss";
 
 html,
 body {

@@ -1,0 +1,52 @@
+@import "../variables.scss";
+@import "../mixins.scss";
+
+$primaryColor: map-get(
+  $map: $themeColor,
+  $key: primary,
+);
+
+$secondaryColor: map-get(
+  $map: $themeColor,
+  $key: secondary,
+);
+
+@mixin set-page-background($url) {
+  background-image: url($url); /* Replace with the path to your image */
+  background-size: cover; /* Cover the entire viewport */
+  background-position: center; /* Center the image */
+  background-repeat: no-repeat; /* Do not repeat the image */
+  background-attachment: fixed; /* Keep the background fixed */
+}
+
+@mixin set-background($color, $transparency: 1) {
+  background-color: rgba($color, $transparency);
+}
+
+.bg-page-admin {
+  @include set-page-background(map-get($backgrounds, admin));
+}
+
+.bg-page-home {
+  @include set-page-background(map-get($backgrounds, homePage));
+}
+
+.bg-page-login {
+  @include set-page-background(map-get($backgrounds, login));
+}
+
+.bg-page-chat {
+  @include set-page-background(map-get($backgrounds, chat));
+}
+
+.bg-primary {
+  background-color: $primaryColor;
+}
+
+.bg-secondary {
+  background-color: $secondaryColor;
+}
+
+.bg-secondary-06 {
+  @include set-background($secondaryColor, 0.6);
+}

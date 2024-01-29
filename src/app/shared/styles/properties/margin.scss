@@ -1,0 +1,77 @@
+@import "../variables.scss";
+@import "../mixins.scss";
+
+$margin-sm: map-get(
+  $map: $margin,
+  $key: small,
+);
+
+$margin-md: map-get(
+  $map: $margin,
+  $key: medium,
+);
+
+$margin-lg: map-get(
+  $map: $margin,
+  $key: large,
+);
+
+.margin-sm {
+  margin: $margin-sm;
+}
+
+.margin-md {
+  margin: $margin-md;
+}
+
+.margin-lg {
+  margin: $margin-lg;
+}
+
+.margin-left-sm {
+  margin-left: $margin-sm;
+}
+
+.margin-left-md {
+  margin-left: $margin-md;
+}
+
+.margin-left-lg {
+  margin-left: $margin-lg;
+}
+
+.margin-right-sm {
+  margin-right: $margin-sm;
+}
+
+.margin-right-md {
+  margin-right: $margin-md;
+}
+
+.margin-right-lg {
+  margin-right: $margin-lg;
+}
+
+.margin-top-sm {
+  margin-top: $margin-sm;
+}
+
+.margin-top-md {
+  margin-top: $margin-md;
+}
+
+.margin-top-lg {
+  margin-top: $margin-lg;
+}
+
+.margin-bottom-sm {
+  margin-bottom: $margin-sm;
+}
+
+.margin-bottom-md {
+  margin-bottom: $margin-md;
+}
+
+.margin-bottom-lg {
+  margin-bottom: $margin-lg;
+}

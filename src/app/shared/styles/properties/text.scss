@@ -1,5 +1,5 @@
-@import "./variables.scss";
-@import "./mixins.scss";
+@import "../variables.scss";
+@import "../mixins.scss";
 
 .layered-text {
   font-size: 8rem;
@@ -34,4 +34,8 @@
   font-family: "Playfair Display", cursive;
   color: map-get($map: $themeColor, $key: secondary);
   @include text-shadow(map-get($themeColor, tertiary), 2rem);
+}
+
+.text-center {
+  text-align: center;
 }

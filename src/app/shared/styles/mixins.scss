@@ -1,54 +1,9 @@
 @import "./variables.scss";
 
-@mixin flex() {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-@mixin flex-column() {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-}
-
-@mixin flex-end() {
-  display: flex;
-  justify-content: end;
-}
-
 @mixin hide-at-breakpoint($width) {
   @media (max-width: $width) {
     display: none;
   }
-}
-
-@mixin width($screenWidth) {
-  width: 50%;
-  @media (max-width: $screenWidth) {
-    width: 100%;
-  }
-}
-
-@mixin set-width($bigScreen, $smallScreen, $breakpoint) {
-  width: $bigScreen;
-  @media (max-width: $breakpoint) {
-    width: $smallScreen;
-  }
-}
-
-@mixin set-page-background($url) {
-  background-image: url($url); /* Replace with the path to your image */
-  background-size: cover; /* Cover the entire viewport */
-  background-position: center; /* Center the image */
-  background-repeat: no-repeat; /* Do not repeat the image */
-  background-attachment: fixed; /* Keep the background fixed */
-}
-
-@mixin set-background($color, $transparency: 1, $blur: 0) {
-  background-color: rgba($color, $transparency);
-  box-shadow: 2px 2px 10px rgba(0, 0, 0, $blur);
 }
 
 @mixin text-shadow($color, $intensity) {

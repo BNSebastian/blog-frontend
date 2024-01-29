@@ -37,14 +37,14 @@ import { AuthService } from '../services/auth.service';
         </mat-card-header>
 
         <mat-card-content>
-          <mat-form-field class="full-width" floatLabel="always">
+          <mat-form-field class="width-100" floatLabel="always">
             <mat-label>e-mail</mat-label>
             <input matInput formControlName="email" />
             @if (loginForm.controls['email'].hasError('required')) {
             <mat-error>e-mail address is <strong>required</strong></mat-error>
             }
           </mat-form-field>
-          <mat-form-field class="full-width" floatLabel="always">
+          <mat-form-field class="width-100" floatLabel="always">
             <mat-label>password</mat-label>
             <input
               matInput
@@ -71,7 +71,7 @@ import { AuthService } from '../services/auth.service';
         <mat-card-actions>
           <button
             mat-raised-button
-            class="form-button"
+            class="width-50 margin-right-sm"
             color="primary"
             type="submit"
             [disabled]="loginForm.invalid"
@@ -80,7 +80,7 @@ import { AuthService } from '../services/auth.service';
           </button>
           <button
             mat-raised-button
-            class="form-button"
+            class="width-50"
             color="primary"
             (click)="cancel()"
           >

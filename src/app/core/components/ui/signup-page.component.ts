@@ -8,12 +8,12 @@ import { SignupComponent } from '../signup.component';
   imports: [SignupComponent, MatGridListModule],
   selector: 'app-login-page',
   template: `
-    <div class="container-main page-background-home">
-      <div class="container-secondary">
-        <app-signup></app-signup>
+    <div class="container-primary flex-row-dynamic flex-center bg-page-login">
+      <div class="width-70">
+        <h1 class="text-funky text-center">Sign up</h1>
       </div>
-      <div class="container-secondary ephemeral">
-        <h1 class="text-funky">Sign up</h1>
+      <div class="width-30 margin-md">
+        <app-signup></app-signup>
       </div>
     </div>
   `,

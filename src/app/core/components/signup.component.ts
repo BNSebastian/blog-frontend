@@ -44,7 +44,7 @@ import { AuthService } from '../services/auth.service';
         </mat-card-header>
 
         <mat-card-content>
-          <mat-form-field class="full-width" floatLabel="always">
+          <mat-form-field class="width-100" floatLabel="always">
             <mat-label>e-mail</mat-label>
             <input matInput formControlName="email" />
             @if (registerForm.controls['email'].hasError('required')) {
@@ -52,7 +52,7 @@ import { AuthService } from '../services/auth.service';
             }
           </mat-form-field>
 
-          <mat-form-field class="full-width" floatLabel="always">
+          <mat-form-field class="width-100" floatLabel="always">
             <mat-label>firstname</mat-label>
             <input matInput formControlName="firstname" />
             @if (registerForm.controls['firstname'].hasError('required')) {
@@ -60,7 +60,7 @@ import { AuthService } from '../services/auth.service';
             }
           </mat-form-field>
 
-          <mat-form-field class="full-width" floatLabel="always">
+          <mat-form-field class="width-100" floatLabel="always">
             <mat-label>lastname</mat-label>
             <input matInput formControlName="lastname" />
             @if (registerForm.controls['lastname'].hasError('required')) {
@@ -68,7 +68,7 @@ import { AuthService } from '../services/auth.service';
             }
           </mat-form-field>
 
-          <mat-form-field class="full-width" floatLabel="always">
+          <mat-form-field class="width-100" floatLabel="always">
             <mat-label>password</mat-label>
             <input
               matInput
@@ -95,16 +95,16 @@ import { AuthService } from '../services/auth.service';
         <mat-card-actions>
           <button
             mat-raised-button
-            class="form-button"
+            class="width-50 margin-right-sm"
             color="primary"
             type="submit"
             [disabled]="registerForm.invalid"
           >
-            Signup
+            Sign up
           </button>
           <button
             mat-raised-button
-            class="form-button"
+            class="width-50"
             color="primary"
             (click)="cancel()"
           >

@@ -98,7 +98,7 @@ import { NavbarItemComponent } from './navbar-item.component';
 export class NavbarComponent {
   private breakpointObserver = inject(BreakpointObserver);
   isHandset$: Observable<boolean> = this.breakpointObserver
-    .observe('(max-width: 599px)')
+    .observe('(max-width: 1025px)')
     .pipe(
       map((result) => result.matches),
       shareReplay()

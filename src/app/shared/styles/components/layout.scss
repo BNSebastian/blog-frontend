@@ -1,0 +1,12 @@
+@import "../variables.scss";
+@import "../mixins.scss";
+
+$breakpoint: map-get($screenWidth, minDesktop);
+
+.container-primary {
+  height: 100vh;
+}
+
+.ephemeral {
+  @include hide-at-breakpoint($breakpoint);
+}
