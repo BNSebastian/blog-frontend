@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, ElementRef, inject, Renderer2 } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatTableModule } from '@angular/material/table';
@@ -21,7 +21,7 @@ import { VideoPlayerComponent } from './video-player.component';
   template: `
     <div class="container-primary bg-page-chat">
       <br />
-      <div class="margin-auto flex-row flex-wrap">
+      <div class="flex-row flex-wrap">
         @for (item of videoNames; track $index) {
         <mat-card
           (click)="playVideo(item)"
@@ -30,22 +30,11 @@ import { VideoPlayerComponent } from './video-player.component';
           <mat-card-header>
             <mat-card-title-group>
               <mat-card-title>{{ item }}</mat-card-title>
-              <mat-card-subtitle
-                >Lorem ipsum dolor sit amet consectetur adipisicing elit. Nemo,
-                saepe vitae. Cumque distinctio esse ipsa maxime vitae, soluta
-                ullam consectetur similique. At corrupti exercitationem sint qui
-                id similique est vero! Lorem ipsum dolor sit amet. Lorem ipsum,
-                dolor sit amet consectetur adipisicing elit. Consectetur maxime
-                doloremque cumque soluta ex saepe impedit laborum maiores
-                voluptatibus. Velit minima laudantium optio expedita omnis neque
-                vitae provident blanditiis quisquam.</mat-card-subtitle
-              >
             </mat-card-title-group>
           </mat-card-header>
           <mat-card-content>
             <video
-              class="width-100"
-              style="max-width: 100%"
+              class="width-100 margin-top-sm"
               [src]="getVideoThumbnail(item)"
             ></video>
           </mat-card-content>
@@ -58,7 +47,8 @@ import { VideoPlayerComponent } from './video-player.component';
 export class VideoComponent {
   private videoService = inject(VideoService);
   private router = inject(Router);
-
+  private elementRef = inject(ElementRef);
+  private renderer = inject(Renderer2);
   public videoNames!: string[];
 
   ngOnInit(): void {
@@ -72,7 +62,7 @@ export class VideoComponent {
   }
 
   getVideoThumbnail(name: string) {
-    return BACKEND.playVideo(name) + '#t=3';
+    return BACKEND.playVideo(name);
   }
 
   playVideo(name: string) {

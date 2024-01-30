@@ -20,3 +20,12 @@ $breakpoint: map-get($screenWidth, minDesktop);
 .hidden {
   display: none;
 }
+
+.container-attachment {
+  position: relative;
+}
+
+.attach-bottom {
+  position: absolute;
+  bottom: 0;
+}

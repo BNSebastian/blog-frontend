@@ -17,7 +17,7 @@ import { CommentComponent } from './video-comment.component';
   standalone: true,
   imports: [CommentComponent, CommentFormComponent, MatExpansionModule],
   template: `<!-- start of HTML -->
-    <div class="comments-container">
+    <div class="">
       <div class="create-comment">
         <mat-accordion>
           <mat-expansion-panel>
@@ -34,7 +34,7 @@ import { CommentComponent } from './video-comment.component';
       </div>
 
       <!-- list of comments -->
-      <div class="comments-list">
+      <div class="margin-top-sm">
         @for (entry of comments; track $index) { @if (entry.parentId === null) {
         <app-comment
           [comment]="entry"

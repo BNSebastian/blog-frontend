@@ -32,9 +32,9 @@ import { CommentFormComponent } from './video-comment-form.component';
     MatIconModule,
   ],
   template: ` <!-- start of HTML -->
-    <div class="comment-container">
+    <div class="">
       @if (comment.parentId == null) { }
-      <mat-card>
+      <mat-card class="margin-bottom-sm">
         <mat-card-header>
           <div mat-card-avatar>
             @if (userProfileImage) {
@@ -106,7 +106,7 @@ import { CommentFormComponent } from './video-comment-form.component';
       </mat-card>
 
       @if (isReplying() && comment.parentId === null) {
-      <mat-card class="reply-form">
+      <mat-card class="margin-bottom-sm">
         <mat-card-content>
           <app-comment-form
             submitLabel="reply"
@@ -123,7 +123,7 @@ import { CommentFormComponent } from './video-comment-form.component';
         </mat-card-content>
       </mat-card>
       } @if (isReplying() && comment.parentId !== null) {
-      <mat-card class="reply-form">
+      <mat-card class="margin-bottom-sm">
         <mat-card-content>
           <app-comment-form
             submitLabel="reply"
@@ -140,7 +140,7 @@ import { CommentFormComponent } from './video-comment-form.component';
         </mat-card-content>
       </mat-card>
       } @if (replies.length > 0) { @for (reply of replies; track $index) {
-      <div class="reply">
+      <div class="margin-left-md margin-top-sm">
         <app-comment
           [comment]="reply"
           [replies]="getReplies(reply.id)"

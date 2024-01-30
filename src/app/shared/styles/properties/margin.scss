@@ -21,6 +21,11 @@ $margin-lg: map-get(
   margin-right: auto;
 }
 
+.margin-y-auto {
+  margin-top: auto;
+  margin-bottom: auto;
+}
+
 .margin-sm {
   margin: $margin-sm;
 }

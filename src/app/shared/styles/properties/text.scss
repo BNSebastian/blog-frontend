@@ -39,3 +39,10 @@
 .text-center {
   text-align: center;
 }
+
+.text-overflow {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 250px;
+}

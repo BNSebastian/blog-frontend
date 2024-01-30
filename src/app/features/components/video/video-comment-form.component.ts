@@ -19,20 +19,30 @@ import { MatInputModule } from '@angular/material/input';
     MatInputModule,
   ],
   template: `
-    <form [formGroup]="form" (ngSubmit)="onSubmit()">
-      <textarea class="comment-form-textarea" formControlName="content">
+    <form [formGroup]="form" (ngSubmit)="onSubmit()" class="flex-column">
+      <textarea
+        class="width-100"
+        style="min-height: 100px;"
+        formControlName="content"
+      >
       </textarea>
       <button
         mat-raised-button
         color="primary"
         type="submit"
+        class="width-100"
         [disabled]="form.invalid"
       >
         {{ this.submitLabel }}
       </button>
 
       @if(hasCancelButton) {
-      <button mat-raised-button color="primary" (click)="handleCancel.emit()">
+      <button
+        mat-raised-button
+        color="warn"
+        (click)="handleCancel.emit()"
+        class="width-100"
+      >
         Cancel
       </button>
       }
