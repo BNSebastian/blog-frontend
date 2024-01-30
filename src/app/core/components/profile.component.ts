@@ -34,30 +34,34 @@ import { UserService } from '../services/user.service';
   ],
   selector: 'app-profile',
   template: `
-    <form [formGroup]="registerForm" class="form">
+    <form [formGroup]="registerForm">
       <mat-card>
         <!-- <mat-card-header>
           <mat-card-title><strong>Your account</strong></mat-card-title>
         </mat-card-header> -->
 
         <mat-card-content>
-          <mat-form-field class="full-width" floatLabel="always">
+          <mat-form-field class="width-100" floatLabel="always">
             <mat-label>e-mail</mat-label>
             <input matInput formControlName="email" />
           </mat-form-field>
 
-          <mat-form-field class="full-width" floatLabel="always">
+          <mat-form-field class="width-100" floatLabel="always">
             <mat-label>firstname</mat-label>
             <input matInput formControlName="firstname" />
           </mat-form-field>
 
-          <mat-form-field class="full-width" floatLabel="always">
+          <mat-form-field class="width-100" floatLabel="always">
             <mat-label>lastname</mat-label>
             <input matInput formControlName="lastname" />
           </mat-form-field>
 
           <div>
-            <button type="button" mat-raised-button (click)="fileInput.click()">
+            <button
+              mat-raised-button
+              color="primary"
+              (click)="fileInput.click()"
+            >
               Select profile image
             </button>
             <input

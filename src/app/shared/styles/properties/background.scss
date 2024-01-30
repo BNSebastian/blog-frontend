@@ -35,6 +35,14 @@ $secondaryColor: map-get(
   @include set-page-background(map-get($backgrounds, login));
 }
 
+.bg-page-donate {
+  @include set-page-background(map-get($backgrounds, donate));
+}
+
+.bg-page-profile {
+  @include set-page-background(map-get($backgrounds, "profile"));
+}
+
 .bg-page-chat {
   @include set-page-background(map-get($backgrounds, chat));
 }

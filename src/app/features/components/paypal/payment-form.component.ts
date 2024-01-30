@@ -8,6 +8,7 @@ import {
 } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
+import { MatExpansionModule } from '@angular/material/expansion';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatRadioModule } from '@angular/material/radio';
@@ -21,6 +22,7 @@ import { PaypalService } from '../../services/paypal.service';
   selector: 'app-payment-form',
   standalone: true,
   imports: [
+    MatExpansionModule,
     MatInputModule,
     MatButtonModule,
     MatSelectModule,
@@ -30,43 +32,51 @@ import { PaypalService } from '../../services/paypal.service';
     ReactiveFormsModule,
   ],
   template: `
-    <div class="container-main page-background-home">
-      <form [formGroup]="loginForm" novalidate (ngSubmit)="initiatePayment()">
-        <mat-card>
-          <mat-card-header>
-            <mat-card-title><strong>Tip jar</strong></mat-card-title>
-          </mat-card-header>
-
-          <mat-card-content class="flex-column">
-            <mat-form-field class="full-width" floatLabel="always">
+    <div class="container-primary flex-row-dynamic flex-center bg-page-donate">
+      <div class="width-70">
+        <h1 class="text-funky text-center">Tip jar</h1>
+      </div>
+      <mat-accordion class="width-30 margin-sm">
+        <mat-expansion-panel
+          (opened)="paypalPanelState = true"
+          (closed)="paypalPanelState = false"
+        >
+          <mat-expansion-panel-header>
+            <mat-panel-title> Paypal </mat-panel-title>
+          </mat-expansion-panel-header>
+          <form
+            [formGroup]="loginForm"
+            novalidate
+            (ngSubmit)="initiatePayment()"
+            class="margin-sm"
+          >
+            <mat-form-field class="width-100" floatLabel="always">
               <mat-label>price</mat-label>
               <input matInput formControlName="price" />
             </mat-form-field>
 
-            <mat-form-field class="full-width" floatLabel="always">
+            <mat-form-field class="width-100" floatLabel="always">
               <mat-label>currency</mat-label>
               <input matInput formControlName="currency" />
             </mat-form-field>
 
-            <mat-form-field class="full-width" floatLabel="always">
+            <mat-form-field class="width-100" floatLabel="always">
               <mat-label>description</mat-label>
               <input matInput formControlName="description" />
             </mat-form-field>
-          </mat-card-content>
 
-          <mat-card-actions>
             <button
               mat-raised-button
-              class="button-full-width"
+              class="width-100"
               color="primary"
               type="submit"
               [disabled]="loginForm.invalid"
             >
               Thank you
             </button>
-          </mat-card-actions>
-        </mat-card>
-      </form>
+          </form>
+        </mat-expansion-panel>
+      </mat-accordion>
     </div>
   `,
   styles: `
@@ -129,4 +139,6 @@ export class PaymentForm {
       );
     }
   }
+
+  paypalPanelState = false;
 }

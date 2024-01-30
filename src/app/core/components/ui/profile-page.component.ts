@@ -9,11 +9,11 @@ import { SignupComponent } from '../signup.component';
   imports: [ProfileComponent, MatGridListModule],
   selector: 'app-profile-page',
   template: `
-    <div class="container-main page-background-home">
-      <div class="container-secondary ephemeral">
-        <h1 class="text-funky">Profile</h1>
+    <div class="container-primary flex-row-dynamic flex-center bg-page-profile">
+      <div class="width-70">
+        <h1 class="text-funky text-center">Profile</h1>
       </div>
-      <div class="container-secondary">
+      <div class="width-30 margin-sm">
         <app-profile></app-profile>
       </div>
     </div>
