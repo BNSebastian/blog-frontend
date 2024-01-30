@@ -36,7 +36,7 @@ import { VideoService } from '../../services/video.service';
     ReactiveFormsModule,
   ],
   template: `
-    <div class="container bg-page-admin">
+    <div class="container-primary bg-page-admin flex-row flex-center">
       @if (!isLoading) {
       <form [formGroup]="formData" class="form">
         <mat-card>
@@ -45,19 +45,24 @@ import { VideoService } from '../../services/video.service';
           </mat-card-header>
 
           <mat-card-content>
-            <mat-form-field class="full-width" floatLabel="always">
+            <mat-form-field class="width-100" floatLabel="always">
               <mat-label>name</mat-label>
               <input matInput formControlName="name" />
             </mat-form-field>
 
-            <mat-form-field class="full-width" floatLabel="always">
+            <mat-form-field class="width-100" floatLabel="always">
               <mat-label>description</mat-label>
               <input matInput formControlName="description" />
             </mat-form-field>
           </mat-card-content>
 
           <mat-card-actions>
-            <button (click)="onSubmit()" mat-raised-button color="primary">
+            <button
+              (click)="onSubmit()"
+              mat-raised-button
+              color="primary"
+              class="width-100"
+            >
               Update video
             </button>
           </mat-card-actions>

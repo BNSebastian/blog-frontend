@@ -22,9 +22,9 @@ import { VideoService } from '../../services/video.service';
     NgFor,
   ],
   template: `<!-- start of HTML -->
-    <div class="container bg-page-admin">
-      <mat-card class="card">
-        <mat-card-header>
+    <div class="container-primary bg-page-admin flex-row flex-center">
+      <mat-card class="width-50">
+        <mat-card-header class="margin-bottom-sm">
           <mat-card-title>Upload videos</mat-card-title>
           <mat-card-subtitle
             >Once uploaded, the videos will have the same name as the file
@@ -37,7 +37,12 @@ import { VideoService } from '../../services/video.service';
         </mat-card-header>
 
         <mat-card-content>
-          <button type="button" mat-raised-button (click)="fileInput.click()">
+          <button
+            (click)="fileInput.click()"
+            mat-raised-button
+            color="primary"
+            class="width-100 margin-bottom-sm"
+          >
             Choose files
           </button>
           <input

@@ -23,7 +23,7 @@ import { VideoPlayerComponent } from './video-player.component';
     MatTableModule,
   ],
   template: `
-    <div class="container-main bg-page-admin">
+    <div class="container-primary bg-page-admin flex-row flex-center">
       <div class="width-70">
         <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
           <ng-container matColumnDef="name">

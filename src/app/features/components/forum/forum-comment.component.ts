@@ -14,7 +14,7 @@ import { ForumCommentService } from '../../services/forum-comment.service';
   standalone: true,
   imports: [MatButtonModule, MatCardModule, MatIconModule, MatButtonModule],
   template: `
-    <div class="container">
+    <div class="margin-bottom-sm">
       <mat-card>
         <mat-card-header>
           <div mat-card-avatar>

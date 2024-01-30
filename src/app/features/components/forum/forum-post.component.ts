@@ -24,8 +24,10 @@ import { ForumCommentComponent } from './forum-comment.component';
     ForumCommentFormComponent,
   ],
   template: `
-    <div class="container">
-      <div class="create">
+    <div class="container-primary bg-page-chat">
+      <br />
+      <!-- create post form -->
+      <div class="width-70 margin-auto margin-bottom-sm">
         <mat-accordion #accordion>
           <mat-expansion-panel>
             <mat-expansion-panel-header>
@@ -41,10 +43,12 @@ import { ForumCommentComponent } from './forum-comment.component';
           </mat-expansion-panel>
         </mat-accordion>
       </div>
-
-      @for (comment of comments; track $index) {
-      <app-forum-comment [forumComment]="comment"></app-forum-comment>
-      }
+      <!-- post list -->
+      <div class="width-70 margin-auto">
+        @for (comment of comments; track $index) {
+        <app-forum-comment [forumComment]="comment"></app-forum-comment>
+        }
+      </div>
     </div>
   `,
 })
