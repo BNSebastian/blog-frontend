@@ -10,19 +10,6 @@ import { CommentsComponent } from './video-comments.component';
   standalone: true,
   imports: [CommentsComponent, MatCardModule],
   selector: 'app-videoplayer',
-  styles: `
-    .video-container {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-
-      .videoplayer {
-        margin: 1rem;
-        border-radius: 1rem;
-        max-width: 100%;
-      }
-    }
-  `,
   template: `<div class="bg-page-chat">
     <div class="width-70 margin-auto">
       <div class="video-container">

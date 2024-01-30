@@ -23,18 +23,6 @@ import { ForumCommentComponent } from './forum-comment.component';
     ForumCommentComponent,
     ForumCommentFormComponent,
   ],
-  styles: `
-    .container {
-      width: 50%;
-      height: 100vh;
-      margin: auto;
-      padding-top: 0.5rem;
-
-      .create {
-        margin-bottom: 0.5rem;
-      }
-    }
-  `,
   template: `
     <div class="container">
       <div class="create">

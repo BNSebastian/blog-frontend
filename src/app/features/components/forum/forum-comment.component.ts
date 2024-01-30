@@ -13,21 +13,6 @@ import { ForumCommentService } from '../../services/forum-comment.service';
   selector: 'app-forum-comment',
   standalone: true,
   imports: [MatButtonModule, MatCardModule, MatIconModule, MatButtonModule],
-  styles: `
-    .container {
-      margin-bottom: 0.5rem;
-      .actions {
-        display: flex;
-        justify-content: space-between;
-      }
-    }
-    .profile-image {
-      width: 3rem; /* Adjust the width as per your requirement */
-      height: 3rem; /* Adjust the height as per your requirement */
-      border-radius: 10%; /* Creates a circular profile image */
-      object-fit: cover; /* Ensures the image covers the entire container */
-    }
-  `,
   template: `
     <div class="container">
       <mat-card>

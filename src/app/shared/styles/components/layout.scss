@@ -10,3 +10,7 @@ $breakpoint: map-get($screenWidth, minDesktop);
 .ephemeral {
   @include hide-at-breakpoint($breakpoint);
 }
+
+.hidden {
+  display: none;
+}

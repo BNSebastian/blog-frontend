@@ -1,5 +1,10 @@
 import { Component, EventEmitter, inject, Input, Output } from '@angular/core';
-import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import {
+  FormBuilder,
+  FormGroup,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
@@ -7,34 +12,29 @@ import { MatInputModule } from '@angular/material/input';
 @Component({
   selector: 'app-comment-form',
   standalone: true,
-  imports: [ReactiveFormsModule, MatFormFieldModule, MatButtonModule, MatInputModule],
-  styles: [
-    `
-      .comment-form-textarea {
-        width: 100%;
-        height: 4rem;
-      }
-    `,
+  imports: [
+    ReactiveFormsModule,
+    MatFormFieldModule,
+    MatButtonModule,
+    MatInputModule,
   ],
   template: `
     <form [formGroup]="form" (ngSubmit)="onSubmit()">
-      <textarea 
-        class="comment-form-textarea"
-        formControlName="content">
+      <textarea class="comment-form-textarea" formControlName="content">
       </textarea>
       <button
         mat-raised-button
         color="primary"
         type="submit"
-        [disabled]="form.invalid"> {{ this.submitLabel }}
+        [disabled]="form.invalid"
+      >
+        {{ this.submitLabel }}
       </button>
 
       @if(hasCancelButton) {
-        <button 
-          mat-raised-button 
-          color="primary" 
-          (click)="handleCancel.emit()"> Cancel
-        </button>
+      <button mat-raised-button color="primary" (click)="handleCancel.emit()">
+        Cancel
+      </button>
       }
     </form>
   `,

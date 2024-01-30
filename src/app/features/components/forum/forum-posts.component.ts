@@ -26,42 +26,22 @@ import { ForumPostComponent } from './forum-post.component';
     MatExpansionModule,
     RouterLink,
   ],
-  styles: `
-    .container {
-      width: 50%;
-      height: 100vh;
-      margin: auto;
-
-      .forum-post {
-        width: 100%;
-        margin: 0 0 auto;
-        padding-top: 0.5rem;
-
-        &:hover {
-          cursor: pointer;
-        }
-      }
-      
-      .create {
-        margin-top: 1rem;
-      }
-    }
-
-    .view-counter {
-      display: flex;
-    }
-  `,
   template: `
-    <div class="container-main bg-page-chat">
-      <div class="container-secondary flex-column">
+    <div class="container-primary bg-page-chat">
+      <br />
+      <!-- create post -->
+      <div class="width-70 margin-bottom-sm margin-auto">
         <app-forum-post-form
-          class="full-width"
           submitLabel="Create"
           [hasCancelButton]="true"
           (handleSubmit)="createPost($event)"
         ></app-forum-post-form>
+      </div>
+      <!-- posts -->
+      <div class="width-70 margin-auto">
+        <!-- pinned posts list -->
         @for (post of posts; track $index) { @if (post.pinned) {
-        <div class="full-width hover margin-top " (click)="goToPost(post.id)">
+        <div (click)="goToPost(post.id)" class="margin-bottom-sm hover">
           <mat-card>
             <mat-card-header>
               <mat-card-title>{{ post.name }}</mat-card-title>
@@ -71,12 +51,12 @@ import { ForumPostComponent } from './forum-post.component';
               ></mat-card-header
             >
             <mat-card-actions align="end">
-              <div class="pin-post">
+              <div>
                 <button mat-icon-button (click)="pinPost($event, post.id)">
                   <mat-icon>bookmark_remove</mat-icon>
                 </button>
               </div>
-              <div class="view-count">
+              <div>
                 <button mat-icon-button>
                   <mat-icon>visibility</mat-icon>
                 </button>
@@ -85,8 +65,10 @@ import { ForumPostComponent } from './forum-post.component';
             </mat-card-actions>
           </mat-card>
         </div>
-        }} @for (post of posts; track $index) { @if (!post.pinned) {
-        <div class="full-width hover margin-top" (click)="goToPost(post.id)">
+        }}
+        <!-- unpinned posts list -->
+        @for (post of posts; track $index) { @if (!post.pinned) {
+        <div (click)="goToPost(post.id)" class="margin-bottom-sm hover">
           <mat-card>
             <mat-card-header>
               <mat-card-title>{{ post.name }}</mat-card-title>
@@ -96,12 +78,12 @@ import { ForumPostComponent } from './forum-post.component';
               ></mat-card-header
             >
             <mat-card-actions align="end">
-              <div class="pin-post">
+              <div>
                 <button mat-icon-button (click)="pinPost($event, post.id)">
                   <mat-icon>bookmark_add</mat-icon>
                 </button>
               </div>
-              <div class="view-count">
+              <div>
                 <button mat-icon-button>
                   <mat-icon>visibility</mat-icon>
                 </button>

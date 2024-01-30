@@ -10,6 +10,13 @@ import { FRONTEND } from '../environments/frontend';
 
 @Component({
   selector: 'app-home',
+  standalone: true,
+  imports: [
+    MatGridListModule,
+    MatButtonModule,
+    MatExpansionModule,
+    MatIconModule,
+  ],
   template: `
     <div class="container-primary flex-row-dynamic flex-center bg-page-home ">
       <div class="width-70">
@@ -53,13 +60,6 @@ import { FRONTEND } from '../environments/frontend';
       </div>
     </div>
   `,
-  standalone: true,
-  imports: [
-    MatGridListModule,
-    MatButtonModule,
-    MatExpansionModule,
-    MatIconModule,
-  ],
 })
 export class HomeComponent {
   public panelOpenState = false;

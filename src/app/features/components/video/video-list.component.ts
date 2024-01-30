@@ -18,17 +18,6 @@ import { VideoPlayerComponent } from './video-player.component';
     MatTableModule,
   ],
   selector: 'app-videos',
-  styles: [
-    `
-      .container {
-        width: 90vw;
-        height: 100vh;
-        display: flex;
-        align-items: center;
-        margin: auto;
-      }
-    `,
-  ],
   template: `
     <div class="container-main bg-page-chat">
       <div class="width-70">

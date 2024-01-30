@@ -16,6 +16,11 @@ $margin-lg: map-get(
   $key: large,
 );
 
+.margin-auto {
+  margin-left: auto;
+  margin-right: auto;
+}
+
 .margin-sm {
   margin: $margin-sm;
 }

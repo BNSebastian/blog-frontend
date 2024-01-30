@@ -11,20 +11,6 @@ import { MatButtonModule } from '@angular/material/button';
   selector: 'app-forum-comment-form',
   standalone: true,
   imports: [ReactiveFormsModule, MatButtonModule],
-  styles: `
-    .comment-form-textarea {
-      width: 100%;
-      height: 4rem;
-    }
-
-    button {
-      margin-top: 0.5rem;
-    }
-    
-    .cancel-button {
-      margin-left: 0.5rem;
-    }
-  `,
   template: ` <form [formGroup]="form" (ngSubmit)="onSubmit()">
     <textarea class="comment-form-textarea" formControlName="content">
     </textarea>

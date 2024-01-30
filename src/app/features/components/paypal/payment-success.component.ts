@@ -10,7 +10,6 @@ import { PaypalService } from '../../services/paypal.service';
   standalone: true,
   imports: [ReactiveFormsModule],
   template: ``,
-  styles: ``,
 })
 export class PaymentSuccess {
   private route = inject(ActivatedRoute);

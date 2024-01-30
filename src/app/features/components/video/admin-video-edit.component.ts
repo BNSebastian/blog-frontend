@@ -35,15 +35,6 @@ import { VideoService } from '../../services/video.service';
     MatProgressSpinnerModule,
     ReactiveFormsModule,
   ],
-  styles: `
-
-  .container {
-    height: 100vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-  `,
   template: `
     <div class="container bg-page-admin">
       @if (!isLoading) {

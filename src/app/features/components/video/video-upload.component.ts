@@ -21,25 +21,6 @@ import { VideoService } from '../../services/video.service';
     NgIf,
     NgFor,
   ],
-  styles: `
-    .container {
-      height: 100vh;
-      margin: auto;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-    .card {
-      width: 90%;
-    }
-    .progress-bar {
-      padding-bottom: 1rem;
-    }
-    .upload {
-      margin-top: 1rem;
-      margin-bottom: 1rem;
-    }
-  `,
   template: `<!-- start of HTML -->
     <div class="container bg-page-admin">
       <mat-card class="card">

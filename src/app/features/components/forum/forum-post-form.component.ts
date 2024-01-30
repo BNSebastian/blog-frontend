@@ -35,32 +35,6 @@ import { ForumPostCreateInterface } from '../../models/forum';
     ReactiveFormsModule,
     MatExpansionModule,
   ],
-  styles: `
-    .comment-form-textarea {
-      width: 100%;
-      height: 4rem;
-    }
-    .container {
-      display: flex;
-      flex-direction: column;
-      align-items: flex-start;
-
-      .full-width {
-        width: 100%;
-
-        .comment-form-textarea {
-          width: 100%;
-          height: 4rem;
-        }
-      }
-    }
-    .cancel-button {
-      margin-left: 0.5rem;
-    }
-    .element-to-hide {
-      display: none;
-    }
-  `,
   template: `
     <mat-accordion #accordion>
       <mat-expansion-panel>
@@ -69,18 +43,20 @@ import { ForumPostCreateInterface } from '../../models/forum';
         </mat-expansion-panel-header>
         <!-- add comment -->
         <form [formGroup]="form" (ngSubmit)="onSubmit()">
-          <mat-card-content class="container">
-            <mat-form-field class="full-width">
+          <mat-card-content>
+            <mat-form-field class="width-100">
               <mat-label>Post name</mat-label>
               <input matInput formControlName="name" />
             </mat-form-field>
 
-            <mat-form-field class="element-to-hide">
-              <mat-label>User email</mat-label>
-              <input matInput formControlName="userEmail" />
-            </mat-form-field>
+            <div class="hidden">
+              <mat-form-field>
+                <mat-label>User email</mat-label>
+                <input matInput formControlName="userEmail" />
+              </mat-form-field>
+            </div>
 
-            <mat-form-field class="full-width">
+            <mat-form-field class="width-100">
               <mat-label>Initial comment</mat-label>
               <textarea
                 matInput
@@ -95,16 +71,17 @@ import { ForumPostCreateInterface } from '../../models/forum';
               color="primary"
               type="submit"
               [disabled]="form.invalid"
+              class="width-50 margin-right-sm"
             >
               {{ this.submitLabel }}
             </button>
 
             @if(hasCancelButton) {
             <button
-              class="cancel-button"
               mat-raised-button
               color="primary"
               (click)="onCancel()"
+              class="width-50"
             >
               Cancel
             </button>

@@ -79,15 +79,6 @@ import { PaypalService } from '../../services/paypal.service';
       </mat-accordion>
     </div>
   `,
-  styles: `
-  .container {
-    height: 100vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-    form {}
-  `,
 })
 export class PaymentForm {
   private paypalService = inject(PaypalService);

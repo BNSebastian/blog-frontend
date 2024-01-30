@@ -6,19 +6,6 @@ import { MatToolbarModule } from '@angular/material/toolbar';
   selector: 'app-footer',
   standalone: true,
   imports: [MatToolbarModule, MatIconModule],
-  styles: [
-    `
-      /* CSS to style the footer */
-      // .footer {
-      //   position: relative; /* Keeps the footer fixed at the bottom of the viewport */
-      //   left: 0;
-      //   bottom: 0;
-      //   width: 100%;
-      //   color: white;
-      //   text-align: center;
-      // }
-    `,
-  ],
   template: `
     <footer class="footer">
       <mat-toolbar>

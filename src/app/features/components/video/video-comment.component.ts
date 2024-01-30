@@ -31,34 +31,6 @@ import { CommentFormComponent } from './video-comment-form.component';
     MatButtonModule,
     MatIconModule,
   ],
-  styles: [
-    `
-      .comment-container {
-        width: 100%;
-        margin: auto;
-        padding-top: 0.5rem;
-
-        button {
-          margin-right: 0.5rem;
-        }
-      }
-
-      .reply-form {
-        margin-top: 0.5rem;
-      }
-
-      .reply {
-        margin-left: 3rem;
-      }
-
-      .profile-image {
-        width: 3rem; /* Adjust the width as per your requirement */
-        height: 3rem; /* Adjust the height as per your requirement */
-        border-radius: 10%; /* Creates a circular profile image */
-        object-fit: cover; /* Ensures the image covers the entire container */
-      }
-    `,
-  ],
   template: ` <!-- start of HTML -->
     <div class="comment-container">
       @if (comment.parentId == null) { }

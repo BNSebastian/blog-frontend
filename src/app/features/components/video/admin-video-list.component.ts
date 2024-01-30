@@ -22,21 +22,6 @@ import { VideoPlayerComponent } from './video-player.component';
     MatIconModule,
     MatTableModule,
   ],
-  styles: `
-    .container {
-      height: 100vh;
-      width: 50vw;
-      margin-top: 3rem;
-      margin-left: auto;
-      margin-right: auto;
-      .button {
-        width: 15%;
-      }
-    }
-    th, td {
-      text-align: center;
-    }
-  `,
   template: `
     <div class="container-main bg-page-admin">
       <div class="width-70">

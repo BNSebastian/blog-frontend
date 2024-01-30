@@ -16,24 +16,6 @@ import { CommentComponent } from './video-comment.component';
   selector: 'app-comments',
   standalone: true,
   imports: [CommentComponent, CommentFormComponent, MatExpansionModule],
-  styles: [
-    `
-      // .comments-container {
-      //   background-color: black;
-      // }
-
-      .create-comment {
-        margin: auto;
-        margin-top: 1rem;
-        margin-bottom: 1rem;
-      }
-
-      .comments-list {
-        margin: auto;
-        padding-bottom: 1rem;
-      }
-    `,
-  ],
   template: `<!-- start of HTML -->
     <div class="comments-container">
       <div class="create-comment">

@@ -76,11 +76,6 @@ import { UserService } from '../services/user.service';
       </mat-card>
     </form>
   `,
-  styles: `
-    button {
-      width: 100%;
-    }
-  `,
 })
 export class ProfileComponent {
   public cookieService = inject(CustomCookieService);
