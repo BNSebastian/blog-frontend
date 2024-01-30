@@ -1,0 +1,10 @@
+@import "../variables.scss";
+@import "../mixins.scss";
+
+.border-rounded-sm {
+  border-radius: map-get($map: $border, $key: small);
+}
+
+.border-color-primary {
+  border-color: map-get($map: $themeColor, $key: primary);
+}

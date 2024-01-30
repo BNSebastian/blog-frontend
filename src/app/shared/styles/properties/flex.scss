@@ -14,6 +14,10 @@ $breakpoint: map-get($screenWidth, minDesktop);
   }
 }
 
+.flex-wrap {
+  flex-wrap: wrap;
+}
+
 .flex-col {
   display: flex;
   flex-direction: column;

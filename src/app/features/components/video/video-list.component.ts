@@ -21,55 +21,37 @@ import { VideoPlayerComponent } from './video-player.component';
   template: `
     <div class="container-primary bg-page-chat">
       <br />
-      <!-- <div class="grid">
+      <div class="margin-auto flex-row flex-wrap">
         @for (item of videoNames; track $index) {
-        <mat-card class="margin-right-sm" (click)="playVideo(item)">
+        <mat-card
+          (click)="playVideo(item)"
+          class="bg-secondary width-30 margin-sm hover"
+        >
           <mat-card-header>
-            <mat-card-title>{{ item }}</mat-card-title>
+            <mat-card-title-group>
+              <mat-card-title>{{ item }}</mat-card-title>
+              <mat-card-subtitle
+                >Lorem ipsum dolor sit amet consectetur adipisicing elit. Nemo,
+                saepe vitae. Cumque distinctio esse ipsa maxime vitae, soluta
+                ullam consectetur similique. At corrupti exercitationem sint qui
+                id similique est vero! Lorem ipsum dolor sit amet. Lorem ipsum,
+                dolor sit amet consectetur adipisicing elit. Consectetur maxime
+                doloremque cumque soluta ex saepe impedit laborum maiores
+                voluptatibus. Velit minima laudantium optio expedita omnis neque
+                vitae provident blanditiis quisquam.</mat-card-subtitle
+              >
+            </mat-card-title-group>
           </mat-card-header>
           <mat-card-content>
             <video
-              style="max-width: 400px"
+              class="width-100"
+              style="max-width: 100%"
               [src]="getVideoThumbnail(item)"
             ></video>
           </mat-card-content>
         </mat-card>
         }
-      </div> -->
-
-      @for (item of videoNames; track $index) {
-      <div
-        (click)="playVideo(item)"
-        class="bg-secondary width-30 margin-bottom-sm"
-        style="height: 400px;"
-      >
-        <!-- title -->
-        <div>
-          {{ item }}
-        </div>
-        <!-- thumbnail -->
-        <div>
-          <video class="width-100" [src]="getVideoThumbnail(item)"></video>
-        </div>
-        <!-- description -->
-        <div
-          style="white-space: normal; /* Allows the text to wrap to the next line if there's enough space */
-  overflow: hidden; /* Hides any content that overflows the container */
-  text-overflow: ellipsis; /* Displays an ellipsis (...) to indicate truncated text */
-  max-width: 300px; /* You can set a maximum width to control the truncation */
-  max-height: 80px; /* Set a maximum height to control when text starts to truncate */
-  border: 1px solid #ccc; /* Just for demonstration purposes, you can adjust or remove this */
-  padding: 10px; /* Add padding to the container */white-space: nowrap; overflow: hidden; text-overflow: ellipsis; word-wrap: break-word;"
-        >
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Debitis natus
-          ad exercitationem, inventore molestias assumenda deserunt quos aut et
-          atque esse, neque itaque tenetur. Animi beatae sapiente quam delectus
-          vitae. Lorem ipsum, dolor sit amet consectetur adipisicing elit. Ea
-          aliquam, saepe esse animi quae nostrum totam quam iste alias et veniam
-          aliquid illo cumque quo enim, sed optio nesciunt doloribus!
-        </div>
       </div>
-      }
     </div>
   `,
 })
