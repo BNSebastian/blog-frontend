@@ -19,44 +19,57 @@ import { VideoPlayerComponent } from './video-player.component';
   ],
   selector: 'app-videos',
   template: `
-    <div class="container-main bg-page-chat">
-      <div class="width-70">
-        <!-- <table mat-table [dataSource]="videoNames" class="mat-elevation-z8">
-          <ng-container matColumnDef="name">
-            <th mat-header-cell *matHeaderCellDef>Name</th>
-            <td mat-cell *matCellDef="let element">{{ element }}</td>
-          </ng-container>
-
-          <ng-container matColumnDef="play">
-            <th mat-header-cell *matHeaderCellDef>Play</th>
-            <td mat-cell *matCellDef="let element">
-              <button
-                (click)="playVideo(element)"
-                mat-raised-button
-                color="primary"
-              >
-                Play video
-              </button>
-            </td>
-          </ng-container>
-
-          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-          <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
-        </table> -->
+    <div class="container-primary bg-page-chat">
+      <br />
+      <!-- <div class="grid">
         @for (item of videoNames; track $index) {
-        <mat-card class="width-50" (click)="playVideo(item)">
+        <mat-card class="margin-right-sm" (click)="playVideo(item)">
           <mat-card-header>
             <mat-card-title>{{ item }}</mat-card-title>
           </mat-card-header>
           <mat-card-content>
             <video
               style="max-width: 400px"
-              [src]="getVideoSource(item)"
+              [src]="getVideoThumbnail(item)"
             ></video>
           </mat-card-content>
         </mat-card>
         }
+      </div> -->
+
+      @for (item of videoNames; track $index) {
+      <div
+        (click)="playVideo(item)"
+        class="bg-secondary width-30 margin-bottom-sm"
+        style="height: 400px;"
+      >
+        <!-- title -->
+        <div>
+          {{ item }}
+        </div>
+        <!-- thumbnail -->
+        <div>
+          <video class="width-100" [src]="getVideoThumbnail(item)"></video>
+        </div>
+        <!-- description -->
+        <div
+          style="white-space: normal; /* Allows the text to wrap to the next line if there's enough space */
+  overflow: hidden; /* Hides any content that overflows the container */
+  text-overflow: ellipsis; /* Displays an ellipsis (...) to indicate truncated text */
+  max-width: 300px; /* You can set a maximum width to control the truncation */
+  max-height: 80px; /* Set a maximum height to control when text starts to truncate */
+  border: 1px solid #ccc; /* Just for demonstration purposes, you can adjust or remove this */
+  padding: 10px; /* Add padding to the container */white-space: nowrap; overflow: hidden; text-overflow: ellipsis; word-wrap: break-word;"
+        >
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Debitis natus
+          ad exercitationem, inventore molestias assumenda deserunt quos aut et
+          atque esse, neque itaque tenetur. Animi beatae sapiente quam delectus
+          vitae. Lorem ipsum, dolor sit amet consectetur adipisicing elit. Ea
+          aliquam, saepe esse animi quae nostrum totam quam iste alias et veniam
+          aliquid illo cumque quo enim, sed optio nesciunt doloribus!
+        </div>
       </div>
+      }
     </div>
   `,
 })
@@ -65,7 +78,7 @@ export class VideoComponent {
   private router = inject(Router);
 
   public videoNames!: string[];
-  displayedColumns: string[] = ['name', 'play'];
+
   ngOnInit(): void {
     this.loadData();
   }
@@ -76,9 +89,8 @@ export class VideoComponent {
     });
   }
 
-  getVideoSource(name: string) {
-    console.log(BACKEND.playVideo(name));
-    return BACKEND.playVideo(name);
+  getVideoThumbnail(name: string) {
+    return BACKEND.playVideo(name) + '#t=3';
   }
 
   playVideo(name: string) {

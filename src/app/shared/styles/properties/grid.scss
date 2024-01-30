@@ -1,0 +1,9 @@
+@import "../variables.scss";
+@import "../mixins.scss";
+
+.grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-auto-rows: 500px; /* Default row height */
+  grid-auto-flow: row; /* Items flow into rows */
+}

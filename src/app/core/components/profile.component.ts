@@ -61,6 +61,7 @@ import { UserService } from '../services/user.service';
               mat-raised-button
               color="primary"
               (click)="fileInput.click()"
+              class="width-100"
             >
               Select profile image
             </button>
