@@ -28,7 +28,7 @@ import { CommentsComponent } from './video-comments.component';
           </video>
         </div>
         <!-- video description -->
-        <div class="margin-bottom-sm">
+        <div class="margin-bottom-xsm">
           <mat-accordion>
             <mat-expansion-panel
               (opened)="panelOpenState = true"

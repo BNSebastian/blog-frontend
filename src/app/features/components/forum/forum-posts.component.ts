@@ -1,4 +1,3 @@
-import { NumberInput } from '@angular/cdk/coercion';
 import { Component, inject } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
@@ -31,16 +30,6 @@ import { ForumPostComponent } from './forum-post.component';
   ],
   template: `
     <div class="container-primary bg-page-chat">
-      <mat-paginator
-        [length]="length"
-        [pageSize]="pageSize"
-        [showFirstLastButtons]="true"
-        [pageSizeOptions]="[5, 10, 25, 100]"
-        [pageIndex]="currentPage"
-        (page)="handlePageEvent($event)"
-        aria-label="Select page"
-      >
-      </mat-paginator>
       <br />
       <!-- create post -->
       <div class="width-70 margin-bottom-sm margin-auto">
@@ -50,11 +39,22 @@ import { ForumPostComponent } from './forum-post.component';
           (handleSubmit)="createPost($event)"
         ></app-forum-post-form>
       </div>
+      <mat-paginator
+        class="width-70 margin-auto margin-bottom-xsm"
+        [length]="length"
+        [pageSize]="pageSize"
+        [showFirstLastButtons]="true"
+        [pageSizeOptions]="pageSizeOptions"
+        [pageIndex]="pageIndex"
+        (page)="handlePageEvent($event)"
+        aria-label="Select page"
+      >
+      </mat-paginator>
       <!-- posts -->
       <div class="width-70 margin-auto">
         <!-- pinned posts list -->
         @for (post of posts; track $index) { @if (post.pinned) {
-        <div (click)="goToPost(post.id)" class="margin-bottom-sm hover">
+        <div (click)="goToPost(post.id)" class="margin-bottom-xsm hover">
           <mat-card>
             <mat-card-header>
               <mat-card-title>{{ post.name }}</mat-card-title>
@@ -81,7 +81,7 @@ import { ForumPostComponent } from './forum-post.component';
         }}
         <!-- unpinned posts list -->
         @for (post of posts; track $index) { @if (!post.pinned) {
-        <div (click)="goToPost(post.id)" class="margin-bottom-sm hover">
+        <div (click)="goToPost(post.id)" class="margin-bottom-xsm hover">
           <mat-card>
             <mat-card-header>
               <mat-card-title>{{ post.name }}</mat-card-title>
@@ -107,26 +107,49 @@ import { ForumPostComponent } from './forum-post.component';
         </div>
         } }
       </div>
+      <br />
     </div>
   `,
 })
 export class ForumPostsComponent {
+  /* PAGINATOR
+   ********************************************/
+  public length = 50;
+  public pageIndex = 0;
+  public pageSizeOptions = [5, 10, 25, 50];
+  public pageSize = this.pageSizeOptions[0];
+
+  handlePageEvent(e: PageEvent) {
+    this.pageIndex = e.pageIndex;
+    this.pageSize = e.pageSize;
+    this.getPage();
+  }
+
+  /* PROPERTIES
+   ********************************************/
+  public posts!: ForumPostInterface[];
+
+  /* SERVICES
+   ********************************************/
   private forumPostService = inject(ForumPostService);
   private router = inject(Router);
 
-  public posts!: ForumPostInterface[];
-  public currentPage: NumberInput = 0;
-
   ngOnInit(): void {
-    this.loadData();
+    this.getSize();
+    this.getPage();
   }
 
-  loadData() {
+  getSize() {
+    this.forumPostService.getSize().subscribe((response) => {
+      this.length = response;
+    });
+  }
+
+  getPage() {
     this.forumPostService
-      .getAll()
-      .subscribe((response: ForumPostInterface[]) => {
+      .getPage(this.pageIndex, this.pageSize)
+      .subscribe((response) => {
         this.posts = response;
-        console.log(this.posts);
       });
   }
 
@@ -137,6 +160,7 @@ export class ForumPostsComponent {
   createPost(event: ForumPostCreateInterface) {
     this.forumPostService.create(event).subscribe((response) => {
       this.posts = [...this.posts, response];
+      this.getPage();
     });
   }
 
@@ -144,20 +168,7 @@ export class ForumPostsComponent {
     event.stopPropagation();
 
     this.forumPostService.pinPost(postId).subscribe(() => {
-      this.loadData();
+      this.getPage();
     });
-  }
-
-  /* PAGINATOR
-   ********************************************/
-  public length = 50;
-  public pageSize = 10;
-  public pageIndex = 0;
-  public pageSizeOptions = [5, 10, 25];
-
-  handlePageEvent(e: PageEvent) {
-    console.log(`page size: ${e.pageSize}`);
-    console.log(`page index: ${e.pageIndex}`);
-    console.log(`list length: ${e.length}`);
   }
 }

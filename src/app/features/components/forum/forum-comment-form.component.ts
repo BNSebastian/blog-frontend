@@ -12,12 +12,17 @@ import { MatButtonModule } from '@angular/material/button';
   standalone: true,
   imports: [ReactiveFormsModule, MatButtonModule],
   template: ` <form [formGroup]="form" (ngSubmit)="onSubmit()">
-    <textarea class="comment-form-textarea" formControlName="content">
+    <textarea
+      class="width-100"
+      style="min-height: 100px;"
+      formControlName="content"
+    >
     </textarea>
     <button
       mat-raised-button
       color="primary"
       type="submit"
+      class="width-50"
       [disabled]="form.invalid"
     >
       {{ this.submitLabel }}
@@ -25,10 +30,10 @@ import { MatButtonModule } from '@angular/material/button';
 
     @if(hasCancelButton) {
     <button
-      class="cancel-button"
-      mat-raised-button
-      color="primary"
       (click)="onCancel()"
+      mat-raised-button
+      color="warn"
+      class="width-50"
     >
       Cancel
     </button>

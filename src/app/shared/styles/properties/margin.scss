@@ -1,6 +1,11 @@
 @import "../variables.scss";
 @import "../mixins.scss";
 
+$margin-xsm: map-get(
+  $map: $margin,
+  $key: extraSmall,
+);
+
 $margin-sm: map-get(
   $map: $margin,
   $key: small,
@@ -72,6 +77,10 @@ $margin-lg: map-get(
 
 .margin-top-lg {
   margin-top: $margin-lg;
+}
+
+.margin-bottom-xsm {
+  margin-bottom: $margin-xsm;
 }
 
 .margin-bottom-sm {

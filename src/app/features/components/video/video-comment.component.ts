@@ -34,7 +34,7 @@ import { CommentFormComponent } from './video-comment-form.component';
   template: ` <!-- start of HTML -->
     <div class="">
       @if (comment.parentId == null) { }
-      <mat-card class="margin-bottom-sm">
+      <mat-card class="margin-bottom-xsm">
         <mat-card-header>
           <div mat-card-avatar>
             @if (userProfileImage) {
@@ -106,7 +106,7 @@ import { CommentFormComponent } from './video-comment-form.component';
       </mat-card>
 
       @if (isReplying() && comment.parentId === null) {
-      <mat-card class="margin-bottom-sm">
+      <mat-card class="margin-bottom-xsm">
         <mat-card-content>
           <app-comment-form
             submitLabel="reply"
@@ -123,7 +123,7 @@ import { CommentFormComponent } from './video-comment-form.component';
         </mat-card-content>
       </mat-card>
       } @if (isReplying() && comment.parentId !== null) {
-      <mat-card class="margin-bottom-sm">
+      <mat-card class="margin-bottom-xsm">
         <mat-card-content>
           <app-comment-form
             submitLabel="reply"
@@ -140,7 +140,7 @@ import { CommentFormComponent } from './video-comment-form.component';
         </mat-card-content>
       </mat-card>
       } @if (replies.length > 0) { @for (reply of replies; track $index) {
-      <div class="margin-left-md margin-top-sm">
+      <div class="margin-left-md margin-top-xsm">
         <app-comment
           [comment]="reply"
           [replies]="getReplies(reply.id)"

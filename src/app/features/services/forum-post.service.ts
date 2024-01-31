@@ -16,6 +16,19 @@ export class ForumPostService {
     return this.http.get<ForumPostInterface[]>(BACKEND.getAllForumPosts());
   }
 
+  getSize(): Observable<number> {
+    return this.http.get<number>(BACKEND.getForumPostsSize());
+  }
+
+  getPage(
+    pageIndex: number,
+    pageSize: number
+  ): Observable<ForumPostInterface[]> {
+    return this.http.get<ForumPostInterface[]>(
+      BACKEND.getForumPostPage(pageIndex, pageSize)
+    );
+  }
+
   getById(id: number): Observable<ForumPostInterface> {
     return this.http.get<ForumPostInterface>(BACKEND.getForumPostById(id));
   }
