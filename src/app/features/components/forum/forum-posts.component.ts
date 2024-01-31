@@ -1,8 +1,10 @@
-import { Component, inject, OnDestroy, ViewChild } from '@angular/core';
+import { NumberInput } from '@angular/cdk/coercion';
+import { Component, inject } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
-import { MatAccordion, MatExpansionModule } from '@angular/material/expansion';
+import { MatExpansionModule } from '@angular/material/expansion';
 import { MatIconModule } from '@angular/material/icon';
+import { MatPaginatorModule, PageEvent } from '@angular/material/paginator';
 import { Router, RouterLink } from '@angular/router';
 
 import { FRONTEND } from '../../../shared/environments/frontend';
@@ -25,9 +27,20 @@ import { ForumPostComponent } from './forum-post.component';
     MatIconModule,
     MatExpansionModule,
     RouterLink,
+    MatPaginatorModule,
   ],
   template: `
     <div class="container-primary bg-page-chat">
+      <mat-paginator
+        [length]="length"
+        [pageSize]="pageSize"
+        [showFirstLastButtons]="true"
+        [pageSizeOptions]="[5, 10, 25, 100]"
+        [pageIndex]="currentPage"
+        (page)="handlePageEvent($event)"
+        aria-label="Select page"
+      >
+      </mat-paginator>
       <br />
       <!-- create post -->
       <div class="width-70 margin-bottom-sm margin-auto">
@@ -102,6 +115,7 @@ export class ForumPostsComponent {
   private router = inject(Router);
 
   public posts!: ForumPostInterface[];
+  public currentPage: NumberInput = 0;
 
   ngOnInit(): void {
     this.loadData();
@@ -132,5 +146,18 @@ export class ForumPostsComponent {
     this.forumPostService.pinPost(postId).subscribe(() => {
       this.loadData();
     });
+  }
+
+  /* PAGINATOR
+   ********************************************/
+  public length = 50;
+  public pageSize = 10;
+  public pageIndex = 0;
+  public pageSizeOptions = [5, 10, 25];
+
+  handlePageEvent(e: PageEvent) {
+    console.log(`page size: ${e.pageSize}`);
+    console.log(`page index: ${e.pageIndex}`);
+    console.log(`list length: ${e.length}`);
   }
 }

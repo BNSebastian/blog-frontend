@@ -140,6 +140,14 @@ export class BACKEND {
     return `${this.backend}${this.forumPost}/getAll`;
   }
 
+  static getFormPostsSize(): string {
+    return `${this.backend}${this.forumPost}/getSize`;
+  }
+
+  static getFormPostPage(pageIndex: number, pageSize: number): string {
+    return `${this.backend}${this.forumPost}/getPage/${pageIndex}/${pageSize}`;
+  }
+
   static deleteForumPost(postId: number): string {
     return `${this.backend}${this.forumPost}/delete/${postId}`;
   }
