@@ -125,20 +125,6 @@ export class ForumPostsComponent {
     this.getPage();
   }
 
-  /* PROPERTIES
-   ********************************************/
-  public posts!: ForumPostInterface[];
-
-  /* SERVICES
-   ********************************************/
-  private forumPostService = inject(ForumPostService);
-  private router = inject(Router);
-
-  ngOnInit(): void {
-    this.getSize();
-    this.getPage();
-  }
-
   getSize() {
     this.forumPostService.getSize().subscribe((response) => {
       this.length = response;
@@ -151,6 +137,20 @@ export class ForumPostsComponent {
       .subscribe((response) => {
         this.posts = response;
       });
+  }
+
+  /* PROPERTIES
+   ********************************************/
+  public posts!: ForumPostInterface[];
+
+  /* SERVICES
+   ********************************************/
+  private forumPostService = inject(ForumPostService);
+  private router = inject(Router);
+
+  ngOnInit(): void {
+    this.getSize();
+    this.getPage();
   }
 
   goToPost(id: number) {

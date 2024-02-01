@@ -24,6 +24,16 @@ export class VideoService {
     return this.http.get<string[]>(BACKEND.getAllVideoNames());
   }
 
+  getSize(): Observable<number> {
+    return this.http.get<number>(BACKEND.getVideoNamesSize());
+  }
+
+  getPage(pageIndex: number, pageSize: number): Observable<string[]> {
+    return this.http.get<string[]>(
+      BACKEND.getVideoNamesPage(pageIndex, pageSize)
+    );
+  }
+
   getAllVideos(): Observable<VideoInterface[]> {
     return this.http.get<VideoInterface[]>(BACKEND.getAllVideos());
   }

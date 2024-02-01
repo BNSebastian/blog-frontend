@@ -1,6 +1,7 @@
 import { Component, inject, Input, ViewChild } from '@angular/core';
 import { MatCardModule } from '@angular/material/card';
 import { MatAccordion, MatExpansionModule } from '@angular/material/expansion';
+import { MatPaginatorModule, PageEvent } from '@angular/material/paginator';
 import { ActivatedRoute } from '@angular/router';
 
 import { CustomCookieService } from '../../../core/services/custom-cookie.service';
@@ -22,6 +23,7 @@ import { ForumCommentComponent } from './forum-comment.component';
     MatCardModule,
     ForumCommentComponent,
     ForumCommentFormComponent,
+    MatPaginatorModule,
   ],
   template: `
     <div class="container-primary bg-page-chat">
@@ -44,15 +46,40 @@ import { ForumCommentComponent } from './forum-comment.component';
         </mat-accordion>
       </div>
       <!-- post list -->
-      <div class="width-70 margin-auto">
+      <mat-paginator
+        class="width-70 margin-x-auto margin-bottom-xsm"
+        [length]="length"
+        [pageSize]="pageSize"
+        [showFirstLastButtons]="true"
+        [pageSizeOptions]="pageSizeOptions"
+        [pageIndex]="pageIndex"
+        (page)="handlePageEvent($event)"
+        aria-label="Select page"
+      >
+      </mat-paginator>
+      <div class="width-70 margin-x-auto">
         @for (comment of comments; track $index) {
         <app-forum-comment [forumComment]="comment"></app-forum-comment>
         }
       </div>
+      <br />
     </div>
   `,
 })
 export class ForumPostComponent {
+  /* PAGINATOR
+   ********************************************/
+  public length = 50;
+  public pageIndex = 0;
+  public pageSizeOptions = [5, 10, 25, 50];
+  public pageSize = this.pageSizeOptions[0];
+
+  handlePageEvent(e: PageEvent) {
+    this.pageIndex = e.pageIndex;
+    this.pageSize = e.pageSize;
+    this.getPage();
+  }
+
   public post!: ForumPostInterface;
   public comments!: ForumCommentInterface[];
 
@@ -73,11 +100,26 @@ export class ForumPostComponent {
       .getById(postId)
       .subscribe((response: ForumPostInterface) => {
         this.post = response;
-        this.loadComments(postId);
+        this.getSize();
+        this.getPage();
         this.incrementViewCount(
           this.post.id,
           this.cookieService.getUserEmail()
         );
+      });
+  }
+
+  getSize() {
+    this.commentService.getSize(this.post.id).subscribe((response) => {
+      this.length = response;
+    });
+  }
+
+  getPage() {
+    this.commentService
+      .getPage(this.post.id, this.pageIndex, this.pageSize)
+      .subscribe((response) => {
+        this.comments = response;
       });
   }
 
@@ -99,7 +141,8 @@ export class ForumPostComponent {
 
     // make request
     this.commentService.create(requestBody).subscribe((response) => {
-      this.comments = [...this.comments, response];
+      this.getSize();
+      this.getPage();
     });
   }
 

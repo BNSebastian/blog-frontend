@@ -33,6 +33,20 @@ export class ForumCommentService {
     );
   }
 
+  getSize(postId: number): Observable<number> {
+    return this.http.get<number>(BACKEND.getForumCommentSize(postId));
+  }
+
+  getPage(
+    postId: number,
+    pageIndex: number,
+    pageSize: number
+  ): Observable<ForumCommentInterface[]> {
+    return this.http.get<ForumCommentInterface[]>(
+      BACKEND.getForumCommentPage(postId, pageIndex, pageSize)
+    );
+  }
+
   like(
     requestBody: { userEmail: string },
     commentId: number

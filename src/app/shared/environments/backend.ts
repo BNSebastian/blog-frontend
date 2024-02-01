@@ -88,6 +88,14 @@ export class BACKEND {
     return `${this.backend}${this.video}/getAllNames`;
   }
 
+  static getVideoNamesSize(): string {
+    return `${this.backend}${this.video}/getSize`;
+  }
+
+  static getVideoNamesPage(pageIndex: number, pageSize: number): string {
+    return `${this.backend}${this.video}/getPage/${pageIndex}/${pageSize}`;
+  }
+
   static getAllVideos(): string {
     return `${this.backend}${this.video}/getAll`;
   }
@@ -175,6 +183,18 @@ export class BACKEND {
 
   static getAllForumComments(postId: number): string {
     return `${this.backend}${this.forumComment}/getAll/${postId}`;
+  }
+
+  static getForumCommentSize(postId: number): string {
+    return `${this.backend}${this.forumComment}/getSize/${postId}`;
+  }
+
+  static getForumCommentPage(
+    postId: number,
+    pageIndex: number,
+    pageSize: number
+  ): string {
+    return `${this.backend}${this.forumComment}/getPage/${postId}/${pageIndex}/${pageSize}`;
   }
 
   static deleteForumComment(): string {
