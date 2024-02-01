@@ -69,6 +69,18 @@ export class FRONTEND {
     return `${this.frontend}${this.forum}/${postId}`;
   }
 
+  /** ARTICLE
+   **************************************/
+  private static article: string = '/articles';
+
+  static getArticles(): string {
+    return `${this.frontend}${this.article}`;
+  }
+
+  static getArticleById(postId: number): string {
+    return `${this.frontend}${this.article}/${postId}`;
+  }
+
   /** CHAT
    **************************************/
   private static chat: string = '/chat';

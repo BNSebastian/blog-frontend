@@ -1,7 +1,10 @@
-import { NgClass, NgFor } from '@angular/common';
 import { Component, inject } from '@angular/core';
 import {
-    FormBuilder, FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators
+  FormBuilder,
+  FormControl,
+  FormGroup,
+  ReactiveFormsModule,
+  Validators,
 } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
@@ -11,8 +14,6 @@ import { MatRadioModule } from '@angular/material/radio';
 import { MatSelectModule } from '@angular/material/select';
 
 import { ChatService } from '../../services/chat.service';
-import { ChatCommentFormComponent } from './chat-comment-form.component';
-import { ChatCommentComponent } from './chat-comment.component';
 
 @Component({
   selector: 'app-chat',

@@ -46,6 +46,14 @@ export const authenticatedLinks: LinkInterface[] = [
     url: frontendUrl.videos,
   },
   {
+    name: 'articles',
+    tooltip: 'Articles',
+    icon: 'library_books',
+    color: 'primary',
+    highlight: 'mat-accent',
+    url: FRONTEND.getArticles(),
+  },
+  {
     name: 'forum',
     tooltip: 'Forum',
     icon: 'forum',

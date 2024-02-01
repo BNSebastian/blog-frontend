@@ -208,4 +208,12 @@ export class BACKEND {
   static dislikeForumComment(commentId: number): string {
     return `${this.backend}${this.forumComment}/dislike/${commentId}`;
   }
+
+  /** ARTICLES
+   **************************************/
+  private static article: string = '/api/article';
+
+  static getArticleBaseApi(): string {
+    return this.article;
+  }
 }

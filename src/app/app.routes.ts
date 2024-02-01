@@ -102,6 +102,31 @@ export const routes: Routes = [
     ],
   },
 
+  /* FORUM
+   ******************************/
+  {
+    path: 'articles',
+    children: [
+      {
+        path: '',
+        pathMatch: 'full',
+        loadComponent: () =>
+          import('./features/components/articles/articles.component').then(
+            (m) => m.ArticlesComponent
+          ),
+        canActivate: [AuthGuard],
+      },
+      {
+        path: ':id',
+        loadComponent: () =>
+          import('./features/components/articles/article.component').then(
+            (m) => m.ArticleComponent
+          ),
+        canActivate: [AuthGuard],
+      },
+    ],
+  },
+
   /* ADMIN
    ******************************/
   {
