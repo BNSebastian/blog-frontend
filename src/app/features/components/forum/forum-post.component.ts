@@ -6,9 +6,7 @@ import { ActivatedRoute } from '@angular/router';
 
 import { CustomCookieService } from '../../../core/services/custom-cookie.service';
 import {
-  ForumCommentCreateInterface,
-  ForumCommentInterface,
-  ForumPostInterface,
+    ForumCommentCreateInterface, ForumCommentInterface, ForumPostInterface
 } from '../../models/forum';
 import { ForumCommentService } from '../../services/forum-comment.service';
 import { ForumPostService } from '../../services/forum-post.service';

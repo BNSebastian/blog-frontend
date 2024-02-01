@@ -4,10 +4,7 @@ import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 
 import { BACKEND } from '../../shared/environments/backend';
-import {
-  ForumCommentCreateInterface,
-  ForumCommentInterface,
-} from '../models/forum';
+import { ForumCommentCreateInterface, ForumCommentInterface } from '../models/forum';
 
 @Injectable({
   providedIn: 'root',

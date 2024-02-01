@@ -3,10 +3,8 @@ import { MatExpansionModule } from '@angular/material/expansion';
 
 import { CustomCookieService } from '../../../core/services/custom-cookie.service';
 import {
-  ActiveCommentInterface,
-  CreateVideoCommentInterface,
-  UpdateVideoCommentInterface,
-  VideoCommentInterface,
+    ActiveCommentInterface, CreateVideoCommentInterface, UpdateVideoCommentInterface,
+    VideoCommentInterface
 } from '../../models/video-comment';
 import { CommentsService } from '../../services/video-comment.service';
 import { CommentFormComponent } from './video-comment-form.component';

@@ -7,10 +7,7 @@ import { MatPaginatorModule, PageEvent } from '@angular/material/paginator';
 import { Router, RouterLink } from '@angular/router';
 
 import { FRONTEND } from '../../../shared/environments/frontend';
-import {
-  ForumPostCreateInterface,
-  ForumPostInterface,
-} from '../../models/forum';
+import { ForumPostCreateInterface, ForumPostInterface } from '../../models/forum';
 import { ForumPostService } from '../../services/forum-post.service';
 import { ForumPostFormComponent } from './forum-post-form.component';
 import { ForumPostComponent } from './forum-post.component';

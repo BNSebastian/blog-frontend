@@ -5,9 +5,7 @@ import { inject, Injectable } from '@angular/core';
 
 import { BACKEND, backendUrl } from '../../shared/environments/backend';
 import {
-  CreateVideoCommentInterface,
-  UpdateVideoCommentInterface,
-  VideoCommentInterface,
+    CreateVideoCommentInterface, UpdateVideoCommentInterface, VideoCommentInterface
 } from '../models/video-comment';
 
 @Injectable({

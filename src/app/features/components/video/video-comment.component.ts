@@ -1,11 +1,4 @@
-import {
-  Component,
-  EventEmitter,
-  inject,
-  Input,
-  OnInit,
-  Output,
-} from '@angular/core';
+import { Component, EventEmitter, inject, Input, OnInit, Output } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
@@ -13,11 +6,8 @@ import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 
 import { UserService } from '../../../core/services/user.service';
 import {
-  ActiveCommentInterface,
-  ActiveCommentTypeEnum,
-  CreateVideoCommentInterface,
-  UpdateVideoCommentInterface,
-  VideoCommentInterface,
+    ActiveCommentInterface, ActiveCommentTypeEnum, CreateVideoCommentInterface,
+    UpdateVideoCommentInterface, VideoCommentInterface
 } from '../../models/video-comment';
 import { CommentsService } from '../../services/video-comment.service';
 import { CommentFormComponent } from './video-comment-form.component';

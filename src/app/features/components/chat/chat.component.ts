@@ -1,12 +1,7 @@
 import { NgClass, NgFor } from '@angular/common';
 import { Component, inject } from '@angular/core';
 import {
-  FormBuilder,
-  FormControl,
-  FormGroup,
-  FormsModule,
-  ReactiveFormsModule,
-  Validators,
+    FormBuilder, FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators
 } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';

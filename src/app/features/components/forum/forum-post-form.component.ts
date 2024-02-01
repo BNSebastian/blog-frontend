@@ -1,17 +1,6 @@
+import { Component, EventEmitter, inject, Input, Output, ViewChild } from '@angular/core';
 import {
-  Component,
-  EventEmitter,
-  inject,
-  Input,
-  Output,
-  ViewChild,
-} from '@angular/core';
-import {
-  FormBuilder,
-  FormGroup,
-  FormsModule,
-  ReactiveFormsModule,
-  Validators,
+    FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators
 } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
