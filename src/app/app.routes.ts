@@ -116,14 +116,6 @@ export const routes: Routes = [
           ),
         canActivate: [AuthGuard],
       },
-      {
-        path: ':id',
-        loadComponent: () =>
-          import('./features/components/articles/article.component').then(
-            (m) => m.ArticleComponent
-          ),
-        canActivate: [AuthGuard],
-      },
     ],
   },
 

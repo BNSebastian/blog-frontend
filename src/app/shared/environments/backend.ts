@@ -214,6 +214,6 @@ export class BACKEND {
   private static article: string = '/api/article';
 
   static getArticleBaseApi(): string {
-    return this.article;
+    return `${this.backend}${this.article}`;
   }
 }

@@ -13,6 +13,7 @@ export class GenericService<T> {
 
   setBaseUrl(apiBaseUrl: string): void {
     this.baseUrl = apiBaseUrl;
+    console.log(`GENERIC SERVICE: base url set to ${this.baseUrl}`);
   }
 
   getAll(): Observable<T[]> {
