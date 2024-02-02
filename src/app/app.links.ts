@@ -113,4 +113,13 @@ export const adminLinks: any = [
     highlight: 'mat-accent',
     url: FRONTEND.manageVideos(),
   },
+  {
+    name: 'Manage articles',
+    tooltip:
+      'Create new articles or edit the name, and content of existing ones.',
+    icon: 'edit_Document',
+    color: 'warn',
+    highlight: 'mat-accent',
+    url: FRONTEND.manageArticles(),
+  },
 ];

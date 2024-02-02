@@ -39,6 +39,18 @@ export class FRONTEND {
     return `${this.frontend}${this.admin}/manageVideos/${name}`;
   }
 
+  static createArticle(): string {
+    return `${this.frontend}${this.admin}/createArticle`;
+  }
+
+  static manageArticles(): string {
+    return `${this.frontend}${this.admin}/manageArticles`;
+  }
+
+  static manageArticle(id: number): string {
+    return `${this.frontend}${this.admin}/manageArticles/${id}`;
+  }
+
   /** DONATIONS
    **************************************/
   private static donate: string = '/donate';

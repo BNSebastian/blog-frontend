@@ -1,12 +1,8 @@
 import { Component } from '@angular/core';
-import { MatCardModule } from '@angular/material/card';
 import { MatExpansionModule } from '@angular/material/expansion';
-import { MatIconModule } from '@angular/material/icon';
 import { MatPaginatorModule, PageEvent } from '@angular/material/paginator';
-import { Router } from '@angular/router';
 
 import { BACKEND } from '../../../shared/environments/backend';
-import { FRONTEND } from '../../../shared/environments/frontend';
 import { GenericService } from '../../../shared/services/generic.service';
 import { IArticle } from '../../models/article';
 
@@ -17,7 +13,7 @@ import { IArticle } from '../../models/article';
   template: `<!-- START OF HTML-->
     <div class="container-primary bg-page-chat">
       <br />
-      <div class="width-60 margin-x-auto">
+      <div class="width-70 margin-x-auto">
         <mat-paginator
           class="margin-bottom-sm"
           [length]="count"
@@ -50,10 +46,7 @@ import { IArticle } from '../../models/article';
 export class ArticlesComponent {
   public articles: IArticle[] = [];
 
-  constructor(
-    private articleService: GenericService<IArticle>,
-    private router: Router
-  ) {
+  constructor(private articleService: GenericService<IArticle>) {
     this.articleService.setBaseUrl(BACKEND.getArticleBaseApi());
   }
 
@@ -87,9 +80,5 @@ export class ArticlesComponent {
   ngOnInit() {
     this.getCount();
     this.getPage();
-  }
-
-  goTo(id: number) {
-    this.router.navigate([FRONTEND.getArticleById(id)]);
   }
 }

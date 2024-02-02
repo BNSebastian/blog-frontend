@@ -151,6 +151,24 @@ export const routes: Routes = [
           ),
         canActivate: [AdminGuard],
       },
+      {
+        path: 'manageArticles',
+        pathMatch: 'full',
+        loadComponent: () =>
+          import(
+            './features/components/articles/admin-articles.component'
+          ).then((m) => m.AdminArticles),
+        canActivate: [AdminGuard],
+      },
+      {
+        path: 'manageArticles/:id',
+        pathMatch: 'full',
+        loadComponent: () =>
+          import(
+            './features/components/articles/article-edit-form.component'
+          ).then((m) => m.ArticleEditFormComponent),
+        canActivate: [AdminGuard],
+      },
     ],
   },
 
