@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import {
   FormBuilder,
   FormGroup,
@@ -8,6 +8,7 @@ import {
 } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
+import { MatAccordion, MatExpansionModule } from '@angular/material/expansion';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
@@ -25,6 +26,7 @@ import { IArticle } from '../../models/article';
   standalone: true,
   imports: [
     CommonModule,
+    MatExpansionModule,
     MatInputModule,
     MatButtonModule,
     MatSelectModule,
@@ -35,52 +37,51 @@ import { IArticle } from '../../models/article';
     ReactiveFormsModule,
   ],
   template: `<!-- START OF HTML-->
-    <div class="container-primary bg-page-admin flex-row flex-center">
-      @if (!isLoading) {
-      <form [formGroup]="formData" class="width-70">
-        <mat-card>
-          <mat-card-header>
-            <mat-card-title><strong>Edit article</strong></mat-card-title>
-          </mat-card-header>
+    <mat-accordion>
+      <mat-expansion-panel
+        (opened)="panelOpenState = true"
+        (closed)="panelOpenState = false"
+      >
+        <mat-expansion-panel-header>
+          <mat-panel-title> Add article</mat-panel-title>
+        </mat-expansion-panel-header>
+        <form [formGroup]="formData">
+          <mat-form-field class="width-100" floatLabel="always">
+            <mat-label>name</mat-label>
+            <input matInput formControlName="name" />
+          </mat-form-field>
 
-          <mat-card-content>
-            <mat-form-field class="width-100" floatLabel="always">
-              <mat-label>name</mat-label>
-              <input matInput formControlName="name" />
-            </mat-form-field>
+          <mat-form-field class="width-100" floatLabel="always">
+            <mat-label>content</mat-label>
+            <textarea
+              matInput
+              formControlName="content"
+              style="min-height: 150px;"
+            ></textarea>
+          </mat-form-field>
 
-            <mat-form-field class="width-100" floatLabel="always">
-              <mat-label>content</mat-label>
-              <textarea
-                matInput
-                formControlName="content"
-                style="min-height: 150px;"
-              ></textarea>
-            </mat-form-field>
-          </mat-card-content>
+          <button
+            (click)="onSubmit()"
+            mat-raised-button
+            color="primary"
+            class="width-100"
+          >
+            Add
+          </button>
+        </form>
+      </mat-expansion-panel>
+    </mat-accordion>
 
-          <mat-card-actions>
-            <button
-              (click)="onSubmit()"
-              mat-raised-button
-              color="primary"
-              class="width-100"
-            >
-              Update
-            </button>
-          </mat-card-actions>
-        </mat-card>
-      </form>
-      } @else {
-      <mat-spinner class="spinner"></mat-spinner>
-      }
-      <!-- END OF HTML-->
-    </div> `,
+    <!-- END OF HTML--> `,
 })
 export class ArticleFormComponent implements OnInit {
   public article!: IArticle;
   public formData!: FormGroup;
   public isLoading: boolean = false;
+  public panelOpenState: boolean = false;
+
+  @Output()
+  handleSubmit = new EventEmitter<IArticle>();
 
   constructor(
     private articleService: GenericService<IArticle>,
@@ -98,8 +99,8 @@ export class ArticleFormComponent implements OnInit {
 
   onSubmit() {
     if (this.formData.valid) {
-      const formData = this.formData.value;
-      this.articleService.create(formData).subscribe();
+      this.handleSubmit.emit(this.formData.value);
+      this.formData.reset();
     }
   }
 }

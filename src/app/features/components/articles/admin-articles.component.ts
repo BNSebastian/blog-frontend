@@ -35,7 +35,11 @@ import { ArticleFormComponent } from './article-form.component';
   template: `<!-- START OF HTML-->
     <div class="container-primary bg-page-admin flex-row flex-center">
       <div class="width-60">
-        <app-article-form></app-article-form>
+        <div class="margin-bottom-xsm">
+          <app-article-form
+            (handleSubmit)="addEntry($event)"
+          ></app-article-form>
+        </div>
         <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
           <ng-container matColumnDef="name">
             <th mat-header-cell *matHeaderCellDef>Name</th>
@@ -103,6 +107,13 @@ export class AdminArticles {
   deleteEntry(id: number) {
     this.articleService.delete(id).subscribe(() => {
       this.loadData();
+    });
+  }
+
+  addEntry(request: IArticle) {
+    console.log(`ADMIN-ARTICLES::ADDENTRY --- request: ` + request);
+    this.articleService.create(request).subscribe((response) => {
+      this.dataSource = [...this.dataSource, response];
     });
   }
 }
