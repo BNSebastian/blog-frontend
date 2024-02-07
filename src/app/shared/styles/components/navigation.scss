@@ -1,0 +1,14 @@
+@import "../variables.scss";
+@import "../mixins.scss";
+
+.sidenav {
+  width: 5rem;
+}
+
+.nav-link {
+  display: flex;
+  justify-content: center;
+  width: 5rem;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+}

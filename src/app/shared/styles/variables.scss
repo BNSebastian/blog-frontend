@@ -1,0 +1,126 @@
+$screenWidth: (
+  "maxMobile": 480px,
+  "minTablet": 481px,
+  "maxTablet": 768px,
+  "minSmallDesktop": 769px,
+  "maxSmallDesktop": 1024px,
+  "minDesktop": 1025px,
+);
+
+$backgrounds: (
+  "homePage":
+    "https://images.pexels.com/photos/1724228/pexels-photo-1724228.jpeg",
+  "chat": "https://images.pexels.com/photos/4231477/pexels-photo-4231477.jpeg",
+  "admin": "https://images.pexels.com/photos/167701/pexels-photo-167701.jpeg",
+  "login": "https://images.pexels.com/photos/6803644/pexels-photo-6803644.jpeg",
+  "profile":
+    "https://images.pexels.com/photos/11802199/pexels-photo-11802199.jpeg",
+  "donate": "https://images.pexels.com/photos/325154/pexels-photo-325154.jpeg",
+);
+
+$themeColor: (
+  "primary": #8c613b,
+  "secondary": #f2ca99,
+  "tertiary": #d99f59,
+  "info": teal,
+  "warning": yellow,
+  "danger": red,
+);
+
+$font: (
+  "body": "Roboto, sans-serif",
+  "heading": "Anek Telugu, sans-serif",
+);
+
+$fontSize: (
+  "h1": 94px,
+  "h2": 50px,
+  "h3": 40px,
+  "h4": 32px,
+  "h5": 28px,
+  "h6": 22px,
+  "paragraph": 18px,
+  "subtitle": 17px,
+  "secondaryText": 14px,
+  "button": 16px,
+);
+
+$fontColor: (
+  "dark": #000000,
+  "light": #ffffff,
+  "gray": #adbdcc,
+  "blue-1": #00d4ff,
+  "purple-1": #6922f7,
+  "purple-2": #7000ff,
+  "background-white": #fff,
+  "background-light": #f7f9fc,
+  "buttonHover": #6d7a88,
+);
+
+$lineHeight: (
+  "h1": 108px,
+  "h2": 75px,
+  "paragraph": 26px,
+  "subtitle": 26px,
+  "secondaryText": 18px,
+);
+
+$spacing: (
+  "small": 8px,
+  "medium": 16px,
+  "large": 32px,
+  "extra_large": 64px,
+);
+
+$navbar: (
+  "height": 3rem,
+  "backgroundColor":
+    map-get(
+      $map: $themeColor,
+      $key: primary,
+    ),
+  "buttonColor":
+    map-get(
+      $map: $themeColor,
+      $key: secondary,
+    ),
+  "highlightedButtonColor": (
+    color:
+      rgba(
+        map-get(
+          $map: $themeColor,
+          $key: secondary,
+        ),
+        0.5
+      ),
+    "textColor":
+      map-get(
+        $map: $fontColor,
+        $key: "dark",
+      ),
+    "textColorHovered":
+      map-get(
+        $map: $fontColor,
+        $key: "light",
+      ),
+  ),
+);
+
+$padding: (
+  "small": 0.5rem,
+  "medium": 1rem,
+  "large": 1.5rem,
+);
+
+$margin: (
+  "extraSmall": 0.25rem,
+  "small": 1rem,
+  "medium": 3rem,
+  "large": 4rem,
+);
+
+$border: (
+  "small": 0.5rem,
+  "medium": 5rem,
+  "large": 6rem,
+);

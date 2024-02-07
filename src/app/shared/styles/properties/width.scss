@@ -1,0 +1,47 @@
+@import "../variables.scss";
+@import "../mixins.scss";
+
+$breakpoint: map-get($screenWidth, minDesktop);
+
+@mixin set-width($bigScreen, $smallScreen, $breakpoint) {
+  width: $bigScreen;
+  @media (max-width: $breakpoint) {
+    width: $smallScreen;
+  }
+}
+
+.width-20 {
+  @include set-width(20%, 100%, $breakpoint);
+}
+
+.width-30 {
+  @include set-width(30%, 100%, $breakpoint);
+}
+
+.width-40 {
+  @include set-width(40%, 100%, $breakpoint);
+}
+
+.width-50 {
+  @include set-width(50%, 100%, $breakpoint);
+}
+
+.width-60 {
+  @include set-width(60%, 100%, $breakpoint);
+}
+
+.width-70 {
+  @include set-width(70%, 100%, $breakpoint);
+}
+
+.width-80 {
+  @include set-width(80%, 100%, $breakpoint);
+}
+
+.width-90 {
+  @include set-width(90%, 100%, $breakpoint);
+}
+
+.width-100 {
+  width: 100%;
+}

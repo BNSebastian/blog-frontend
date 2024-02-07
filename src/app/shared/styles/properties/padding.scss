@@ -1,0 +1,53 @@
+@import "../variables.scss";
+@import "../mixins.scss";
+
+$padding-sm: map-get(
+  $map: $padding,
+  $key: small,
+);
+
+$padding-md: map-get(
+  $map: $padding,
+  $key: medium,
+);
+
+$padding-lg: map-get(
+  $map: $padding,
+  $key: large,
+);
+
+.padding-sm {
+  padding: $padding-sm;
+}
+
+.padding-md {
+  padding: $padding-md;
+}
+
+.padding-lg {
+  padding: $padding-lg;
+}
+
+.padding-left-sm {
+  padding-left: $padding-sm;
+}
+
+.padding-left-md {
+  padding-left: $padding-md;
+}
+
+.padding-left-lg {
+  padding-left: $padding-lg;
+}
+
+.padding-right-sm {
+  padding-right: $padding-sm;
+}
+
+.padding-right-md {
+  padding-right: $padding-md;
+}
+
+.padding-right-lg {
+  padding-right: $padding-lg;
+}
