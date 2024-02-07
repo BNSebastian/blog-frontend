@@ -59,10 +59,7 @@
                         },
                         "development": {
                             "buildTarget": "frontend2:build:development",
-                            "host": "0.0.0.0",
-                            "ssl": true,
-                            "sslKey": "/etc/letsencrypt/live/bucovala-sebastian.go.ro/privkey.pem",
-                            "sslCert": "/etc/letsencrypt/live/bucovala-sebastian.go.ro/fullchain.pem"
+                            "host": "0.0.0.0"
                         }
                     },
                     "defaultConfiguration": "development"
