@@ -1,5 +1,5 @@
-// const backendHost = "be"; // Docker service name
-const backendHost = "localhost"; // Docker service name
+const backendHost = "bucovala-sebastian.go.ro"; // Docker service name
+// const backendHost = "backend-service"; // Docker service n
 const backendPort = "8080"; // Replace this with your backend port
 const baseUrl: string = `http://${backendHost}:${backendPort}/api`;
 
