@@ -1,45 +1,27 @@
 import { CommonModule } from "@angular/common";
 import { Component, EventEmitter, inject, Output } from "@angular/core";
-import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } from "@angular/forms";
+import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule } from "@angular/forms";
 import { MatButtonModule } from "@angular/material/button";
 import { MatCardModule } from "@angular/material/card";
 import { MatIconModule } from "@angular/material/icon";
 import { MatInputModule } from "@angular/material/input";
 import { MatRadioModule } from "@angular/material/radio";
 import { MatSelectModule } from "@angular/material/select";
-import { Router } from "@angular/router";
 
-import { frontendUrl } from "../../shared/environments/frontend";
-import { AuthService } from "../services/auth.service";
 import { CustomCookieService } from "../services/custom-cookie.service";
 import { UserService } from "../services/user.service";
 
 @Component({
     standalone: true,
     imports: [CommonModule, MatInputModule, MatButtonModule, MatSelectModule, MatRadioModule, MatCardModule, MatIconModule, ReactiveFormsModule],
-    selector: "app-profile",
+    selector: "app-admin-profiles",
     template: `
-        <form [formGroup]="registerForm">
+        <br />
+        <form [formGroup]="registerForm" class="container-primary width-50 margin-x-auto margin-top-lg">
             <mat-card>
                 <mat-card-content>
-                    <mat-form-field class="width-100" floatLabel="always">
-                        <mat-label>e-mail</mat-label>
-                        <input matInput formControlName="email" />
-                    </mat-form-field>
-
-                    <mat-form-field class="width-100" floatLabel="always">
-                        <mat-label>firstname</mat-label>
-                        <input matInput formControlName="firstname" />
-                    </mat-form-field>
-
-                    <mat-form-field class="width-100" floatLabel="always">
-                        <mat-label>lastname</mat-label>
-                        <input matInput formControlName="lastname" />
-                    </mat-form-field>
-
                     <div>
-                        <p>Currently disabled so people won't be able to upload strange stuff</p>
-                        <button mat-raised-button color="primary" (click)="fileInput.click()" class="width-100" disabled="true">Select profile image</button>
+                        <button mat-raised-button color="primary" (click)="fileInput.click()" class="width-100">Select profile image</button>
                         <input hidden #fileInput type="file" name="file" (change)="onUploadFile($any($event.target).files)" />
                     </div>
                 </mat-card-content>
@@ -47,7 +29,7 @@ import { UserService } from "../services/user.service";
         </form>
     `,
 })
-export class ProfileComponent {
+export class AdminProfileSComponent {
     public cookieService = inject(CustomCookieService);
     public registerForm!: FormGroup;
     public registerFormControls!: string[];

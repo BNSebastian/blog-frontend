@@ -1,103 +1,107 @@
-const baseUrl: String = '';
+const baseUrl: String = "";
 
 export const frontendUrl = {
-  home: `${baseUrl}/home`,
+    home: `${baseUrl}/home`,
 
-  signup: `${baseUrl}/user/signup`,
-  login: `${baseUrl}/user/login`,
-  profile: `${baseUrl}/user/profile`,
+    signup: `${baseUrl}/user/signup`,
+    login: `${baseUrl}/user/login`,
+    profile: `${baseUrl}/user/profile`,
 
-  videos: `${baseUrl}/video`,
+    videos: `${baseUrl}/video`,
 
-  // admin
-  videoUpload: `${baseUrl}/admin/videoUpload`,
+    // admin
+    videoUpload: `${baseUrl}/admin/videoUpload`,
 };
 
 export class FRONTEND {
-  private static frontend: string = '';
+    private static frontend: string = "";
 
-  /** HOME
-   **************************************/
+    /** HOME
+     **************************************/
 
-  static getHome(): string {
-    return `${this.frontend}/home`;
-  }
+    static getHome(): string {
+        return `${this.frontend}/home`;
+    }
 
-  /** ADMIN
-   **************************************/
-  private static admin: string = '/admin';
+    /** ADMIN
+     **************************************/
+    private static admin: string = "/admin";
 
-  static uploadVideos(): string {
-    return `${this.frontend}${this.admin}/uploadVideos`;
-  }
+    static uploadVideos(): string {
+        return `${this.frontend}${this.admin}/uploadVideos`;
+    }
 
-  static manageVideos(): string {
-    return `${this.frontend}${this.admin}/manageVideos`;
-  }
+    static manageVideos(): string {
+        return `${this.frontend}${this.admin}/manageVideos`;
+    }
 
-  static manageVideo(name: string): string {
-    return `${this.frontend}${this.admin}/manageVideos/${name}`;
-  }
+    static manageVideo(name: string): string {
+        return `${this.frontend}${this.admin}/manageVideos/${name}`;
+    }
 
-  static createArticle(): string {
-    return `${this.frontend}${this.admin}/createArticle`;
-  }
+    static createArticle(): string {
+        return `${this.frontend}${this.admin}/createArticle`;
+    }
 
-  static manageArticles(): string {
-    return `${this.frontend}${this.admin}/manageArticles`;
-  }
+    static manageArticles(): string {
+        return `${this.frontend}${this.admin}/manageArticles`;
+    }
 
-  static manageArticle(id: number): string {
-    return `${this.frontend}${this.admin}/manageArticles/${id}`;
-  }
+    static manageArticle(id: number): string {
+        return `${this.frontend}${this.admin}/manageArticles/${id}`;
+    }
 
-  /** DONATIONS
-   **************************************/
-  private static donate: string = '/donate';
+    static manageProfileImages(): string {
+        return `${this.frontend}${this.admin}/manageProfileImages`;
+    }
 
-  static getDonatePage(): string {
-    return `${this.frontend}${this.donate}`;
-  }
+    /** DONATIONS
+     **************************************/
+    private static donate: string = "/donate";
 
-  /** ERRORS
-   **************************************/
-  static getPageNotFoundError(): string {
-    return `${this.frontend}/404`;
-  }
+    static getDonatePage(): string {
+        return `${this.frontend}${this.donate}`;
+    }
 
-  static getUnauthorizedAccessError(): string {
-    return `${this.frontend}/401`;
-  }
+    /** ERRORS
+     **************************************/
+    static getPageNotFoundError(): string {
+        return `${this.frontend}/404`;
+    }
 
-  /** FORUM
-   **************************************/
-  private static forum: string = '/forum';
+    static getUnauthorizedAccessError(): string {
+        return `${this.frontend}/401`;
+    }
 
-  static getForum(): string {
-    return `${this.frontend}${this.forum}`;
-  }
+    /** FORUM
+     **************************************/
+    private static forum: string = "/forum";
 
-  static getForumPostById(postId: number): string {
-    return `${this.frontend}${this.forum}/${postId}`;
-  }
+    static getForum(): string {
+        return `${this.frontend}${this.forum}`;
+    }
 
-  /** ARTICLE
-   **************************************/
-  private static article: string = '/articles';
+    static getForumPostById(postId: number): string {
+        return `${this.frontend}${this.forum}/${postId}`;
+    }
 
-  static getArticles(): string {
-    return `${this.frontend}${this.article}`;
-  }
+    /** ARTICLE
+     **************************************/
+    private static article: string = "/articles";
 
-  static getArticleById(postId: number): string {
-    return `${this.frontend}${this.article}/${postId}`;
-  }
+    static getArticles(): string {
+        return `${this.frontend}${this.article}`;
+    }
 
-  /** CHAT
-   **************************************/
-  private static chat: string = '/chat';
+    static getArticleById(postId: number): string {
+        return `${this.frontend}${this.article}/${postId}`;
+    }
 
-  static getChat(): string {
-    return `${this.frontend}${this.chat}`;
-  }
+    /** CHAT
+     **************************************/
+    private static chat: string = "/chat";
+
+    static getChat(): string {
+        return `${this.frontend}${this.chat}`;
+    }
 }
