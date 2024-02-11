@@ -1,16 +1,13 @@
 import { CommonModule } from "@angular/common";
 import { Component, EventEmitter, inject, Output } from "@angular/core";
-import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } from "@angular/forms";
+import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule } from "@angular/forms";
 import { MatButtonModule } from "@angular/material/button";
 import { MatCardModule } from "@angular/material/card";
 import { MatIconModule } from "@angular/material/icon";
 import { MatInputModule } from "@angular/material/input";
 import { MatRadioModule } from "@angular/material/radio";
 import { MatSelectModule } from "@angular/material/select";
-import { Router } from "@angular/router";
 
-import { frontendUrl } from "../../shared/environments/frontend";
-import { AuthService } from "../services/auth.service";
 import { CustomCookieService } from "../services/custom-cookie.service";
 import { UserService } from "../services/user.service";
 
@@ -40,7 +37,7 @@ import { UserService } from "../services/user.service";
                     <div>
                         <p>Currently disabled so people won't be able to upload strange stuff</p>
                         <button mat-raised-button color="primary" (click)="fileInput.click()" class="width-100" disabled="true">Select profile image</button>
-                        <input hidden #fileInput type="file" name="file" (change)="onUploadFile($any($event.target).files)" />
+                        <input hidden #fileInput type="file" name="file" (change)="updateProfileImage($any($event.target).files)" />
                     </div>
                 </mat-card-content>
             </mat-card>
@@ -88,7 +85,7 @@ export class ProfileComponent {
         return [];
     }
 
-    public onUploadFile(files: FileList): void {
+    public updateProfileImage(files: FileList): void {
         const userId: number = Number(this.userService.getUserId());
         const formData = new FormData();
 
@@ -104,4 +101,6 @@ export class ProfileComponent {
             (err) => console.error(err)
         );
     }
+
+    public getAllProfileImages() {}
 }

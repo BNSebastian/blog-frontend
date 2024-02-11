@@ -17,16 +17,11 @@ import { UserService } from "../services/user.service";
     selector: "app-admin-profiles",
     template: `
         <br />
-        <form [formGroup]="registerForm" class="container-primary width-50 margin-x-auto margin-top-lg">
-            <mat-card>
-                <mat-card-content>
-                    <div>
-                        <button mat-raised-button color="primary" (click)="fileInput.click()" class="width-100">Select profile image</button>
-                        <input hidden #fileInput type="file" name="file" (change)="onUploadFile($any($event.target).files)" />
-                    </div>
-                </mat-card-content>
-            </mat-card>
-        </form>
+
+        <div>
+            <button mat-raised-button color="primary" (click)="fileInput.click()" class="width-100">Select profile image</button>
+            <input hidden #fileInput type="file" name="file" (change)="onUploadFile($any($event.target).files)" />
+        </div>
     `,
 })
 export class AdminProfileSComponent {
@@ -40,46 +35,14 @@ export class AdminProfileSComponent {
     @Output()
     cancelRegister = new EventEmitter();
 
-    ngOnInit() {
-        this.createForm();
-        this.registerFormControls = this.loopThroughFormControls();
-    }
-
-    createForm() {
-        this.registerForm = this.formBuilder.group({
-            email: new FormControl({
-                value: this.cookieService.getUserEmail(),
-                disabled: true,
-            }),
-            firstname: new FormControl({
-                value: this.cookieService.getUserFirstname(),
-                disabled: true,
-            }),
-            lastname: new FormControl({
-                value: this.cookieService.getUserLastname(),
-                disabled: true,
-            }),
-        });
-    }
-
-    loopThroughFormControls() {
-        if (this.registerForm) {
-            const controlKeys = Object.keys(this.registerForm.controls);
-            return controlKeys;
-        }
-        return [];
-    }
-
     public onUploadFile(files: FileList): void {
-        const userId: number = Number(this.userService.getUserId());
         const formData = new FormData();
 
-        // Loop through the FileList and append each file to the FormData
         for (let i = 0; i < files.length; i++) {
             formData.append("file", files[i], files[i].name);
         }
 
-        this.userService.setUserProfileImage(userId, formData).subscribe(
+        this.userService.uploadUserProfileImage(formData).subscribe(
             (event) => {
                 return event;
             },

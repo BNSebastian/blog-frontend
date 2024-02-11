@@ -33,6 +33,10 @@ export class UserService {
         return this.http.post<any>(BACKEND.setUserProfileImage(userId), requestBody);
     }
 
+    uploadUserProfileImage(requestBody: FormData): Observable<any> {
+        return this.http.post<any>(BACKEND.uploadUserProfileImage(), requestBody);
+    }
+
     getUserId(): string {
         return this.cookieService.get("id");
     }

@@ -50,6 +50,10 @@ export class BACKEND {
         return `${this.backend}${this.image}/getProfileImage/${userEmail}`;
     }
 
+    static uploadUserProfileImage(): string {
+        return `${this.backend}${this.image}/saveUserProfileImage`;
+    }
+
     /** PAYPAL
      **************************************/
     private static paypal: string = "/api/paypal";
