@@ -42,16 +42,28 @@ export class BACKEND {
      **************************************/
     private static image: string = "/api/image";
 
-    static setUserProfileImage(userId: number): string {
-        return `${this.backend}${this.image}/setProfileImage/${userId}`;
+    static setUserProfileImage(userId: number, imageId: number): string {
+        return `${this.backend}${this.image}/setProfileImage/${userId}/${imageId}`;
     }
 
     static getUserProfileImage(userEmail: string): string {
         return `${this.backend}${this.image}/getProfileImage/${userEmail}`;
     }
 
+    static getAllUserProfileImages(): string {
+        return `${this.backend}${this.image}/getUserProfileImages`;
+    }
+
     static uploadUserProfileImage(): string {
         return `${this.backend}${this.image}/saveUserProfileImage`;
+    }
+
+    static getProfileImageCount(): string {
+        return `${this.backend}${this.image}/getProfileImageCount`;
+    }
+
+    static getProfileImageById(id: number): string {
+        return `${this.backend}${this.image}/getProfileImageById/${id}`;
     }
 
     /** PAYPAL

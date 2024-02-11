@@ -1,7 +1,7 @@
 import { CookieService } from "ngx-cookie-service";
-import { catchError, map, Observable, throwError } from "rxjs";
+import { catchError, Observable, throwError } from "rxjs";
 
-import { HttpClient, HttpEvent } from "@angular/common/http";
+import { HttpClient } from "@angular/common/http";
 import { inject, Injectable } from "@angular/core";
 
 import { BACKEND } from "../../shared/environments/backend";
@@ -20,17 +20,34 @@ export class UserService {
             })
             .pipe(
                 catchError((error) => {
-                    // Do something else here instead of logging to the console
-                    // For example, you can notify the user or perform another action
-
-                    // Return an observable with a default value or empty result
                     return throwError("An error occurred while fetching data.");
                 })
             );
     }
 
-    setUserProfileImage(userId: number, requestBody: FormData): Observable<any> {
-        return this.http.post<any>(BACKEND.setUserProfileImage(userId), requestBody);
+    getById(id: number): Observable<ArrayBuffer> {
+        return this.http
+            .get(BACKEND.getProfileImageById(id), {
+                responseType: "arraybuffer",
+            })
+            .pipe(
+                catchError((error) => {
+                    return throwError("an error occurred while fetching data.");
+                })
+            );
+    }
+
+    getProfileImageIds(): Observable<number[]> {
+        return this.http.get<number[]>(BACKEND.getProfileImageCount()).pipe(
+            catchError((error) => {
+                return throwError("An error occurred while fetching data.");
+            })
+        );
+    }
+
+    setUserProfileImage(userId: number, imageId: number): Observable<any> {
+        console.log(`user.service::setUserProfileImage -- trying to set user profile image for user ${userId} with image id ${imageId}`);
+        return this.http.post<any>(BACKEND.setUserProfileImage(userId, imageId), null);
     }
 
     uploadUserProfileImage(requestBody: FormData): Observable<any> {

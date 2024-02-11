@@ -1,19 +1,34 @@
+import { Observable } from "rxjs";
+
 import { CommonModule } from "@angular/common";
 import { Component, EventEmitter, inject, Output } from "@angular/core";
 import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule } from "@angular/forms";
 import { MatButtonModule } from "@angular/material/button";
 import { MatCardModule } from "@angular/material/card";
+import { MatExpansionModule } from "@angular/material/expansion";
 import { MatIconModule } from "@angular/material/icon";
 import { MatInputModule } from "@angular/material/input";
 import { MatRadioModule } from "@angular/material/radio";
 import { MatSelectModule } from "@angular/material/select";
+import { DomSanitizer } from "@angular/platform-browser";
 
+import { IProfileImage } from "../models/user";
 import { CustomCookieService } from "../services/custom-cookie.service";
 import { UserService } from "../services/user.service";
 
 @Component({
     standalone: true,
-    imports: [CommonModule, MatInputModule, MatButtonModule, MatSelectModule, MatRadioModule, MatCardModule, MatIconModule, ReactiveFormsModule],
+    imports: [
+        CommonModule,
+        MatExpansionModule,
+        MatInputModule,
+        MatButtonModule,
+        MatSelectModule,
+        MatRadioModule,
+        MatCardModule,
+        MatIconModule,
+        ReactiveFormsModule,
+    ],
     selector: "app-profile",
     template: `
         <form [formGroup]="registerForm">
@@ -34,30 +49,61 @@ import { UserService } from "../services/user.service";
                         <input matInput formControlName="lastname" />
                     </mat-form-field>
 
-                    <div>
-                        <p>Currently disabled so people won't be able to upload strange stuff</p>
-                        <button mat-raised-button color="primary" (click)="fileInput.click()" class="width-100" disabled="true">Select profile image</button>
-                        <input hidden #fileInput type="file" name="file" (change)="updateProfileImage($any($event.target).files)" />
-                    </div>
+                    <!-- list of images  -->
+                    <mat-accordion>
+                        <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+                            <mat-expansion-panel-header>
+                                <mat-panel-title> Choose your profile image </mat-panel-title>
+                            </mat-expansion-panel-header>
+                            <div class="flex-row flex-wrap">
+                                @for (item of images; track $index) {
+                                <div class="hover" (click)="updateProfileImage(item.id)">
+                                    <img [src]="item.link" class="profile-image margin-left-sm margin-top-sm" />
+                                </div>
+                                }
+                            </div>
+                        </mat-expansion-panel>
+                    </mat-accordion>
                 </mat-card-content>
             </mat-card>
         </form>
     `,
 })
 export class ProfileComponent {
-    public cookieService = inject(CustomCookieService);
-    public registerForm!: FormGroup;
-    public registerFormControls!: string[];
-    public hidePassword = true;
+    cookieService = inject(CustomCookieService);
+    registerForm!: FormGroup;
+    registerFormControls!: string[];
+    hidePassword = true;
+    profileImagePks: number[] = [];
+    images: IProfileImage[] = [];
+    profileImages: any[] = [];
+    currentUserId!: number;
+    panelOpenState = false;
+    formBuilder = inject(FormBuilder);
+    userService = inject(UserService);
+    sanitizer = inject(DomSanitizer);
 
-    private formBuilder = inject(FormBuilder);
-    private userService = inject(UserService);
-    @Output()
-    cancelRegister = new EventEmitter();
+    @Output() cancelRegister = new EventEmitter();
 
     ngOnInit() {
         this.createForm();
         this.registerFormControls = this.loopThroughFormControls();
+        this.getPrimaryKeys();
+        this.currentUserId = Number(this.cookieService.getUserId());
+    }
+
+    getPrimaryKeys() {
+        this.userService.getProfileImageIds().subscribe((response) => {
+            response.forEach((primaryKey) => {
+                this.getProfileImageById(primaryKey).subscribe((link) => {
+                    const newImage: IProfileImage = {
+                        id: primaryKey,
+                        link: link,
+                    };
+                    this.images.push(newImage);
+                });
+            });
+        });
     }
 
     createForm() {
@@ -85,22 +131,26 @@ export class ProfileComponent {
         return [];
     }
 
-    public updateProfileImage(files: FileList): void {
-        const userId: number = Number(this.userService.getUserId());
-        const formData = new FormData();
-
-        // Loop through the FileList and append each file to the FormData
-        for (let i = 0; i < files.length; i++) {
-            formData.append("file", files[i], files[i].name);
-        }
-
-        this.userService.setUserProfileImage(userId, formData).subscribe(
-            (event) => {
-                return event;
-            },
-            (err) => console.error(err)
-        );
+    updateProfileImage(imageId: number): void {
+        this.userService.setUserProfileImage(this.currentUserId, imageId).subscribe((response) => {
+            console.log(`set profile image to ${imageId}`);
+        });
     }
 
-    public getAllProfileImages() {}
+    getProfileImageById(id: number): Observable<any> {
+        return new Observable((observer) => {
+            this.userService.getById(id).subscribe(
+                (response: ArrayBuffer) => {
+                    const blob = new Blob([response], { type: "image/png" });
+                    const imageUrl = URL.createObjectURL(blob);
+                    observer.next(this.sanitizer.bypassSecurityTrustUrl(imageUrl));
+                    observer.complete();
+                },
+                (error) => {
+                    console.error("Error fetching user profile image:", error);
+                    observer.error(error);
+                }
+            );
+        });
+    }
 }
