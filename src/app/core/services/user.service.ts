@@ -13,7 +13,7 @@ export class UserService {
     private http = inject(HttpClient);
     private cookieService = inject(CookieService);
 
-    getUserProfileImage(userEmail: string): Observable<ArrayBuffer> {
+    getProfileImageByUserEmail(userEmail: string): Observable<ArrayBuffer> {
         return this.http
             .get(BACKEND.getUserProfileImage(userEmail), {
                 responseType: "arraybuffer",
@@ -25,7 +25,7 @@ export class UserService {
             );
     }
 
-    getById(id: number): Observable<ArrayBuffer> {
+    getProfileImageById(id: number): Observable<ArrayBuffer> {
         return this.http
             .get(BACKEND.getProfileImageById(id), {
                 responseType: "arraybuffer",

@@ -33,6 +33,9 @@ import { UserService } from "../services/user.service";
     template: `
         <form [formGroup]="registerForm">
             <mat-card>
+                <div class="hover margin-bottom-sm">
+                    <img [src]="currentProfileImage" class="profile-image-lg margin-left-sm margin-top-sm" />
+                </div>
                 <mat-card-content>
                     <mat-form-field class="width-100" floatLabel="always">
                         <mat-label>e-mail</mat-label>
@@ -76,6 +79,7 @@ export class ProfileComponent {
     hidePassword = true;
     profileImagePks: number[] = [];
     images: IProfileImage[] = [];
+    currentProfileImage!: any;
     profileImages: any[] = [];
     currentUserId!: number;
     panelOpenState = false;
@@ -86,7 +90,10 @@ export class ProfileComponent {
     @Output() cancelRegister = new EventEmitter();
 
     ngOnInit() {
+        const userEmail = this.userService.getUserEmail();
+
         this.createForm();
+        this.getProfileImageByUserEmail(userEmail);
         this.registerFormControls = this.loopThroughFormControls();
         this.getPrimaryKeys();
         this.currentUserId = Number(this.cookieService.getUserId());
@@ -132,14 +139,14 @@ export class ProfileComponent {
     }
 
     updateProfileImage(imageId: number): void {
-        this.userService.setUserProfileImage(this.currentUserId, imageId).subscribe((response) => {
-            console.log(`set profile image to ${imageId}`);
+        this.userService.setUserProfileImage(this.currentUserId, imageId).subscribe(() => {
+            this.currentProfileImage = this.getProfileImageByUserEmail(this.userService.getUserEmail());
         });
     }
 
     getProfileImageById(id: number): Observable<any> {
         return new Observable((observer) => {
-            this.userService.getById(id).subscribe(
+            this.userService.getProfileImageById(id).subscribe(
                 (response: ArrayBuffer) => {
                     const blob = new Blob([response], { type: "image/png" });
                     const imageUrl = URL.createObjectURL(blob);
@@ -152,5 +159,18 @@ export class ProfileComponent {
                 }
             );
         });
+    }
+
+    getProfileImageByUserEmail(email: string): any {
+        this.userService.getProfileImageByUserEmail(email).subscribe(
+            (response: ArrayBuffer) => {
+                const blob = new Blob([response], { type: "image/png" });
+                const imageUrl = URL.createObjectURL(blob);
+                this.currentProfileImage = this.sanitizer.bypassSecurityTrustUrl(imageUrl);
+            },
+            (error) => {
+                console.error("Error fetching user profile image:", error);
+            }
+        );
     }
 }
