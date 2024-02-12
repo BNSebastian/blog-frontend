@@ -16,11 +16,19 @@ import { UserService } from "../services/user.service";
     imports: [CommonModule, MatInputModule, MatButtonModule, MatSelectModule, MatRadioModule, MatCardModule, MatIconModule, ReactiveFormsModule],
     selector: "app-admin-profiles",
     template: `
-        <br />
+        <div class="container-primary bg-page-admin flex-row flex-center">
+            <mat-card class="width-50">
+                <mat-card-header class="margin-bottom-sm">
+                    <mat-card-title>Upload profile images</mat-card-title>
+                    <mat-card-subtitle>Once selected, the images are automatically uploaded</mat-card-subtitle>
+                </mat-card-header>
 
-        <div>
-            <button mat-raised-button color="primary" (click)="fileInput.click()" class="width-100">Select profile image</button>
-            <input hidden #fileInput type="file" name="file" (change)="onUploadFile($any($event.target).files)" />
+                <mat-card-content>
+                    <div>
+                        <button mat-raised-button color="primary" (click)="fileInput.click()" class="width-100">Select profile image</button>
+                        <input hidden #fileInput type="file" name="file" (change)="onUploadFile($any($event.target).files)" /></div
+                ></mat-card-content>
+            </mat-card>
         </div>
     `,
 })

@@ -107,7 +107,7 @@ export const adminLinks: any = [
     {
         name: "Manage videos",
         tooltip: "Edit the name, description and video data of existing videos or delete them altogether",
-        icon: "edit_Document",
+        icon: "play_circle",
         color: "warn",
         highlight: "mat-accent",
         url: FRONTEND.manageVideos(),
@@ -115,7 +115,7 @@ export const adminLinks: any = [
     {
         name: "Manage articles",
         tooltip: "Create new articles or edit the name, and content of existing ones.",
-        icon: "edit_Document",
+        icon: "description",
         color: "warn",
         highlight: "mat-accent",
         url: FRONTEND.manageArticles(),
@@ -123,7 +123,7 @@ export const adminLinks: any = [
     {
         name: "Manage profile images",
         tooltip: "Upload, or delete new profile images",
-        icon: "edit_Document",
+        icon: "photo_camera",
         color: "warn",
         highlight: "mat-accent",
         url: FRONTEND.manageProfileImages(),
