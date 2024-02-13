@@ -1,6 +1,6 @@
 const backendHost = "bucovala-sebastian.go.ro";
 const backendPort = "8080";
-const baseUrl: string = `http://${backendHost}:${backendPort}/api`;
+const baseUrl: string = `https://${backendHost}:${backendPort}/api`;
 
 export const backendUrl = {
     register: `${baseUrl}/auth/register`,
@@ -32,7 +32,7 @@ export const backendUrl = {
 };
 
 export class BACKEND {
-    private static backend: string = `http://${backendHost}:${backendPort}`;
+    private static backend: string = `https://${backendHost}:${backendPort}`;
 
     /** USER
      **************************************/

@@ -62,7 +62,12 @@
                             "host": "0.0.0.0"
                         }
                     },
-                    "defaultConfiguration": "development"
+                    "defaultConfiguration": "development",
+                    "options": {
+                        "ssl": true,
+                        "sslKey": "ssl/privkey.pem",
+                        "sslCert": "ssl/fullchain.pem"
+                    }
                 },
                 "extract-i18n": {
                     "builder": "@angular-devkit/build-angular:extract-i18n",

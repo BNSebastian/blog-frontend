@@ -179,9 +179,16 @@ export class CommentComponent implements OnInit {
         const fiveMinutes = 300000; // 5 minutes
         const timePassed = new Date().getMilliseconds() - new Date(this.comment.createdOn).getMilliseconds() > fiveMinutes;
 
+        const currentUserEmail = this.userService.getUserEmail();
+
         this.canReply = Boolean(this.currentUserId);
-        this.canEdit = this.currentUserId === this.currentUserId && !timePassed;
-        this.canDelete = this.currentUserId === this.currentUserId && !timePassed && this.replies.length === 0;
+
+        this.canEdit = currentUserEmail === this.comment.userEmail && !timePassed;
+
+        this.canDelete = currentUserEmail === this.comment.userEmail && !timePassed && this.replies.length === 0;
+
+        // this.canEdit = this.currentUserId === this.currentUserId && !timePassed;
+        // this.canDelete = this.currentUserId === this.currentUserId && !timePassed && this.replies.length === 0;
 
         this.replyId = this.comment.parentId ? this.comment.parentId : this.comment.id;
     }
