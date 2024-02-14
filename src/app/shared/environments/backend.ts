@@ -41,7 +41,7 @@ export const backendUrl = {
 
 export class BACKEND {
     //private static backend: string = `https://${backendHost}:${backendPort}`;
-    private static backend: string = `${environment.API_PROTOCOL}://${environment.API_URL}:${environment.API_PORT}/api`;
+    private static backend: string = `${environment.API_PROTOCOL}://${environment.API_URL}:${environment.API_PORT}`;
     /** USER
      **************************************/
     private static user: string = "/api/user";

@@ -20,6 +20,13 @@ RUN npm run build
 ###################################
 FROM nginx:stable
 
+# Copy SSL certificates from the ssl folder
+COPY ssl/ /etc/nginx/ssl/
+
+# Copy built Angular app files
 COPY --from=build /app/dist/frontend2/ /usr/share/nginx/html
 
-EXPOSE 80
+# Copy custom Nginx configuration file
+COPY nginx.conf /etc/nginx/conf.d/default.conf
+
+EXPOSE 443
