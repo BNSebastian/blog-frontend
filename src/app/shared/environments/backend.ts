@@ -1,7 +1,14 @@
-const backendHost = "bucovala-sebastian.go.ro";
-//const backendHost = "192.168.1.132";
-const backendPort = "8080";
-const baseUrl: string = `https://${backendHost}:${backendPort}/api`;
+// const backendHost = "bucovala-sebastian.go.ro";
+// //const backendHost = "192.168.1.132";
+// const backendPort = "8080";
+// const baseUrl: string = `https://${backendHost}:${backendPort}/api`;
+
+import { environment } from "./environment";
+
+//const backendHost = "bucovala-sebastian.go.ro";
+// //const backendHost = "192.168.1.132";
+//const backendPort = "8080";
+const baseUrl: string = `${environment.API_PROTOCOL}://${environment.API_URL}:${environment.API_PORT}/api`;
 
 export const backendUrl = {
     register: `${baseUrl}/auth/register`,
@@ -33,8 +40,8 @@ export const backendUrl = {
 };
 
 export class BACKEND {
-    private static backend: string = `https://${backendHost}:${backendPort}`;
-
+    //private static backend: string = `https://${backendHost}:${backendPort}`;
+    private static backend: string = `${environment.API_PROTOCOL}://${environment.API_URL}:${environment.API_PORT}/api`;
     /** USER
      **************************************/
     private static user: string = "/api/user";
