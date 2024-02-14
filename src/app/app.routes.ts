@@ -153,11 +153,9 @@ export const routes: Routes = [
     {
         path: "401",
         loadComponent: () => import("./core/components/errors/UnauthorizedAccess").then((m) => m.UnauthorizedAccessComponent),
-        canActivate: [AuthGuard],
     },
     {
         path: "**",
         loadComponent: () => import("./core/components/errors/PageNotFound").then((m) => m.PageNotFoundComponent),
-        canActivate: [AuthGuard],
     },
 ];

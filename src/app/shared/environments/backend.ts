@@ -1,4 +1,5 @@
 const backendHost = "bucovala-sebastian.go.ro";
+//const backendHost = "192.168.1.132";
 const backendPort = "8080";
 const baseUrl: string = `https://${backendHost}:${backendPort}/api`;
 

@@ -2,47 +2,53 @@
 @import "../mixins.scss";
 
 .layered-text {
-  font-size: 8rem;
-  text-align: center;
-  color: #fcedd8;
-  font-family: "Niconne", cursive;
-  font-weight: 700;
-  text-shadow: 5px 5px 0px #eb452b, 10px 10px 0px #efa032, 15px 15px 0px #46b59b,
-    20px 20px 0px #017e7f, 25px 25px 0px #052939, 30px 30px 0px #c11a2b,
-    35px 35px 0px #c11a2b, 40px 40px 0px #c11a2b, 45px 45px 0px #c11a2b;
+    font-size: 8rem;
+    text-align: center;
+    color: #fcedd8;
+    font-family: "Niconne", cursive;
+    font-weight: 700;
+    text-shadow: 5px 5px 0px #eb452b, 10px 10px 0px #efa032, 15px 15px 0px #46b59b, 20px 20px 0px #017e7f, 25px 25px 0px #052939, 30px 30px 0px #c11a2b,
+        35px 35px 0px #c11a2b, 40px 40px 0px #c11a2b, 45px 45px 0px #c11a2b;
 }
 
 .layered-text-small {
-  font-size: 4rem;
-  text-align: center;
-  color: #fcedd8;
-  font-family: "Niconne", cursive;
-  font-weight: 700;
-  text-shadow: 5px 5px 0px #eb452b, 10px 10px 0px #efa032, 15px 15px 0px #46b59b,
-    20px 20px 0px #017e7f;
+    font-size: 4rem;
+    text-align: center;
+    color: #fcedd8;
+    font-family: "Niconne", cursive;
+    font-weight: 700;
+    text-shadow: 5px 5px 0px #eb452b, 10px 10px 0px #efa032, 15px 15px 0px #46b59b, 20px 20px 0px #017e7f;
 }
 
 .text-funky {
-  font-family: "Rubik Doodle Shadow";
-  font-size: 6rem;
-  font-weight: 900;
-  line-height: 0.8em;
-  color: map-get($map: $themeColor, $key: secondary);
+    font-family: "Rubik Doodle Shadow";
+    font-size: 6rem;
+    font-weight: 900;
+    line-height: 0.8em;
+    color: map-get($map: $themeColor, $key: secondary);
+}
+
+.text-funky-black {
+    font-family: "Rubik Doodle Shadow";
+    font-size: 6rem;
+    font-weight: 900;
+    line-height: 0.8em;
+    color: black;
 }
 
 .header {
-  font-family: "Playfair Display", cursive;
-  color: map-get($map: $themeColor, $key: secondary);
-  @include text-shadow(map-get($themeColor, tertiary), 2rem);
+    font-family: "Playfair Display", cursive;
+    color: map-get($map: $themeColor, $key: secondary);
+    @include text-shadow(map-get($themeColor, tertiary), 2rem);
 }
 
 .text-center {
-  text-align: center;
+    text-align: center;
 }
 
 .text-overflow {
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  max-width: 250px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 250px;
 }

@@ -1,7 +1,7 @@
 const baseUrl: String = "";
 
 export const frontendUrl = {
-    home: `${baseUrl}/home`,
+    home: `${baseUrl}`,
 
     signup: `${baseUrl}/user/signup`,
     login: `${baseUrl}/user/login`,
