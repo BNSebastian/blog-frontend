@@ -3,7 +3,7 @@
     "version": 1,
     "newProjectRoot": "projects",
     "projects": {
-        "frontend2": {
+        "freevoice": {
             "projectType": "application",
             "schematics": {
                 "@schematics/angular:component": {
@@ -17,7 +17,7 @@
                 "build": {
                     "builder": "@angular-devkit/build-angular:application",
                     "options": {
-                        "outputPath": "dist/frontend2",
+                        "outputPath": "dist/freevoice",
                         "index": "src/index.html",
                         "browser": "src/main.ts",
                         "polyfills": ["zone.js"],
@@ -61,10 +61,10 @@
                     "builder": "@angular-devkit/build-angular:dev-server",
                     "configurations": {
                         "production": {
-                            "buildTarget": "frontend2:build:production"
+                            "buildTarget": "freevoice:build:production"
                         },
                         "development": {
-                            "buildTarget": "frontend2:build:development",
+                            "buildTarget": "freevoice:build:development",
                             "host": "0.0.0.0"
                         }
                     },
@@ -78,7 +78,7 @@
                 "extract-i18n": {
                     "builder": "@angular-devkit/build-angular:extract-i18n",
                     "options": {
-                        "buildTarget": "frontend2:build"
+                        "buildTarget": "freevoice:build"
                     }
                 },
                 "test": {

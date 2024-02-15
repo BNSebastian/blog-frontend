@@ -24,7 +24,7 @@ FROM nginx:stable
 COPY ssl/ /etc/nginx/ssl/
 
 # Copy built Angular app files
-COPY --from=build /app/dist/frontend2/ /usr/share/nginx/html
+COPY --from=build /app/dist/freevoice/ /usr/share/nginx/html
 
 # Copy custom Nginx configuration file
 COPY nginx.conf /etc/nginx/conf.d/default.conf
