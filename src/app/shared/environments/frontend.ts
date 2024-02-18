@@ -9,7 +9,7 @@ export const frontendUrl = {
 
     videos: `${baseUrl}/video`,
 
-    // admin
+    // admin/
     videoUpload: `${baseUrl}/admin/videoUpload`,
 };
 
