@@ -13,7 +13,7 @@ export class GenericService<T> {
 
     /**
      * Sets the base URL for the API.
-     * @param apiBaseUrl - the base URL for the API
+     * @param apiBaseUrl - the base URL for the APIi
      */
     setBaseUrl(apiBaseUrl: string): void {
         this.baseUrl = apiBaseUrl;
