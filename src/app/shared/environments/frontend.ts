@@ -23,6 +23,14 @@ export class FRONTEND {
         return `${this.frontend}/home`;
     }
 
+    static signUp(): string {
+        return `${this.frontend}/user/signup`;
+    }
+
+    static logIn(): string {
+        return `${this.frontend}/user/login`;
+    }
+
     /** ADMIN
      **************************************/
     private static admin: string = "/admin";
